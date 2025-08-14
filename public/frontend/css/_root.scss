@@ -1,0 +1,152 @@
+@use "sass:color";
+@use 'sass:map';
+@use 'var';
+:root {
+    color-scheme:dark;
+    @each $color, $value in var.$colors{
+        --#{$color}:#{$value};
+        --#{$color}-rgb:#{color.channel($value, "red", $space: rgb)} #{color.channel($value, "green", $space: rgb)} #{color.channel($value, "blue", $space: rgb)};
+    }
+    @each $font, $value in var.$fonts{
+        --#{$font}:#{$value};
+    }
+    // scrollbar-color:light-dark(rgb(var(--black-rgb)/.4), rgb(var(--white-rgb)/.4)) light-dark(rgb(var(--black-rgb)/0), rgb(var(--white-rgb)/0))!important;
+    // scrollbar-width:thin!important;
+}
+@each $color, $value in var.$colors {
+    .#{$color} {
+        color:$value!important;
+    }
+}
+@each $color, $value in var.$colors {
+    .bg#{$color} {
+        background:$value!important;
+    }
+}
+@each $color, $value in var.$colors {
+    .fill#{$color} {
+        fill:$value!important;
+    }
+}
+@each $font, $value in var.$fonts{
+    .#{$font} {
+        font-family:$value!important;
+    }
+}
+@each $color, $value in var.$colors {
+    .b#{$color} {
+        border-color:rgb(color.channel($value, "red", $space: rgb) color.channel($value, "green", $space: rgb) color.channel($value, "blue", $space: rgb)/var(--bs-border-opacity))!important;
+    }
+}
+*:focus-visible{
+    &:not(.numInput){box-shadow:0 0 0 .25rem rgb(var(--thm1-rgb)/.3)!important}
+}
+.btn{font-weight:400;min-width:50px;line-height:46px;display:inline-flex;justify-content:center;align-items:center;border-radius:0;padding:0 24px;margin-top:20px;position:relative;z-index:2;gap:.5rem;white-space:nowrap;font-size:1rem;text-transform:uppercase;
+    svg,img{fill:none;stroke:var(--black);stroke-linecap:round;stroke-linejoin:round;height:18px!important;width:18px!important;transform:rotate(-0deg)}
+    &.back{padding:0 14px;min-width:48px;
+        &:hover{
+            svg{transform:translateX(-2px)!important;stroke:var(--white)}
+        }
+    }
+    &.OnlyIcon{padding:0 12px;}
+    &.Noar{
+        &:after{display:none!important}
+        &.pdf{
+            &:before{content:'';mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 127" fill="black"><path d="M94,110V33H67V6H17V27H11V0H70l30,30v85H66l4-5ZM59,29V61H0V29ZM29,55c13,0,14-23-6-19V55ZM14,48c10-2,7-17-8-12V55h4V48Zm37-1V43H45V39h7V35H41V54h4V47ZM35,98H46V76H64V98H75L55,127Zm10,18H11V63h6v47H41ZM27,39c9-2,9,13,0,12ZM10,39c8-1,9,7,0,5Z"/></svg>') center/1.8rem no-repeat;display:block!important;width:1.8rem;height:2.2rem;transition:all .5s;}
+            &:has(>svg){
+                &:before{display:none!important}
+                svg{width:1.8rem!important;height:2.2rem!important;stroke:none!important;fill:var(--black);}
+                &:hover{
+                    svg{fill:var(--thm1)}
+                }
+            }
+        }
+    }
+    &:after{content:'';mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 12"><path d="M0,6H13m-5-5,5,5-5,5" fill="none" stroke="white"/></svg>') center/1.3rem no-repeat;width:1.3rem;height:1.3rem;transition:all .5s;margin-top:-.2rem}
+    &,>*{transition:all .5s}
+    @each $color, $value in var.$colors{
+        @if $color == 'white' or $color == 'thm1' {
+            &-#{$color}{
+                &,&.disabled,&:disabled{border-color:var(--#{$color});background-color:var(--#{$color});color:light-dark(var(--white), var(--black))}
+                svg,img{stroke:light-dark(var(--white), var(--black))}
+                &:after,&:before{background:light-dark(var(--white), var(--black))}
+                &:hover,&:active,&:focus-visible{color:var(--#{$color})!important;background-color:transparent;border-color:var(--#{$color});
+                    svg,img{stroke:var(--#{$color})}
+                    &:after,&:before{background:var(--#{$color})}
+                }
+            }
+        } @else{
+            &-#{$color}{
+                &,&.disabled,&:disabled{border-color:var(--#{$color});background-color:var(--#{$color});color:light-dark(var(--black), var(--white))}
+                svg,img{stroke:light-dark(var(--black), var(--white))}
+                &:after,&:before{background:light-dark(var(--black), var(--white))}
+                &:hover,&:active,&:focus-visible{color:var(--#{$color})!important;background-color:transparent;border-color:var(--#{$color});
+                    svg,img{stroke:var(--#{$color})}
+                    &:after,&:before{background:var(--#{$color})}
+                }
+            }
+        }
+    }
+    @each $color, $value in var.$colors{
+        @if $color == 'white' or $color == 'thm1' {
+            &-o-#{$color}{
+                &,&.disabled,&:disabled{border-color:var(--#{$color});background-color:transparent;color:var(--#{$color})}
+                svg,img{stroke:var(--#{$color})}
+                &:after,&:before{background:var(--#{$color})}
+                &:hover,&:active,&:focus-visible{color:light-dark(var(--white), var(--black))!important;background-color:var(--#{$color});border-color:var(--#{$color});
+                    svg,img{stroke:light-dark(var(--black), var(--white))}
+                    &:after,&:before{background:light-dark(var(--white), var(--black))}
+                }
+                &.border-0{padding:0!important;line-height:1!important;
+                    &:hover,&:active,&:focus-visible{background:transparent!important;color:light-dark(var(--thm), var(--thm1))!important;
+                        svg,img{stroke:light-dark(var(--thm), var(--thm1))}
+                        &:after,&:before{background:light-dark(var(--thm), var(--thm1))}
+                    }
+                }
+            }
+        } @else{
+            &-o-#{$color}{
+                &,&.disabled,&:disabled{border-color:var(--#{$color});background-color:transparent;color:var(--#{$color})}
+                svg,img{stroke:var(--#{$color})}
+                &:after,&:before{background:var(--#{$color})}
+                &:hover,&:active,&:focus-visible{color:light-dark(var(--white), var(--black))!important;background-color:var(--#{$color});border-color:var(--#{$color});
+                    svg,img{stroke:light-dark(var(--black), var(--white))}
+                    &:after,&:before{background:light-dark(var(--black), var(--white))}
+                }
+                &.border-0{padding:0!important;line-height:1!important;
+                    &:hover,&:active,&:focus-visible{background:transparent!important;color:var(--thm)!important;
+                        svg,img{stroke:var(--thm)}
+                        &:after,&:before{background:var(--thm)}
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width:420px){font-size:16px;padding:0 20px;gap:8px!important;line-height:42px;
+        svg,img{height:17px!important;width:17px!important}
+    }
+    &#{&}-sm{font-size:.9rem;line-height:36px;padding:0 15px;
+        svg,img{height:17px!important;width:17px!important}
+        @media (max-width:420px){font-size:15px;padding:0 12px;gap:5px!important;line-height:32px;
+            svg,img{height:16px!important;width:16px!important}
+        }
+        &.btnC{height:31px;min-width:35px;padding:0;margin:0;
+            svg{transform:translate(0)!important}
+            &:hover{transform:translateY(-1px);background:initial!important}
+        }
+    }
+    &#{&}-lg{font-size:1.1rem;line-height:50px;
+        svg,img{height:19px!important;width:19px!important}
+        @media (max-width:420px){font-size:17px;padding:0 20px;gap:8px!important;line-height:45px;
+            svg,img{height:18px!important;width:18px!important}
+        }
+    }
+    // &:not(.sws-bounce):before{pointer-events:none;position:absolute;z-index:-1;content:'';top:100%;left:9%;display:inline-block;height:6px;width:82%;opacity:0;border-radius:50%;filter:blur(9px);background:var(--black);transition:all .5s}
+    // &:not(.sws-bounce):hover,&:not(.sws-bounce):active{text-indent:0;
+    //     &:before{opacity:1;top:calc(100% + 1px)}
+    //     svg,img{
+    //         &:nth-last-of-type(1){opacity:1;transform:translateX(2px)}
+    //     }
+    // }
+    @media (max-width:420px){font-size:15px;line-height:38px;padding:0 20px}
+}

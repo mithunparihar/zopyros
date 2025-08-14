@@ -1,0 +1,491 @@
+.FormEv {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+.FormEv .form-control-lg {
+  font-size: 1.15rem;
+}
+
+.sitemap .SiteMapMenu {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+}
+.sitemap .SiteMapMenu > li.menu {
+  position: relative;
+  padding: 0.7em 0 0.7em 1.8rem;
+}
+.sitemap .SiteMapMenu > li.menu > a {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: light-dark(var(--black), var(--white));
+}
+.sitemap .SiteMapMenu > li.menu ul {
+  padding-left: 0.5rem;
+  margin-top: 9px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.sitemap .SiteMapMenu > li.menu ul > li {
+  color: light-dark(var(--black), var(--white));
+  min-width: 200px;
+  margin-left: 1rem;
+  padding: 0;
+  position: relative;
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu {
+  width: 100%;
+  font-weight: 500;
+  border-bottom: 1px solid light-dark(rgb(var(--black-rgb)/0.08), rgb(var(--whtie-rgb)/0.08));
+  padding-bottom: 16px;
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu > a {
+  position: relative;
+  padding: 0;
+  display: inline-block;
+  font-size: 16px;
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu > a:after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  background: light-dark(rgb(var(--thm-rgb)/0.2), rgb(var(--thm1-rgb)/0.2));
+  right: -25%;
+  top: 0;
+  z-index: -1;
+  border-radius: 5px;
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu > a:before {
+  display: none;
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu:before, .sitemap .SiteMapMenu > li.menu ul > li.menu:after {
+  content: "";
+  position: absolute;
+  height: 9px;
+  width: 9px;
+  background: light-dark(rgb(var(--black-rgb)/0.7), rgb(var(--white-rgb)/0.7));
+  left: -20px;
+  top: 10px;
+  z-index: -1;
+  border-radius: 50%;
+}
+@media (min-width: 1600px) {
+  .sitemap .SiteMapMenu > li.menu ul > li.menu:before, .sitemap .SiteMapMenu > li.menu ul > li.menu:after {
+    top: 12px;
+  }
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu:before {
+  height: calc(100% - 9px);
+  width: 1px;
+  left: -16px;
+  top: 24px;
+  opacity: 0.3;
+}
+@media (min-width: 1600px) {
+  .sitemap .SiteMapMenu > li.menu ul > li.menu:before {
+    top: 26px;
+  }
+}
+.sitemap .SiteMapMenu > li.menu ul > li.menu:last-child:before {
+  display: none;
+}
+.sitemap .SiteMapMenu > li.menu ul > li:not(.menu) {
+  min-width: 200px;
+  margin: 0;
+  font-size: 14px;
+}
+.sitemap .SiteMapMenu > li.menu ul > li:not(.menu) a {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 6px;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+.sitemap .SiteMapMenu > li.menu ul > li:not(.menu) a:before {
+  content: "";
+  border-top: 1px solid;
+  border-right: 1px solid;
+  height: 7px;
+  width: 7px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  margin-right: 2px;
+  display: inline-block;
+}
+.sitemap .SiteMapMenu > li.menu:before, .sitemap .SiteMapMenu > li.menu:after {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background: light-dark(var(--thm), var(--thm1));
+  left: 0;
+  top: 14px;
+  z-index: -1;
+  border-radius: 50%;
+}
+@media (min-width: 1600px) {
+  .sitemap .SiteMapMenu > li.menu:before, .sitemap .SiteMapMenu > li.menu:after {
+    top: 18px;
+  }
+}
+.sitemap .SiteMapMenu > li.menu:before {
+  height: calc(100% - 16px);
+  width: 1px;
+  left: 8px;
+  top: 34px;
+  opacity: 0.3;
+}
+@media (min-width: 1600px) {
+  .sitemap .SiteMapMenu > li.menu:before {
+    top: 38px;
+  }
+}
+.sitemap .SiteMapMenu > li.menu:last-child:before {
+  display: none;
+}
+
+.CareerBox {
+  border-color: light-dark(rgb(var(--thm-rgb)/0.1), rgb(var(--thm1-rgb)/0.1)) !important;
+  border-radius: 0 !important;
+  background-color: light-dark(rgb(var(--black-rgb)/0.05), rgb(var(--white-rgb)/0.05)) !important;
+}
+.CareerBox .JobTitle small {
+  color: light-dark(rgb(var(--black-rgb)/0.8), rgb(var(--white-rgb)/0.8));
+}
+.CareerBox > * {
+  border: none;
+  background: none;
+  padding: 25px;
+}
+.CareerBox > *:first-child {
+  padding-bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.CareerBox > *:first-child svg {
+  width: 22px;
+  height: 18px;
+  fill: none;
+  stroke: var(--thm);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.CareerBox > *:first-child:after {
+  -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" fill="none" viewBox="0 0 13 12"><path d="M1,6H12M7,1l5,5L7,11"/></svg>') center/auto 100% no-repeat;
+          mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" stroke="black" fill="none" viewBox="0 0 13 12"><path d="M1,6H12M7,1l5,5L7,11"/></svg>') center/auto 100% no-repeat;
+  content: "";
+  height: 20px;
+  min-width: 20px;
+  display: inline-block;
+  background: light-dark(var(--black), var(--thm1));
+}
+.CareerBox > *:last-child {
+  padding-top: 15px;
+}
+.CareerBox > * .Jobpost {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 6px;
+  -webkit-column-gap: 18px;
+     -moz-column-gap: 18px;
+          column-gap: 18px;
+  padding: 0;
+  margin: 0;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.CareerBox > * .Jobpost li {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(var(--black-rgb)/0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.CareerBox > * .Jobpost li img, .CareerBox > * .Jobpost li svg {
+  max-width: 16px;
+  height: 22px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  fill: none;
+  stroke: light-dark(var(--black), var(--thm1));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.CareerBox > * .Jobpost li:after {
+  content: "";
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background: light-dark(rgb(var(--thm-rgb)/0.4), rgb(var(--thm1-rgb)/0.4));
+  display: inline-block;
+  margin: 0 0 0 15px;
+}
+.CareerBox > * .Jobpost li:last-child:after {
+  display: none;
+}
+@media (max-width: 991px) {
+  .CareerBox > * .Jobpost .Jobpost {
+    -webkit-column-gap: 9px;
+       -moz-column-gap: 9px;
+            column-gap: 9px;
+  }
+  .CareerBox > * .Jobpost .Jobpost li:after {
+    margin: 0 0 0 9px;
+    font-size: 14px;
+  }
+}
+.CareerBox:hover {
+  border-color: var(--thm1) !important;
+}
+
+.ApplyPopup {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.JobBox {
+  max-width: 450px;
+  width: 100%;
+  text-align: left;
+}
+.JobBox .Jobpost {
+  -webkit-column-gap: 24px;
+     -moz-column-gap: 24px;
+          column-gap: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 6px;
+  -webkit-column-gap: 18px;
+     -moz-column-gap: 18px;
+          column-gap: 18px;
+  padding: 0;
+  margin: 0;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.JobBox .Jobpost li {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(var(--black-rgb)/0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.JobBox .Jobpost li img, .JobBox .Jobpost li svg {
+  max-width: 16px;
+  height: 22px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  fill: none;
+  stroke: light-dark(var(--black), var(--thm1));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.JobBox .Jobpost li:after {
+  content: "";
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background: light-dark(rgb(var(--thm-rgb)/0.4), rgb(var(--thm1-rgb)/0.4));
+  display: inline-block;
+  margin: 0 0 0 15px;
+}
+.JobBox .Jobpost li:last-child:after {
+  display: none;
+}
+
+.Contact .map {
+  height: calc(100vh - 250px);
+  max-height: 550px;
+  position: sticky;
+  top: 80px;
+  line-height: 0;
+  overflow: hidden;
+  border-radius: 9px;
+}
+.Contact .map iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.faqcat {
+  border-radius: 9px;
+  border-color: light-dark(rgb(var(--black-rgb)/0.1), rgb(var(--white-rgb)/0.1));
+  position: sticky;
+  top: 50px;
+  background: light-dark(var(--white), transparent);
+}
+.faqcat * {
+  border-color: light-dark(rgb(var(--black-rgb)/0.1), rgb(var(--white-rgb)/0.1));
+}
+.faqcat .card-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 9px;
+}
+.faqcat .card-body a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 5px 2px;
+  position: relative;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+.faqcat .card-body a:before {
+  border-bottom: 1px dashed light-dark(rgb(var(--black-rgb)/0.1), rgb(var(--white-rgb)/0.1));
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+}
+.faqcat .card-body a:after {
+  content: "";
+  border: none;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  height: 7px;
+  width: 7px;
+  -webkit-transform: rotate(45deg) translate(-2px, 0px);
+          transform: rotate(45deg) translate(-2px, 0px);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  display: inline-block;
+}
+.faqcat .card-body a:last-child:before {
+  display: none;
+}
+
+.teamBox {
+  border: none;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 2fr 0.5fr;
+  height: 100%;
+  -webkit-box-shadow: 0 0 9px rgb(var(--black-rgb)/0.1);
+          box-shadow: 0 0 9px rgb(var(--black-rgb)/0.1);
+  background: light-dark(var(--white), var(--black));
+  border-radius: 0;
+}
+.teamBox .card-header {
+  width: 100%;
+  padding: 0;
+  border: none;
+}
+.teamBox .card-header img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.teamBox .card-body {
+  padding: 20px;
+  margin-top: 0;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  background: light-dark(var(--white), rgb(var(--white-rgb)/0.05));
+  color: light-dark(var(--black), var(--white));
+}
+.teamBox .card-body .icons {
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  margin: 0;
+}
+.teamBox .card-body .icons img {
+  height: 18px;
+  width: 18px;
+}
+.teamBox .card-body h3 {
+  font-size: 18px;
+}
+@media (max-width: 767px) {
+  .teamBox .card-body {
+    padding: 15px;
+  }
+  .teamBox .card-body h3 {
+    font-size: 16px;
+  }
+}
+
+.SecLogos .Logos .swiper-wrapper {
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
+}
+.SecLogos .Logos img {
+  height: auto;
+  width: 120px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  padding: 8px;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+.SecLogos .Logos img:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+  -webkit-box-shadow: 0 0 8px rgb(var(--white-rgb)/0.1);
+          box-shadow: 0 0 8px rgb(var(--white-rgb)/0.1);
+  opacity: 1;
+}
+@media (max-width: 767px) {
+  .SecLogos .Logos img {
+    width: 100px;
+  }
+}
+@media (max-width: 575px) {
+  .SecLogos .Logos img {
+    width: 90px;
+  }
+}/*# sourceMappingURL=pages.css.map */

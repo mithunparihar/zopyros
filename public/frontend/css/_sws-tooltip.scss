@@ -1,0 +1,160 @@
+$tooltip_name:'sws';
+$tooltips:'primary','secondary','success','info','warning','danger','light','dark';
+[class*="#{$tooltip_name}-"]{position:relative;display:inline-block;
+    &:before,&:after{position:absolute;transform:translate3d(0,0,0);visibility:hidden;opacity:0;z-index:1000000;pointer-events:none;transition:.3s ease;transition-delay:0ms}
+    &:before{content:'';position:absolute;background:transparent;border:6px solid transparent;z-index:1000001}
+    &:after{background:var(--thm);color:var(--white);padding:5px 8px;font-size:12px;line-height:1.2;box-shadow:4px 4px 8px rgb(var(--black-rgb)/.3);border-radius:3px;width:max-content;max-width:200px;text-align:center;white-space:normal}
+    &:hover{
+        &:before,&:after{visibility:visible;opacity:1;transition-delay:100ms}
+    }
+    &[title]:after{content:attr(title)}
+    &[data-title]:after{content:attr(data-title)}
+    &[title=''],&[data-title=''],&[title=""],&[data-title=""]{
+        &:before,&:after{display:none!important}
+    }
+}
+.#{$tooltip_name}{
+    &-top{
+        &:after{transform:translateX(-50%)}
+        &,&-left,&-right{
+            &:before,&:after{bottom:100%;left:50%}
+            &:before{border-top-color:var(--thm);left:calc(50% - 6px);margin-bottom:-11px}
+        }
+        &-left{
+            &:after{transform:translateX(-100%);margin-left:12px}
+            &:hover{
+                &:before{transform:translateY(-8px)}
+                &:after{transform:translateX(-100%) translateY(-8px)}
+            }
+        }
+        &-right{
+            &:after{transform:translateX(0);margin-left:-12px}
+            &:hover{
+                &:before{transform:translateY(-8px)}
+                &:after{transform:translateY(-8px)}
+            }
+        }
+        &:hover{
+            &:before{transform:translateY(-8px)}
+            &:after{transform:translateX(-50%) translateY(-8px)}
+        }
+    }
+    &-bottom{
+        &:after{transform:translateX(-50%)}
+        &,&-left,&-right{
+            &:before,&:after{top:100%;left:50%}
+            &:before{left:calc(50% - 6px);margin-top:-11px;border-bottom-color:var(--thm)}
+        }
+        &-left{
+            &:after{transform:translateX(-100%);margin-left:12px}
+            &:hover{
+                &:before{transform:translateY(8px)}
+                &:after{transform:translateX(-100%) translateY(8px)}
+            }
+        }
+        &-right{
+            &:after{transform:translateX(0);margin-left:-12px}
+            &:hover{
+                &:before{transform:translateY(8px)}
+                &:after{transform:translateY(8px)}
+            }
+        }
+        &:hover{
+            &:before{transform:translateY(8px)}
+            &:after{transform:translateX(-50%) translateY(8px)}
+        }
+    }
+    &-right{
+        &:before,&:after{left:100%;bottom:50%}
+        &:before{margin-left:-11px;margin-bottom:-6px;border-right-color:var(--thm)}
+        &:after{margin-bottom:-14px}
+        &:hover{
+            &:before{transform:translateX(8px)}
+            &:after{transform:translateX(8px)}
+        }
+    }
+    &-left{
+        &:before,&:after{right:100%;bottom:50%}
+        &:before{margin-right:-11px;margin-bottom:-6px;border-left-color:var(--thm)}
+        &:after{margin-bottom:-14px}
+        &:hover{
+            &:before{transform:translateX(-8px)}
+            &:after{transform:translateX(-8px)}
+        }
+    }
+    &-small,&-medium,&-large{
+        &:after{white-space:normal;line-height:1.4em;word-wrap:break-word}
+    }
+    &-always{
+        &:after,&:before{opacity:1;visibility:visible}
+        &.#{$tooltip_name}{
+            &-top{
+                &:after{transform:translateX(-50%) translateY(-8px)}
+                &,&-left,&-right{
+                    &:before{transform:translateY(-8px)}
+                }
+                &-left{
+                    &:after{transform:translateX(-100%) translateY(-8px)}
+                }
+                &-right{
+                    &:after{transform:translateX(-100%) translateY(-8px)}
+                }
+            }
+            &-bottom{
+                &:after{transform:translateX(-50%) translateY(8px)}
+                &,&-left,&-right{
+                    &:before{transform:translateY(8px)}
+                }
+                &-left{
+                    &:after{transform:translateX(-100%) translateY(8px)}
+                }
+                &-right{
+                    &:after{transform:translateX(-100%) translateY(8px)}
+                }
+            }
+            &-left{
+                &:before,&:after{transform:translateX(-8px)}
+            }
+            &-right{
+                &:before,&:after{transform:translateX(8px)}
+            }
+        }
+    }
+    &-rounded:after{border-radius:4px}
+    &-small:after{width:80px}
+    &-medium:after{width:150px}
+    &-large:after{width:300px}
+    &-no-animate{
+        &:before,&:after{transition-duration:0ms}
+    }
+    &-bounce{
+        &:before,&:after{transition:opacity .3s ease,visibility .3s ease,transform .3s cubic-bezier(0.71,1.7,0.77,1.24)}
+    }
+    @each $tooltip in $tooltips {
+        &-#{$tooltip}{
+            @if $tooltip == 'warning' {
+                &:after{background-color:var(--bs-#{$tooltip});color:var(--black);font-weight:400}
+            }
+            @else if $tooltip == 'light'{
+                &:after{background-color:var(--bs-#{$tooltip});color:var(--black);font-weight:400}
+            }
+             @else{
+                &:after{background-color:var(--bs-#{$tooltip});font-weight:400}
+            }
+            &.#{$tooltip_name}{
+                &-top{
+                    &,&-left,&-right{
+                        &:before{border-top-color:var(--bs-#{$tooltip})}
+                    }
+                }
+                &-bottom{
+                    &,&-left,&-right{
+                        &:before{border-bottom-color:var(--bs-#{$tooltip})}
+                    }
+                }
+                &-left:before{border-left-color:var(--bs-#{$tooltip})}
+                &-right:before{border-right-color:var(--bs-#{$tooltip})}
+            }
+        }
+    }
+}

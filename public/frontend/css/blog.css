@@ -1,0 +1,257 @@
+.BlogInner .TopBlog {
+  position: relative;
+  display: block;
+}
+@media (min-width: 575) {
+  .BlogInner .TopBlog {
+    height: 60vh;
+    max-height: 450px;
+  }
+}
+.BlogInner .TopBlog img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.BlogInner .TopBlog .text {
+  padding: 20px 0;
+  background: rgb(var(--white-rgb)/0.9);
+}
+.BlogInner .TopBlog .text h1 {
+  font-size: 40px !important;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
+}
+@media (max-width: 992px) {
+  .BlogInner .TopBlog .text h1 {
+    font-size: 32px !important;
+  }
+}
+.BlogInner .TopBlog .text small {
+  letter-spacing: 3px;
+}
+.BlogInner .TopBlog .text p {
+  color: rgb(var(--black-rgb)/0.7);
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .BlogInner .TopBlog .text {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    max-width: 450px; /*border-radius:30px 0 0*/
+    padding: 30px;
+  }
+}
+@media (min-width: 992px) {
+  .BlogInner .TopBlog .text {
+    max-width: 600px;
+    padding: 40px;
+  }
+}
+.BlogInnerList .MyCarousel {
+  gap: 24px;
+}
+.BlogInnerList .MyCarousel .card {
+  min-width: calc(33.333% - 16px);
+}
+.BlogInnerList .MyCarousel .card-header {
+  height: 250px;
+}
+@media (max-width: 768px) {
+  .BlogInnerList .MyCarousel .card {
+    min-width: calc(50% - 10px);
+  }
+}
+@media (max-width: 575px) {
+  .BlogInnerList .MyCarousel .card {
+    min-width: calc(100% - 0px);
+  }
+}
+.BlogInnerList .ProBlock {
+  margin: 0;
+}
+.BlogInnerList .ProBlock:hover {
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+.BlogInner .DetailTop img {
+  height: 100%;
+  max-height: 500px;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  background: rgb(var(--black-rgb)/0.05);
+}
+@media (max-width: 768px) {
+  .BlogInner .DetailTop img {
+    height: auto;
+  }
+}
+.Blog .Rlink {
+  position: sticky;
+  top: 10px;
+}
+
+.rightp .position-sticky {
+  top: 75px;
+}
+.rightp div > h3 {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--black);
+}
+.rightp div .list-group-flush {
+  padding: 0.4rem 0.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 4px;
+}
+.rightp div .list-group-flush > .list-group-item {
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid light-dark(rgb(var(--black-rgb)/0.07), rgb(var(--white-rgb)/0.07));
+  background: none !important;
+  color: light-dark(var(--black), var(--white));
+}
+.rightp div .list-group-flush > .list-group-item:last-child {
+  border: none;
+}
+.rightp div .list-group-flush > .list-group-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  font-size: 15px;
+  gap: 8px;
+  line-height: normal;
+}
+.rightp div .list-group-flush > .list-group-item:before {
+  content: "";
+  height: 13px;
+  width: 13px;
+  background: light-dark(var(--thm), var(--white));
+  -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 12" fill="none" stroke="black"><line x1="1" y1="6" x2="13" y2="6"/><polyline points="9 1 14 6 9 11"/></svg>') -4px center/18px no-repeat;
+          mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 12" fill="none" stroke="black"><line x1="1" y1="6" x2="13" y2="6"/><polyline points="9 1 14 6 9 11"/></svg>') -4px center/18px no-repeat;
+  top: 1px;
+  position: relative;
+}
+.rightp div .list-group-flush > .list-group-item i {
+  vertical-align: middle;
+  line-height: normal;
+  font-weight: 500;
+  color: var(--thm);
+}
+.rightp div .card {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border: none;
+  -webkit-box-align: start !important;
+      -ms-flex-align: start !important;
+          align-items: start !important;
+}
+.rightp div .card > * {
+  border: none;
+}
+.rightp div .card-header {
+  background: none;
+  padding: 0;
+  width: 80px;
+}
+.rightp div .card-header img {
+  height: 80px;
+  width: 100%;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.rightp div .card-body {
+  width: calc(100% - 80px);
+  padding: 0;
+  padding-left: 1rem;
+}
+.rightp div .card-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
+  line-height: 140%;
+}
+
+.PreNext i {
+  width: 24px;
+  border-radius: 50%;
+  font-size: 32px;
+}
+.PreNext .row > div a:last-child {
+  margin-top: 5px;
+  display: inline-block;
+}
+.PreNext .row > div a:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: var(--thm);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.PreNext .row > div:first-child {
+  border-right: 1px solid rgb(var(--black-rgb)/0.1);
+}
+.PreNext .row > div:first-child a:first-child {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.PreNext .row > div:last-child {
+  text-align: right;
+}
+.PreNext .row > div:last-child a:first-child {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.PreNext .row > div:last-child i {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+@media (max-width: 575px) {
+  .PreNext h2 {
+    font-size: 16px;
+  }
+  .PreNext i {
+    width: 15px;
+  }
+}
+
+.shareIcons > div, .swsi > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}/*# sourceMappingURL=blog.css.map */

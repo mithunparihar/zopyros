@@ -1,0 +1,29 @@
+nav[role="navigation"]{
+    .flex{display:flex;margin-top:20px}
+    .items-center{align-items:center}
+    .justify-between{justify-content:space-between}
+    >div:first-child{
+        *{border-radius:30px;background:#f3f3f3!important;color:rgb(var(--blackrgb)/.5)!important;display:none}
+        span{pointer-events:none}
+    }
+    >div:last-child{display:flex;justify-content:center;align-items:center;flex-direction:column;box-shadow:none!important;
+        >div:first-child{order:1;
+            p{margin-top:9px}
+        }
+        >div:last-child{
+            >span{display:flex;justify-content:center;box-shadow:none!important;border-radius:30px;border:1px solid #d9dee3!important;font-size:14px;background:var(--white);
+                >*{display:block}
+            }
+        }
+    }
+    >div:first-child a,>div:last-child>div:last-child>span>a{color:var(--black)!important;background:var(--white)!important}
+    >div:last-child>div:last-child>span>a:first-child,>div:last-child>div:last-child>span>span:first-child>span,>div:last-child>div:last-child>span>a:last-child,>div:last-child>div:last-child>span>span:last-child>span{height:40px;width:40px;place-content:center;display:grid;border-radius:50%;border:1px solid #d9dee3!important}
+    >div:last-child>div:last-child>span>a,>div:last-child>div:last-child>span>span>span{border:none!important;border-left:1px solid #d9dee3!important;display:flex;padding:2px!important;width:38px;height:40px;align-items:center;justify-content:center}
+    >div:last-child>div:last-child>span>a:first-child svg,>div:last-child>div:last-child>span>span:first-child>span svg,>div:last-child>div:last-child>span>a:last-child svg,>div:last-child>div:last-child>span>span:last-child>span svg{width:20px;height:20px}
+    >div:last-child>div:last-child>span>a:first-child,>div:last-child>div:last-child>span>span:first-child>span,>div:last-child>div:last-child>span>a:nth-child(2),>div:last-child>div:last-child>span>span:nth-child(2)>span{border-left:none!important}
+    >div:last-child>div:last-child>span>a:first-child,>div:last-child>div:last-child>span>span:first-child>span{margin-right:2px}
+    >div:last-child>div:last-child>span>a:last-child,>div:last-child>div:last-child>span>span:last-child>span{border-right:none!important;margin-left:2px}
+    >div:last-child>div:last-child>span>span:first-child>span,>div:last-child>div:last-child>span>span:last-child>span{opacity:.5}
+    >div:first-child a:hover,>div:last-child>div:last-child>span>a:hover{color:var(--thm)!important}
+    >div:last-child>div:last-child>span>span[aria-current="page"]:not(:first-child)>span{background:var(--thm)!important;color:var(--white)!important}
+}

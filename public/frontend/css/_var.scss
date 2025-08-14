@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use "sass:string";
+$colors:(
+    "thm":#302A28,
+    "thm1":#DDD0AB,
+    "white":#fff,
+    "black":#000,
+);
+$darkcolors:(
+    "thm":#302A28,
+    "thm1":#DDD0AB,
+    "white":#000,
+    "black":#fff,
+);
+$fonts:(
+    "font":#{"'Josefin Sans', sans-serif"},
+    "font1":#{"'Italianno', cursive"},
+);
+$colorthm:map.get($colors, "thm");
+$colorthm1:map.get($colors, "thm1");
+$colorwhite:map.get($colors, "white");
+$colorblack:map.get($colors, "black");
+$darkcolorthm:map.get($darkcolors, "thm");
+$darkcolorthm1:map.get($darkcolors, "thm1");
+$darkcolorwhite:map.get($darkcolors, "white");
+$darkcolorblack:map.get($darkcolors, "black");
+
+$svgthm:string.slice(#{$colorthm}, 2);
+$svgthm1:string.slice(#{$colorthm1}, 2);
+$svgwhite:string.slice(#{$colorwhite}, 2);
+$svgblack:string.slice(#{$colorblack}, 2);
+$darksvgthm:string.slice(#{$darkcolorthm}, 2);
+$darksvgthm1:string.slice(#{$darkcolorthm1}, 2);
+$darksvgwhite:string.slice(#{$darkcolorwhite}, 2);
+$darksvgblack:string.slice(#{$darkcolorblack}, 2);
+
+@mixin line-clamp($lines){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:$lines;overflow:hidden;line-clamp:$lines}

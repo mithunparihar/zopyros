@@ -59,7 +59,7 @@
                 @endif
 
                 @if (!request('parent'))
-                    <x-admin.button.add-more :href="route('admin.cms.edit', ['cm' => 21])" icon="fas fa-file">Page Content</x-admin.button.add-more>
+                    <x-admin.button.add-more :href="route('admin.cms.edit', ['cm' => 16])" icon="fas fa-file">Page Content</x-admin.button.add-more>
                 @endif
 
                 @php

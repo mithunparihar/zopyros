@@ -114,7 +114,7 @@ class Content
                 return 'Our Team (Page Content)';
                 break;
             case '16':
-                return 'FAQs (Page Content)';
+                return 'Categories (Page Content)';
                 break;
             case '17':
                 return 'Contact (Page Content)';

@@ -83,7 +83,7 @@ class Edit extends Component
             'button' => ['nullable', 'max:100', new TextRule()],
             'title' => ['required', 'max:100', new TextRule()],
             'heading' => ['nullable', 'max:100', new TextRule()],
-            'description' => [in_array($this->info->id, [2, 3, 4, 5, 6,10,13,14,15]) ? 'nullable' : 'required', new EditorRule()],
+            'description' => [in_array($this->info->id, [2, 3, 4, 5, 6,10,13,14,15,16]) ? 'nullable' : 'required', new EditorRule()],
             'short_description' => ['nullable', 'max:1000', new EditorRule()],
             'image' => 'nullable|max:5000|mimes:jpg,png,jpeg,webp',
         ];

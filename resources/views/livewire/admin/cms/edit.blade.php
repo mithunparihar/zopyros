@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <x-admin.form.label for="description" class="form-label"
-                        asterisk="{{ in_array($info->id, [0, 2, 3, 7, 8, 13,14,15]) ? false : true }}">Description</x-admin.form.label>
+                        asterisk="{{ in_array($info->id, [0, 2, 3, 7, 8, 13,14,15,16]) ? false : true }}">Description</x-admin.form.label>
                     <x-admin.form.text-editor wire:model="description" ignore="true" name="description"
                         class="summernote" placeholder="Write somthing here..."
                         id="description">{{ $description }}</x-admin.form.text-editor>

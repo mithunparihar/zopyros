@@ -82,10 +82,16 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Categories & Products</span>
         </li>
-        <li class="menu-item @if (request()->segment(2) == 'categories' || (request()->segment(2) == 'cms' && request()->segment(3) == '21')) active @endif">
+        <li class="menu-item @if (request()->segment(2) == 'categories' || (request()->segment(2) == 'cms' && request()->segment(3) == '16')) active @endif">
             <a href="{{ route('admin.categories.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-category"></i>
                 <div data-i18n="Categories">Categories</div>
+            </a>
+        </li>
+        <li class="menu-item @if (request()->segment(2) == 'variants') active @endif">
+            <a href="{{ route('admin.variants.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-box"></i>
+                <div data-i18n="Variants">Variants</div>
             </a>
         </li>
 
@@ -161,8 +167,7 @@
                 <div data-i18n="Projects">Projects</div>
             </a>
         </li>
-        <li class="menu-item @if (in_array(request()->segment(2), ['awards']) ||
-                (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
+        <li class="menu-item @if (in_array(request()->segment(2), ['awards']) || (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
             <a href="{{ route('admin.awards.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-award"></i>
                 <div data-i18n="Awards & Recognitions">Awards & Recognitions</div>
@@ -175,8 +180,7 @@
                 <div data-i18n="Testimonials">Testimonials</div>
             </a>
         </li>
-        <li class="menu-item @if (in_array(request()->segment(2), ['team']) ||
-                (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
+        <li class="menu-item @if (in_array(request()->segment(2), ['team']) || (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
             <a href="{{ route('admin.team.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                 <div data-i18n="Our Team">Our Team</div>

@@ -96,8 +96,15 @@ Route::middleware(['isAdmin'])->group(function () {
         /// Awards & Recognitions
         Route::resource('awards', App\Http\Controllers\Admin\AwardController::class, ['only' => ['index']]);
 
+        ///Variants
+        Route::resource('variants', App\Http\Controllers\Admin\VariantController::class);
+        Route::controller(App\Http\Controllers\Admin\VariantController::class)->name('variants.')->prefix('variants')->group(function () {
+            Route::post('{variant}/publish', 'publish')->name('publish');
+            Route::post('{variant}/home/publish', 'homePublish')->name('home.publish');
+            Route::post('remove', 'destory')->name('remove');
+        });
 
-        /// Services
+        /// Categories
         Route::resource('categories', App\Http\Controllers\Admin\CategoroyController::class);
         Route::post('categories/{categories}/publish', [App\Http\Controllers\Admin\CategoroyController::class, 'publish'])->name('categories.publish');
         Route::post('categories/{categories}/publish/home', [App\Http\Controllers\Admin\CategoroyController::class, 'homePublish'])->name('categories.home.publish');

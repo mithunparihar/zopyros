@@ -12,6 +12,7 @@
                               { data: 'DT_RowIndex'},
                                 { data: 'title',className:'text-wrap text-break'},
                                 { data: 'childs'},
+                                { data: 'variants'},
                                 { data: 'set_home'},
                                 { data: 'set_footer'},
                                 { data: 'is_publish'},
@@ -30,6 +31,7 @@
 
                         $tableList = "[{ data: 'DT_RowIndex'},
                                 { data: 'title',className:'text-wrap text-break'},
+                                { data: 'variants'},
                                 { data: 'set_home'},
                                 { data: 'set_footer'},
                                 { data: 'is_publish'},
@@ -41,23 +43,7 @@
                                 }]";
                     @endphp
                 @endif
-                @if ($level == 3)
-                    @php
-
-                        $tableList = "[{ data: 'DT_RowIndex'},
-                                { data: 'title',},
-                                { data: 'set_home'},
-                                { data: 'set_footer'},
-                                { data: 'is_publish'},
-                                 {data : 'sequence'},
-                                {
-                                    data: 'action',
-                                    orderable: false,
-                                    searchable: false
-                                }]";
-                    @endphp
-                @endif
-
+                
                 @if (!request('parent'))
                     <x-admin.button.add-more :href="route('admin.cms.edit', ['cm' => 16])" icon="fas fa-file">Page Content</x-admin.button.add-more>
                 @endif
@@ -87,6 +73,7 @@
                                         @if ($level < 2)
                                             <th>Childs</th>
                                         @endif
+                                        <th>Variants</th>
                                         <th>Set Home</th>
                                         <th>Set Footer</th>
                                         <th>Is Publish</th>

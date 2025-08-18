@@ -121,6 +121,12 @@ Route::middleware(['isAdmin'])->group(function () {
         Route::post('categories/{categories}/faq/{faq}/publish', [App\Http\Controllers\Admin\CategoryFaqController::class, 'publish'])->name('categories.faq.publish');
         Route::post('categories/{categories}/faq/remove', [App\Http\Controllers\Admin\CategoryFaqController::class, 'destory'])->name('categories.faq.remove');
 
+        Route::get('categories/{category}/variants', [App\Http\Controllers\Admin\CategoryVariantController::class, 'index'])->name('categories.variants.index');
+        Route::get('categories/{category}/variants/create', [App\Http\Controllers\Admin\CategoryVariantController::class, 'create'])->name('categories.variants.create');
+        Route::get('categories/{category}/variants/{variant}/edit', [App\Http\Controllers\Admin\CategoryVariantController::class, 'edit'])->name('categories.variants.edit');
+        Route::post('categories/{category}/variants/{variant}/publish', [App\Http\Controllers\Admin\CategoryVariantController::class, 'publish'])->name('categories.variants.publish');
+        Route::post('categories/{category}/variants/remove', [App\Http\Controllers\Admin\CategoryVariantController::class, 'destory'])->name('categories.variants.remove');
+
         // Project
         Route::resource('projects', App\Http\Controllers\Admin\ProjectController::class);
         Route::controller(App\Http\Controllers\Admin\ProjectController::class)->name('projects.')->group(function () {

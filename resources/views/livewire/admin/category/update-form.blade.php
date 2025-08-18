@@ -5,8 +5,8 @@
         <div class="row">
             <div class="mb-1 col-md-12">
                 <x-admin.form.label for="title" class="form-label" :asterisk="true">Title</x-admin.form.label>
-                <x-admin.form.input name="title" wire:model="title" type="text"
-                    placeholder='Enter Title Here...' @class(['otherValidation', 'is-invalid' => $errors->has('title')]) />
+                <x-admin.form.input name="title" wire:model="title" type="text" placeholder='Enter Title Here...'
+                    @class(['otherValidation', 'is-invalid' => $errors->has('title')]) />
                 @error('title')
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
@@ -20,14 +20,14 @@
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>
-            <div class="mb-1 col-md-12">
+            {{-- <div class="mb-1 col-md-12">
                 <x-admin.form.label for="heading" class="form-label" :asterisk="false">Heading</x-admin.form.label>
                 <x-admin.form.input name="heading" wire:model="heading" type="text"
                     placeholder='Enter Heading Here...' @class(['otherValidation', 'is-invalid' => $errors->has('heading')]) />
                 @error('heading')
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
-            </div>
+            </div> --}}
 
             <div class="col-md-12 mt-2">
                 <x-admin.form.label for="short_description" class="form-label" :asterisk="false">

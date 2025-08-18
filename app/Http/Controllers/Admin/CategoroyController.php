@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\AlertMessage;
@@ -23,7 +22,7 @@ class CategoroyController extends Controller
         $level = 1;
         if (request('parent')) {
             $parentInfo = Category::findOrFail(request('parent'));
-            $level = ($parentInfo->level + 1);
+            $level      = ($parentInfo->level + 1);
         }
         return view('admin.categories.lists', compact('parentInfo', 'level'));
     }
@@ -41,8 +40,8 @@ class CategoroyController extends Controller
         if (request('publish') == 0) {
             $categories->update([
                 'is_publish' => request('publish'),
-                'is_home' => request('publish'),
-                'is_footer' => request('publish'),
+                'is_home'    => request('publish'),
+                'is_footer'  => request('publish'),
             ]);
         } else {
             $categories->update(['is_publish' => request('publish')]);
@@ -86,14 +85,14 @@ class CategoroyController extends Controller
         $data = Category::findOrFail(request('id'));
         if ($data->childs()->count() > 0) {
             return response()->json([
-                'status' => false,
+                'status'  => false,
                 'message' => AlertMessage::CHECKREMOVECHILDCATEGORY,
             ], 422);
         } else {
-            if($data->image){
+            if ($data->image) {
                 \Image::removeFile('categories/', $data->image);
             }
-            if($data->banner){
+            if ($data->banner) {
                 \Image::removeFile('categories/banner/', $data->banner);
             }
             $data->delete();
@@ -107,7 +106,7 @@ class CategoroyController extends Controller
     {
         $categoryData = Category::findOrFail(key($request->sequence));
         $request->validate([
-            'sequence' => 'required',
+            'sequence'   => 'required',
             'sequence.*' => [
                 'nullable',
                 'integer',
@@ -115,12 +114,12 @@ class CategoroyController extends Controller
             ],
         ], [], ['sequence.*' => 'sequence']);
         foreach ($request->sequence as $key => $sequence) {
-            $service = Category::findOrFail($key);
+            $service           = Category::findOrFail($key);
             $service->sequence = $sequence;
             $service->save();
         }
         return response()->json([
-            'status' => 200,
+            'status'  => 200,
             'message' => 'Sequence has been updated!',
         ]);
     }
@@ -132,21 +131,21 @@ class CategoroyController extends Controller
             return back();
         } else {
             $removeData = 0;
-            $skipData = '';
+            $skipData   = '';
             foreach ($request->check as $key => $check) {
                 $data = Category::findOrFail($key);
                 if ($data->childs()->count() == 0) {
-                    if($data->image){
+                    if ($data->image) {
                         \Image::removeFile('categories/', $data->image);
                     }
-                    if($data->banner){
+                    if ($data->banner) {
                         \Image::removeFile('categories/banner/', $data->banner);
                     }
                     $data->delete();
                     $removeData++;
                 } else {
                     if (empty($skipData)) {
-                        if (!empty($data->title)) {
+                        if (! empty($data->title)) {
                             $skipData = $data->title;
                         }
                     } else {
@@ -172,8 +171,8 @@ class CategoroyController extends Controller
         //     // return '<input type="checkbox" class="dt-checkboxes form-check-input" name="check[' . $row->id . ']">';
         // })
             ->addColumn('title', function ($row) {
-                $imageComponent = new \App\View\Components\ImagePreview('categories', $row->image);
-                $imageComponent->pathName = 'categories';
+                $imageComponent            = new \App\View\Components\ImagePreview('categories', $row->image);
+                $imageComponent->pathName  = 'categories';
                 $imageComponent->imageName = $row->image;
 
                 $attributes = new ComponentAttributeBag(['class' => 'me-2 rounded-2', 'width' => '200', 'style' => 'width:50px!important;height:50px!important']);
@@ -192,24 +191,45 @@ class CategoroyController extends Controller
             })
             ->addColumn('childs', function ($row) {
                 $html = '';
-                $html .= '<a href="' . route('admin.categories.index', ['parent' => $row->id]) . '" class="btn btn-icon rounded-pill btn-label-slack">';
+                $html .= '<a href="' . route('admin.categories.index', ['parent' => $row->id]) . '" class="btn btn-icon sws-bounce sws-top rounded-pill btn-label-slack" data-title="If you add a child category/sub category, then you won`t be able to add variants under this category." >';
                 $html .= $row->childs()->count();
                 $html .= '</a>';
                 return $html;
             })
+            ->addColumn('variants', function ($row) {
+                $html      = '';
+                $dataTitle = '';
+                $childs    = $row->childs()->count();
+
+                if ($childs > 0) {
+                    $html .= '<span style="cursor:no-drop;" class="d-inline-block sws-bounce sws-top" data-title="You have added a child category under this category, so now you cannot add variants to it.">';
+                    $html .= '<a class="disabled btn btn-icon rounded-pill btn-label-slack">';
+                    $html .= 0;
+                    $html .= '</a>';
+                    $html .= '<span>';
+                } else {
+                    if ($row->level == 1) {
+                        $dataTitle = ' data-title="If you add a variant, then you won`t be able to add a child category/sub category under this category."';
+                    }
+                    $html .= '<a href="' . route('admin.categories.variants.index', ['category' => $row->id]) . '" class="btn btn-icon ' . ($row->level == 1 ? 'sws-bounce sws-top' : '') . ' rounded-pill btn-label-slack" ' . $dataTitle . ' >';
+                    $html .= $row->variants->count();
+                    $html .= '</a>';
+                }
+                return $html;
+            })
             ->addColumn('set_home', function ($row) {
-                $switchButton = new \App\View\Components\Admin\Button\SwitchButton();
+                $switchButton          = new \App\View\Components\Admin\Button\SwitchButton();
                 $switchButton->checked = $row->is_home;
-                $switchButton->value = $row->id;
-                $switchButton->url = route('admin.categories.home.publish', ['categories' => $row->id]);
+                $switchButton->value   = $row->id;
+                $switchButton->url     = route('admin.categories.home.publish', ['categories' => $row->id]);
                 return $switchButton->render()->with($switchButton->data());
             })
             ->addColumn('set_footer', function ($row) {
                 // if(!in_array($row->id,[2,3,4])){  }
-                $switchButton = new \App\View\Components\Admin\Button\SwitchButton();
+                $switchButton          = new \App\View\Components\Admin\Button\SwitchButton();
                 $switchButton->checked = $row->is_footer;
-                $switchButton->value = $row->id;
-                $switchButton->url = route('admin.categories.footer.publish', ['categories' => $row->id]);
+                $switchButton->value   = $row->id;
+                $switchButton->url     = route('admin.categories.footer.publish', ['categories' => $row->id]);
                 if ($row->hide_information_page == 1) {
                     return '<span class="badge bg-label-danger">Info Page Disabled</span>';
                 } else {
@@ -218,10 +238,10 @@ class CategoroyController extends Controller
 
             })
             ->addColumn('is_publish', function ($row) {
-                $switchButton = new \App\View\Components\Admin\Button\SwitchButton();
+                $switchButton          = new \App\View\Components\Admin\Button\SwitchButton();
                 $switchButton->checked = $row->is_publish;
-                $switchButton->value = $row->id;
-                $switchButton->url = route('admin.categories.publish', ['categories' => $row->id]);
+                $switchButton->value   = $row->id;
+                $switchButton->url     = route('admin.categories.publish', ['categories' => $row->id]);
                 return $switchButton->render()->with($switchButton->data());
             })
             ->addColumn('sequence', function ($row) {
@@ -248,7 +268,7 @@ class CategoroyController extends Controller
                 $actionBtn .= '</div>';
                 return $actionBtn;
             })
-            ->rawColumns(['action', 'title', 'childs', 'set_home', 'set_footer', 'is_publish', 'sequence', 's_no'])
+            ->rawColumns(['action', 'title', 'variants', 'childs', 'set_home', 'set_footer', 'is_publish', 'sequence', 's_no'])
             ->make(true);
     }
 }

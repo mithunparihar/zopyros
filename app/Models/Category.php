@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,8 +11,8 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
     public $fillable = ['is_publish', 'is_home', 'is_featured', 'is_menu', 'is_footer'];
-    protected $casts=[
-        'materials'=>'array'
+    protected $casts = [
+        'materials' => 'array',
     ];
 
     protected function title(): Attribute
@@ -45,17 +44,18 @@ class Category extends Model
         );
     }
 
+    public function getSegments()
+    {
 
-    function getSegments(){
-
-        if($this->parentInfo){
-            return  array_merge($this->parentInfo->getSegments(), [$this->alias]);
-        }else{
+        if ($this->parentInfo) {
+            return array_merge($this->parentInfo->getSegments(), [$this->alias]);
+        } else {
             return [$this->alias];
         }
     }
 
-    function fullURL() {
+    public function fullURL()
+    {
         return implode('/', $this->getSegments());
     }
 
@@ -70,6 +70,11 @@ class Category extends Model
     public function parentInfo()
     {
         return $this->hasOne(Category::class, 'id', 'parent_id');
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(CategoryVariant::class,'category_id','id');
     }
 
     public function scopeActive($query)

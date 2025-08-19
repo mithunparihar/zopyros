@@ -16,7 +16,7 @@ window.addEventListener('showdeleteconfirmation', event => {
             cancelButton: "btn btn-label-danger"
         },
         buttonsStyling: !1
-    }).then(function(t) {
+    }).then(function (t) {
         if (t.value) {
             deleteConfirmation(event.detail.Id);
         }
@@ -60,5 +60,7 @@ window.addEventListener('errortoaster', event => {
 });
 
 window.addEventListener('emptyEditor', event => {
-    $('.summernote').summernote('code', '');
+    document.querySelectorAll('.summernote').forEach(editor => {
+        $(editor).summernote('code', '');
+    });
 });

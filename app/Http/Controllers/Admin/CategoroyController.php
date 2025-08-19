@@ -191,9 +191,17 @@ class CategoroyController extends Controller
             })
             ->addColumn('childs', function ($row) {
                 $html = '';
-                $html .= '<a href="' . route('admin.categories.index', ['parent' => $row->id]) . '" class="btn btn-icon sws-bounce sws-top rounded-pill btn-label-slack" data-title="If you add a child category/sub category, then you won`t be able to add variants under this category." >';
-                $html .= $row->childs()->count();
-                $html .= '</a>';
+                if ($row->variants()->count() > 0) {
+                    $html .= '<span style="cursor:no-drop;" class="d-inline-block sws-bounce sws-top" data-title="' . AlertMessage::CATEGORYNOLONGER->value . '">';
+                    $html .= '<a class="disabled btn btn-icon rounded-pill btn-label-slack">';
+                    $html .= 0;
+                    $html .= '</a>';
+                    $html .= '<span>';
+                } else {
+                    $html .= '<a href="' . route('admin.categories.index', ['parent' => $row->id]) . '" class="btn btn-icon sws-bounce sws-top rounded-pill btn-label-slack" data-title="'.AlertMessage::CATEGORYVARIANT->value.'" >';
+                    $html .= $row->childs()->count();
+                    $html .= '</a>';
+                }
                 return $html;
             })
             ->addColumn('variants', function ($row) {
@@ -202,17 +210,17 @@ class CategoroyController extends Controller
                 $childs    = $row->childs()->count();
 
                 if ($childs > 0) {
-                    $html .= '<span style="cursor:no-drop;" class="d-inline-block sws-bounce sws-top" data-title="You have added a child category under this category, so now you cannot add variants to it.">';
+                    $html .= '<span style="cursor:no-drop;" class="d-inline-block sws-bounce sws-top" data-title="' . AlertMessage::VARIANTNOLONGER->value . '">';
                     $html .= '<a class="disabled btn btn-icon rounded-pill btn-label-slack">';
                     $html .= 0;
                     $html .= '</a>';
                     $html .= '<span>';
                 } else {
                     if ($row->level == 1) {
-                        $dataTitle = ' data-title="If you add a variant, then you won`t be able to add a child category/sub category under this category."';
+                        $dataTitle = ' data-title="' . AlertMessage::VARIANTCATEGORY->value . '"';
                     }
                     $html .= '<a href="' . route('admin.categories.variants.index', ['category' => $row->id]) . '" class="btn btn-icon ' . ($row->level == 1 ? 'sws-bounce sws-top' : '') . ' rounded-pill btn-label-slack" ' . $dataTitle . ' >';
-                    $html .= $row->variants->count();
+                    $html .= $row->variants()->count();
                     $html .= '</a>';
                 }
                 return $html;

@@ -90,8 +90,14 @@
         </li>
         <li class="menu-item @if (request()->segment(2) == 'variants') active @endif">
             <a href="{{ route('admin.variants.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-box"></i>
+                <i class="menu-icon tf-icons bx bxs-cube"></i>
                 <div data-i18n="Variants">Variants</div>
+            </a>
+        </li>
+        <li class="menu-item @if (request()->segment(2) == 'products') active @endif">
+            <a href="{{ route('admin.products.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-box"></i>
+                <div data-i18n="Products">Products</div>
             </a>
         </li>
 

@@ -31,6 +31,7 @@ class VariantController extends Controller
     }
     function destory(){
         $data = Variant::findOrFail(request('id'));
+        $data->categories()->delete();
         $data->delete();
         return response()->json([
             'status'=>200

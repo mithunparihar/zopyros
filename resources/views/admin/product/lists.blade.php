@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
-@section('metatitle', ' Content Management: ' . \Content::ProjectName())
+@section('metatitle', 'Products : ' . \Content::ProjectName())
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold py-3 mb-4"> Content Management </h4>
+            <h4 class="fw-bold py-3 mb-0">Products </h4>
             <div class="d-flex gap-2">
-                <x-admin.button.add-more :href="route('admin.location.content.create')">Add More</x-admin.button.add-more>
+                <x-admin.button.add-more :href="route('admin.products.create')">Add More</x-admin.button.add-more>
             </div>
         </div>
         <div class="row">
@@ -17,9 +17,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Service</th>
-                                        <th>Location</th>
-                                        <th>Is Home</th>
+                                        <th>Information</th>
+                                        <th>Colors</th>
                                         <th>Is Publish</th>
                                         <th></th>
                                     </tr>
@@ -42,35 +41,28 @@
     {{-- <script src="{{ asset('admin/assets/js/tables-datatables-basic.js') }}"></script> --}}
     <script src="{{ asset('admin/js/table.js') }}"></script>
     <script>
-        const tableListUrl = @json(route('admin.location.content'));
-        const removeRecordUrl = @json(route('admin.location.content.remove'));
+        const tableListUrl = @json(route('admin.products.index'));
+        const removeRecordUrl = @json(route('admin.products.remove'));
         const sequenceUrl = '';
 
-        function deleteconformation(deleteId) {
-            if (confirm('Are you sure! You want to remove this record?')) {
-                const DeleteForm = $('.deleteForm' + deleteId).submit();
-                return true;
-            } else {
-                return false;
-            }
-        }
         let columns = [{
-            data: 'DT_RowIndex'
-        }, {
-            data: 'title',
-            className: 'text-wrap text-break',
-        }, {
-            data: 'location',
-            className: 'text-wrap text-break',
-        }, {
-            data: 'is_home'
-        }, {
-            data: 'is_publish'
-        }, {
-            data: 'action',
-            orderable: false,
-            searchable: false
-        }, ];
+                data: 'DT_RowIndex'
+            },
+            {
+                data: 'info',
+                className: 'text-wrap text-break',
+            },
+            {
+                data: 'colors'
+            }, {
+                data: 'is_publish'
+            },
+            {
+                data: 'action',
+                orderable: false,
+                searchable: false
+            },
+        ];
     </script>
     <script type="text/javascript">
         $(function() {

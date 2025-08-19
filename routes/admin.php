@@ -104,6 +104,14 @@ Route::middleware(['isAdmin'])->group(function () {
             Route::post('remove', 'destory')->name('remove');
         });
 
+        ///Products
+        Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
+        Route::controller(App\Http\Controllers\Admin\ProductController::class)->name('products.')->prefix('products')->group(function () {
+            Route::post('{product}/publish', 'publish')->name('publish');
+            Route::post('{product}/home/publish', 'homePublish')->name('home.publish');
+            Route::post('remove', 'destory')->name('remove');
+        });
+
         /// Categories
         Route::resource('categories', App\Http\Controllers\Admin\CategoroyController::class);
         Route::post('categories/{categories}/publish', [App\Http\Controllers\Admin\CategoroyController::class, 'publish'])->name('categories.publish');

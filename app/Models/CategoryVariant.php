@@ -32,4 +32,9 @@ class CategoryVariant extends Model
     {
         return $query->whereIsPublish(1);
     }
+
+    public function scopeCategory($query,$category)
+    {
+        return $query->whereCategoryId($category);
+    }
 }

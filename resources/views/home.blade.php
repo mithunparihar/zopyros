@@ -1,0 +1,270 @@
+@extends('layouts.app')
+@section('content')
+    <main>
+        @if ($sliders->isNotEmpty())
+            <div class="Slider mt-3">
+                <div id="HomeBanner" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000"
+                    data-bs-pause="false">
+                    <span class="TextBg"><span>ZOPYROS Collection</span></span>
+                    <div class="carousel-inner">
+                        @foreach ($sliders as $slider)
+                            <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
+                                <div class="img">
+                                    <x-image-preview id="blah2" fetchpriority="{{ $loop->index == 0 ? 'high' : 'low' }}"
+                                        loading="{{ $loop->index == 0 ? 'eager' : 'lazy' }}" class="defaultimg"
+                                        imagepath="banner" width="1000" height="800" :image="$slider->image" />
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @if (count($sliders) > 1)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#HomeBanner"
+                            data-bs-slide="prev" aria-label="Prev"><span class="carousel-control-prev-icon"
+                                aria-hidden="true"></span></button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#HomeBanner"
+                            data-bs-slide="next" aria-label="Next"><span class="carousel-control-next-icon"
+                                aria-hidden="true"></span></button>
+                    @endif
+                </div>
+            </div>
+        @endif
+        <section class="Home">
+            <div class="container row justify-content-center">
+                <div class="col-xl-10 text-center">
+                    @if (!empty(\Content::cmsData(1)->heading))
+                        <span class="SubTitle">{{ \Content::cmsData(1)->heading }}</span>
+                    @endif
+                    <h1 class="Heading h1 mb-5">{{ \Content::cmsData(1)->title }}</h1>
+                    {!! \Content::cmsData(1)->description !!}
+                    <a href="{{ route('about') }}" class="btn btn-o-thm1">Discover About</a>
+                </div>
+            </div>
+        </section>
+
+        @if ($categories->isNotEmpty())
+            <section class="SecCat Home">
+                <img loading="lazy" fetchpriority="low" src="{{ \App\Enums\Url::IMG }}bgsvg.svg" alt="bgsvg"
+                    width="1600" height="800" class="bgimg opacity-10">
+                <div class="container row row-gap-3 justify-content-between">
+                    <div class="col-auto">
+                        @if (!empty(\Content::cmsData(2)->heading))
+                            <span class="SubTitle">{{ \Content::cmsData(2)->heading }}</span>
+                        @endif
+                        <h2 class="Heading h1">{{ \Content::cmsData(2)->title }}</h2>
+                    </div>
+                    <div class="col-auto d-flex gap-2 align-items-end">
+                        <div class="swiper-button d-md-flex d-none h-auto">
+                            <div class="swiper-button-prev cat-prev"></div>
+                            <div class="swiper-button-next cat-next"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ProCat EndTuch swiper my-lg-5 my-4">
+                    <div class="swiper-wrapper">
+                        @foreach ($categories as $category)
+                            @livewire('category-box', ['category' => $category, 'class' => 'swiper-slide'], key('CAT-' . $category->id))
+                        @endforeach
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="swiper-button d-flex justify-content-center d-md-none">
+                        <div class="swiper-button-prev cat-prev"></div>
+                        <div class="swiper-button-next cat-next"></div>
+                    </div>
+                    <a href="{{ route('categories') }}" class="btn btn-o-thm1 m-lg-0">Explore All Categories</a>
+                </div>
+            </section>
+        @endif
+
+        <section class="SecProDucts">
+            <div class="container">
+                <div class="text-center">
+                    <span class="SubTitle">Best Selling Collection</span>
+                    <h2 class="Heading h1 mb-5">Our Product</h2>
+                    <div class="ProList row row-gap-4">
+                        @foreach ($products as $product)
+                            <div class="ProList-item col-lg-4 col-sm-6">
+                                @livewire('product-box', ['product' => $product], key('PRD-' . $product->id))
+                            </div>
+                        @endforeach
+                    </div>
+                    <a href="{{ route('shop') }}" class="btn btn-o-thm1">Explore All Products</a>
+                </div>
+            </div>
+        </section>
+        <section class="SecCounter">
+            <div class="container row row-gap-5 justify-content-between">
+                <?php $whys = [['title'=>'Products','count'=>"100",'plus'=>"+"],
+      ['title'=>'Employees','count'=>"80",'plus'=>"+"],
+      ['title'=>'Clients','count'=>"20",'plus'=>"+"],
+      ['title'=>'Years of Experience','count'=>"8",'plus'=>"+"]];
+      foreach ($whys as $why) {?>
+                <div class="col-md-auto col-6 text-center">
+                    <h3 class="fw-semibold"><span class="counter-value lh-1"
+                            data-count="<?= $why['count'] ?>">0</span><?= $why['plus'] ?></h3>
+                    <h4 class="fw-normal font1 thm1"><?= $why['title'] ?></h4>
+                </div>
+                <?php } ?>
+            </div>
+        </section>
+        <section class="SecVideo p-0">
+            <div class="Video StartTuch">
+                <div class="VideoImg">
+                    <video autoplay muted loop playsinline preload="metadata"
+                        poster="{{ \App\Enums\Url::IMG }}video-img.webp" loading="lazy" id="myVideo">
+                        <source src="{{ \App\Enums\Url::IMG }}video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        @if ($blogs->isNotEmpty())
+            <section>
+                <div class="container row row-gap-3 justify-content-between">
+                    <div class="col-auto">
+                        @if (!empty(\Content::cmsData(4)->heading))
+                            <span class="SubTitle">{{ \Content::cmsData(4)->heading }}</span>
+                        @endif
+                        <h2 class="Heading h1">{{ \Content::cmsData(4)->title }}</h2>
+                    </div>
+                    <div class="col-auto d-flex gap-2 align-items-end">
+                        <div class="swiper-button d-md-flex d-none h-auto">
+                            <div class="swiper-button-prev blog-prev"></div>
+                            <div class="swiper-button-next blog-next"></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="BlogS swiper my-lg-5 my-4">
+                            <div class="swiper-wrapper">
+                                @foreach ($blogs as $blog)
+                                    @livewire('blog-box', ['blog' => $blog, 'class' => 'swiper-slide'], key('BLG-' . $blog->id))
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="swiper-button d-flex justify-content-center d-md-none">
+                        <div class="swiper-button-prev blog-prev"></div>
+                        <div class="swiper-button-next blog-next"></div>
+                    </div>
+                    <a href="{{ route('blog') }}" class="btn btn-o-thm1 m-lg-0">Explore All Blog</a>
+                </div>
+            </section>
+        @endif
+
+        <section class="bgthm p-0 SecCon">
+            <div class="StartTuch">
+                <div class="row justify-content-between lh-1">
+                    <div class="col-md-6 map pe-xl-5 pe-lg-4 h-auto"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.519140335166!2d77.16769487546323!3d28.644170583552196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d02ef1d6d6159%3A0x15037bd28ff5cf3c!2sSAM%20Web%20Studio!5e0!3m2!1sen!2sin!4v1738848172392!5m2!1sen!2sin"
+                            width="600" height="450" allowfullscreen fetchpriority="low" loading="lazy"
+                            title="Map" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                    <div class="col-md-6 py-5 my-xl-5">
+                        @if (!empty(\Content::cmsData(5)->heading))
+                            <span class="SubTitle">{{ \Content::cmsData(5)->heading }}</span>
+                        @endif
+                        <h2 class="Heading h1">{{ \Content::cmsData(5)->title }}</h2>
+                        <div class="row row-gap-4 row-xl-gap-5 mt-5">
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Full Name *" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="email" placeholder="Email Address *" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="number" placeholder="Contact No. *" maxlength="10" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Subject *" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <textarea placeholder="Message *" class="form-control"></textarea>
+                                <button class="btn btn-o-thm1">Submit Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pb-0 SecVideo Home">
+            <div class="EndTuch Video">
+                <div class="VideoImg">
+                    <picture>
+                        <source srcset="{{ \App\Enums\Url::IMG }}bg-img.webp" type="image/webp">
+                        <img loading="lazy" fetchpriority="low" src="{{ \App\Enums\Url::IMG }}bg-img.jpg"
+                            alt="bg-img" width="1600" height="900">
+                    </picture>
+                </div>
+                <div class="VideoText StartTuch text-end">
+                    <div class="row align-items-center justify-content-end h-100">
+                        <div class="col-xxl-7 col-md-9">
+                            <span class="SubTitle">Our New</span>
+                            <h2 class="Heading h1">Made with love and dedication</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @if ($testimonials->isNotEmpty())
+            <section class="overflow-hidden">
+                <img loading="lazy" fetchpriority="low" src="img/bgsvg.svg" alt="bgsvg" width="1600"
+                    height="800" class="bgimg opacity-10">
+                <div class="container row justify-content-between align-items-center row-gap-4">
+                    <div class="col-lg-5 text-lg-start">
+                        @if (!empty(\Content::cmsData(6)->heading))
+                            <span class="SubTitle">{{ \Content::cmsData(6)->heading }}</span>
+                        @endif
+                        <h2 class="Heading h1">{{ \Content::cmsData(6)->title }}</h2>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="TestiMonial Testis swiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($testimonials as $testimonial)
+                                    <div class="swiper-slide TestiBox">
+                                        <div class="imgbx">
+                                            <div class="img">
+                                                <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg"
+                                                    imagepath="testimonial" width="300" height="300"
+                                                    :image="$testimonial->image ?? ''" />
+                                            </div>
+                                        </div>
+                                        <div class="text mt-3 text-start">
+                                            {!! $testimonial->description !!}
+                                            <div class="nametext mt-3">
+                                                <h3 class="h5 mb-0 text-u thm1">{{ $testimonial->title }}</h3>
+                                                <span class="star fs-5"
+                                                    data-title="{{ (int) $testimonial->designation }}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
+    </main>
+@endsection
+
+@push('css')
+    <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}index.min.css" fetchpriority="high">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css"
+        fetchpriority="high" onload="this.rel='stylesheet'"
+        integrity="sha512-rd0qOHVMOcez6pLWPVFIv7EfSdGKLt+eafXh4RO/12Fgr41hDQxfGvoi1Vy55QIVcQEujUE1LQrATCLl2Fs+ag=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+@endpush
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" fetchpriority="low"
+        integrity="sha512-Ysw1DcK1P+uYLqprEAzNQJP+J4hTx4t/3X2nbVwszao8wD+9afLjBQYjz7Uk4ADP+Er++mJoScI42ueGtQOzEA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" fetchpriority="low"
+        integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ \App\Enums\Url::JS }}index.js" fetchpriority="low"></script>
+@endpush

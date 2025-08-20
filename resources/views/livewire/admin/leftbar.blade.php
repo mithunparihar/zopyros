@@ -25,7 +25,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->segment(2) == 'banner' ? 'active' : '' }}">
-                    <a href="{{ route('admin.banner.edit', ['banner' => 1]) }}" class="menu-link">
+                    <a href="{{ route('admin.banner.index') }}" class="menu-link">
                         <div class="text-truncate" title="Banner Management" data-i18n="Banner">Banner</div>
                     </a>
                 </li>
@@ -167,13 +167,13 @@
             </ul>
         </li>
 
-        <li class="menu-item @if (in_array(request()->segment(2), ['projects']) || (request()->segment(2) == 'cms' && request()->segment(3) == '20')) active @endif">
+        <li class="menu-item @if (in_array(request()->segment(2), ['projects']) || (request()->segment(2) == 'cms' && request()->segment(3) == '13')) active @endif">
             <a href="{{ route('admin.projects.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-customize"></i>
                 <div data-i18n="Projects">Projects</div>
             </a>
         </li>
-        <li class="menu-item @if (in_array(request()->segment(2), ['awards']) || (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
+        <li class="menu-item @if (in_array(request()->segment(2), ['awards'])) active @endif">
             <a href="{{ route('admin.awards.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-award"></i>
                 <div data-i18n="Awards & Recognitions">Awards & Recognitions</div>
@@ -186,7 +186,7 @@
                 <div data-i18n="Testimonials">Testimonials</div>
             </a>
         </li>
-        <li class="menu-item @if (in_array(request()->segment(2), ['team']) || (request()->segment(2) == 'cms' && request()->segment(3) == '10')) active @endif">
+        <li class="menu-item @if (in_array(request()->segment(2), ['team']) || (request()->segment(2) == 'cms' && request()->segment(3) == '15')) active @endif">
             <a href="{{ route('admin.team.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                 <div data-i18n="Our Team">Our Team</div>

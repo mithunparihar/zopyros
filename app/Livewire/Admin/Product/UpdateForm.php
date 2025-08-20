@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Product;
 use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Product as Products;
+use App\Models\ProductImage;
 use App\Rules\EditorRule;
 use App\Rules\NoDangerousTags;
 use App\Rules\TextRule;
@@ -165,6 +166,38 @@ class UpdateForm extends Component
             $colors->delete();
         }
     }
+    public function eliminarImage($key, $index)
+    {
+        $inputs                     = $this->inputs->toArray();
+
+        array_splice($inputs[$key]['images'], $index, 1);
+        $this->inputs               = collect($inputs);
+    }
+    public function getImages($key)
+    {
+        $inputs                     = $this->inputs->toArray();
+        $colorId                    = $inputs[$key]['colors']['id'];
+        $images                     = \App\Models\ProductImage::color($colorId)->orderBy('is_primary', 'DESC')->get();
+        $inputs[$key]['pre_images'] = $images;
+        $this->inputs               = collect($inputs);
+    }
+
+    public function removePreImage(ProductImage $imageId, $index)
+    {
+        $checkProductImages = ProductImage::product($this->info->id)->count();
+        if ($checkProductImages < 2) {
+            $this->dispatch('errortoaster', ['title' => AlertMessageType::SORRY, 'message' => 'Deletion not allowed: This image is required and cannot be removed.']);
+        } else {
+            if ($imageId->is_primary == 1) {
+                $findImage = ProductImage::product($this->info->id)->whereNot('id', $imageId->id)->first();
+                ProductImage::whereId($findImage->id)->update(['is_primary' => 1]);
+            }
+            \Image::removeFile('product/', $imageId->image);
+            $imageId->delete();
+            $this->getImages($index);
+        }
+
+    }
 
     public function updateEditorValue($modelId, $content)
     {
@@ -291,14 +324,14 @@ class UpdateForm extends Component
 
     public function saveImage($productId, $colorId, $inputs)
     {
-        \App\Models\ProductImage::where('product_id', $productId)
+        ProductImage::where('product_id', $productId)
             ->where('color_id', $colorId)
             ->update(['is_primary' => 0]);
 
         if (count($inputs['images'] ?? []) > 0) {
             foreach ($inputs['images'] ?? [] as $imk => $image) {
                 $imageName        = \Image::autoheight('product/', $image);
-                $data             = new \App\Models\ProductImage();
+                $data             = new ProductImage();
                 $data->product_id = $productId;
                 $data->color_id   = $colorId;
                 $data->image      = $imageName;

@@ -128,11 +128,12 @@
                     </div>
                 </div>
                 @if (count($inputs[$key]['images'] ?? []) > 0 || count($inputs[$key]['pre_images'] ?? []) > 0)
-                    <div class="row border-top border-bottom pb-3">
+                    <hr>
+                    <div class="row">
                         <span wire:loading.remove wire:target="inputs.{{ $key }}.images">
                         </span>
                         @foreach ($inputs[$key]['images'] ?? [] as $imk => $image)
-                            <div class="col-2 mt-3 border-danger"
+                            <div class="col-2 mb-3 border-danger position-relative"
                                 wire:key="newimage-{{ $key }}-{{ $imk }}">
                                 @if ($image)
                                     @if (in_array($image->getMimeType(), \CommanFunction::getSupportedFiles(\App\Enums\ButtonText::SUPPORTEDIMAGE)))
@@ -142,6 +143,13 @@
                                             imagepath="" image="" />
                                     @endif
                                 @endif
+
+                                <a role="button" wire:click="eliminarImage({{$key}},{{$imk}})"
+                                    wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
+                                    style="width:20px;height:20px;top:-7px;right:5px" data-title="Remove"
+                                    class="bg-danger sws-bounce sws-top text-white text-center rounded-circle position-absolute ">
+                                    <i class="fas fa-times"></i>
+                                </a>
 
                                 @if ($inputs[$key]['primary_image'] == $imk)
                                     <button type="button" class="btn btn-sm btn-success w-100">
@@ -161,10 +169,18 @@
                         @endforeach
 
                         @foreach ($inputs[$key]['pre_images'] ?? [] as $pimk => $pre_images)
-                            <div class="col-2 mt-3 border-danger"
+                            <div class="col-2 border-danger position-relative"
                                 wire:key="preimage-{{ $key }}-{{ $pimk }}">
                                 <x-image-preview class="defaultimg w-100" id="blah" width="200"
                                     imagepath="product" :image="$pre_images->image" />
+
+                                <a role="button" wire:click="removePreImage({{ $pre_images->id }},{{$key}})"
+                                    wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
+                                    style="width:20px;height:20px;top:-7px;right:5px" data-title="Remove"
+                                    class="bg-danger sws-bounce sws-top text-white text-center rounded-circle position-absolute ">
+                                    <i class="fas fa-times"></i>
+                                </a>
+
                                 @if ($pre_images->is_primary == 1)
                                     <button type="button" class="btn btn-sm btn-success w-100">
                                         Is Primary
@@ -180,6 +196,7 @@
                             </div>
                         @endforeach
                     </div>
+                    <hr>
                 @endif
 
 

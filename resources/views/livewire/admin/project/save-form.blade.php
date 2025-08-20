@@ -10,9 +10,6 @@
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-12 mt-2">
                 <x-admin.form.label for="description" class="form-label"
                     :asterisk="true">Description</x-admin.form.label>
@@ -22,6 +19,18 @@
                         'is-invalid' => $errors->has('description'),
                     ]) class="summernote">{{ $description }}</x-admin.form.text-editor>
                 @error('description')
+                    <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                @enderror
+            </div>
+            <div class="col-md-12 mt-2">
+                <x-admin.form.label for="description" class="form-label"
+                    :asterisk="true">Description 2</x-admin.form.label>
+                <x-admin.form.text-editor wire:model="description_2" id="description_2" ignore="true"
+                    @class([
+                        'otherValidation',
+                        'is-invalid' => $errors->has('description_2'),
+                    ]) class="summernote">{{ $description }}</x-admin.form.text-editor>
+                @error('description_2')
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>

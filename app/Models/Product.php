@@ -59,4 +59,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class)->orderBy('price');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->whereIsPublish(1);
+    }
 }

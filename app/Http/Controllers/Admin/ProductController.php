@@ -37,7 +37,9 @@ class ProductController extends Controller
                 return '<input type="checkbox" class="dt-checkboxes form-check-input" name="check[' . $row->id . ']">';
             })
             ->addColumn('info', function ($row) {
-                $image                     = $row->images[0]->image ?? '';
+                $colorInfo = $row->lowestPrice[0]->colorInfo;
+                
+                $image                     = $colorInfo->images[0]->image ?? '';
                 $imageComponent            = new \App\View\Components\ImagePreview('product', $image);
                 $imageComponent->pathName  = 'product';
                 $imageComponent->imageName = $image;

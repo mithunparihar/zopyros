@@ -41,4 +41,10 @@ class ProductVariant extends Model
             set: fn($value) => Str::squish($value),
         );
     }
+
+
+    public function colorInfo()
+    {
+        return $this->hasOne(ProductColor::class, 'id', 'color_id');
+    }
 }

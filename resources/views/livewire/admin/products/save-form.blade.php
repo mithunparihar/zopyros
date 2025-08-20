@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-12 mb-2">
                 <div class=" bg-secondary bg-opacity-25 rounded-1">
-                    <h5 class="h6 mb-0 p-2">Mapped With  Colors, Sizes & Images</h5>
+                    <h5 class="h6 mb-0 p-2">Mapped With Colors, Sizes & Images</h5>
                 </div>
             </div>
             <div class="col-12 mb-2">
@@ -121,19 +121,25 @@
                     </div>
                 </div>
                 @if (count($inputs[$key]['images'] ?? []) > 0)
-                    <div class="row border-top border-bottom pb-3" wire:loading.remove
-                        wire:target="inputs.{{ $key }}.images">
+                    <hr>
+                    <div class="row" wire:loading.remove wire:target="inputs.{{ $key }}.images">
                         @foreach ($inputs[$key]['images'] ?? [] as $imk => $image)
-                            <div class="col-2 mt-3 border-danger">
+                            <div class="col-2 mb-3 border-danger position-relative">
                                 @if ($image)
                                     @if (in_array($image->getMimeType(), \CommanFunction::getSupportedFiles(\App\Enums\ButtonText::SUPPORTEDIMAGE)))
-                                        <img src="{{ $image->temporaryUrl() }}"
-                                            class=" w-100 defaultimg">
+                                        <img src="{{ $image->temporaryUrl() }}" class=" w-100 defaultimg">
                                     @else
                                         <x-image-preview class="defaultimg w-100" id="blah" width="200"
                                             imagepath="" image="" />
                                     @endif
                                 @endif
+
+                                <a role="button" wire:click="eliminarImage({{$key}},{{$imk}})"
+                                    wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
+                                    style="width:20px;height:20px;top:-7px;right:5px" data-title="Remove"
+                                    class="bg-danger sws-bounce sws-top text-white text-center rounded-circle position-absolute ">
+                                    <i class="fas fa-times"></i>
+                                </a>
 
                                 @if ($inputs[$key]['primary_image'] == $imk)
                                     <button type="button" class="btn btn-sm btn-success w-100">
@@ -152,6 +158,7 @@
                             </div>
                         @endforeach
                     </div>
+                    <hr>
                 @endif
 
                 @foreach ($inputs[$key]['sizes'] ?? [] as $szk => $sizes)

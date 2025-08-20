@@ -57,6 +57,13 @@ class SaveForm extends Component
         }
         $this->inputs = collect($inputs);
     }
+    public function eliminarImage($key, $index)
+    {
+        $inputs                     = $this->inputs->toArray();
+
+        array_splice($inputs[$key]['images'], $index, 1);
+        $this->inputs               = collect($inputs);
+    }
     public function setPrimaryImage($key, $index)
     {
         $inputs                        = $this->inputs->toArray();

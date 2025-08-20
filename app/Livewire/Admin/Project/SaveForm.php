@@ -15,7 +15,7 @@ class SaveForm extends Component
 {
     use WithFileUploads;
     public $images;
-    public $title, $image, $short_description, $description, $type;
+    public $title, $image, $description_2, $description, $type;
     public $meta_title, $meta_keywords, $meta_description;
     protected $listeners = ['updateEditorValue' => 'updateEditorValue'];
     public $primaryImageIndex;
@@ -23,6 +23,9 @@ class SaveForm extends Component
     {
         if ($modelId == 'description') {
             $this->description = $content;
+        }
+        if ($modelId == 'description_2') {
+            $this->description_2 = $content;
         }
     }
 
@@ -51,7 +54,8 @@ class SaveForm extends Component
     {
         return [
             'title' => ['required', 'unique:projects,title,NULL,id,deleted_at,NULL', 'max:200', new TextRule()],
-            'description' => ['required', new EditorRule()],
+            'description' => ['required', new EditorRule(1000)],
+            'description_2' => ['required', new EditorRule()],
             'meta_title' => ['nullable', 'max:200', new TextRule()],
             'meta_keywords' => ['nullable', 'max:500', new TextRule()],
             'meta_description' => ['nullable', 'max:500', new TextRule()],
@@ -68,6 +72,7 @@ class SaveForm extends Component
         $data->slug = $this->title;
         // $data->type_id = $this->type;
         $data->description = $this->description;
+        $data->description_2 = $this->description_2;
         $data->meta_title = $this->meta_title;
         $data->meta_keywords = $this->meta_keywords;
         $data->meta_description = $this->meta_description;
@@ -75,7 +80,7 @@ class SaveForm extends Component
 
         $this->uploadImages($data->id);
 
-        $this->reset(['title', 'title','description', 'meta_title', 'meta_keywords', 'meta_description']);
+        $this->reset(['title', 'title','description','description_2', 'meta_title', 'meta_keywords', 'meta_description']);
         $this->dispatch('emptyEditor');
         $this->dispatch('dataSaved');
         $this->dispatch('successtoaster', ['title' => AlertMessageType::SAVE, 'message' => AlertMessage::SAVE]);

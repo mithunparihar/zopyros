@@ -53,8 +53,6 @@
                     @if (in_array($image->getMimeType(), \CommanFunction::getSupportedFiles(\App\Enums\ButtonText::SUPPORTEDIMAGE)))
                         <img src="{{ $image->temporaryUrl() }}" class="defaultimg">
                     @endif
-                @else
-                    <x-image-preview class="defaultimg" id="blah" imagepath="" image="" />
                 @endif
             </div>
             <div class="col-4 mt-3">
@@ -71,8 +69,6 @@
                     @if (in_array($banner->getMimeType(), \CommanFunction::getSupportedFiles(\App\Enums\ButtonText::SUPPORTEDIMAGE)))
                         <img src="{{ $banner->temporaryUrl() }}" class="defaultimg">
                     @endif
-                @else
-                    <x-image-preview class="defaultimg" id="banner_blah" imagepath="" image="" />
                 @endif
             </div>
         </div>

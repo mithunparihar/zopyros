@@ -1,4 +1,4 @@
-<a href="{{ route('blog', ['alias' => $blog->alias]) }}"
+<a href="{{ route('blog', ['alias' => $blog->slug]) }}"
     class="{{ $className }} shadow-none card ProBlock border-0 ProBlog">
     <div class="card-header">
         <div class="proimg">

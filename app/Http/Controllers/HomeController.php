@@ -49,10 +49,24 @@ class HomeController extends Controller
     {
         if ($alias) {
             $blog = \App\Models\Blog::active()->whereSlug($alias)->firstOrFail();
-            return view('blog.info', compact('blog'));
+            $categories = \App\Models\BlogCategory::whereHas('blogs')->active()->get();
+            $previous        = \App\Models\Blog::where('post_date', '<', $blog->post_date)->active()->latest('post_date')->first();
+            $next            = \App\Models\Blog::where('post_date', '>', $blog->post_date)->active()->latest('post_date')->first();
+            $latest          = \App\Models\Blog::whereNot('slug', $alias)->active()->latest('post_date')->get();
+            $tableofcontents = $blog->tableofcontent()->orderBy('sequence')->whereIsPublish(1)->get();
+            
+            return view('blog.info', compact('blog','previous','next','latest','tableofcontents','categories'));
         }
         $blogs = \App\Models\Blog::active()->latest()->paginate(80);
         return view('blog.lists', compact('blogs'));
+    }
+
+    public function blogcategory($category)
+    {
+        $categoryAlias = $category;
+        $lists         = \App\Models\BlogCategory::whereSlug($categoryAlias)->active()->firstOrFail();
+        $blogs = \App\Models\Blog::where('category_id',$lists->id)->active()->paginate(40);
+        return view('blog.category', compact('lists', 'blogs'));
     }
 
 }

@@ -12,6 +12,13 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/testimonials', 'testimonials')->name('testimonials');
     Route::get('/team', 'team')->name('team');
     Route::get('/blog/{alias?}', 'blog')->name('blog');
+    Route::get('/blog-{category}', 'blogcategory')->name('blog.category');
+
+    Route::get('/contact', 'contact')->name('contact');
+    Route::get('/career', 'career')->name('career');
+    Route::get('/faqs', 'faqs')->name('faqs');
+    Route::get('/privacy', 'privacy')->name('privacy');
+    Route::get('/terms', 'terms')->name('terms');
 });
 
 Route::get('/image/{path}/ws_{width}/{filename}', function ($path, $width, $filename) {

@@ -32,11 +32,11 @@
         <div class="col-lg-2">
             <h3 class="mb-md-3 mb-2">Information</h3>
             <div class="links">
-                <a href="contact.php">Contact Us</a>
-                <a href="career.php">Career</a>
-                <a href="faqs.php">FAQs</a>
-                <a href="privacy-policy.php">Privacy Policy</a>
-                <a href="terms-and-conditions.php">Terms & Conditions</a>
+                <a href="{{ route('contact') }}">Contact Us</a>
+                <a href="{{ route('career') }}">Career</a>
+                <a href="{{ route('faqs') }}">FAQs</a>
+                <a href="{{ route('privacy') }}">Privacy Policy</a>
+                <a href="{{ route('terms') }}">Terms & Conditions</a>
                 <a href="sitemap.php">Site Map</a>
             </div>
         </div>

@@ -10,6 +10,17 @@
       0 => 'Jenssegers\\Agent\\AgentServiceProvider',
     ),
   ),
+  'jorenvanhocht/laravel-share' => 
+  array (
+    'aliases' => 
+    array (
+      'Share' => 'Jorenvh\\Share\\ShareFacade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Jorenvh\\Share\\Providers\\ShareServiceProvider',
+    ),
+  ),
   'laravel/pail' => 
   array (
     'providers' => 

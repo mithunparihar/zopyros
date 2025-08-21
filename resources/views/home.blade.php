@@ -93,30 +93,31 @@
             </div>
         </section>
 
-        @if($counters->isNotEmpty())
-        <section class="SecCounter">
-            <div class="container row row-gap-5 justify-content-between">
-                @foreach ($counters as $counter)
-                    <div class="col-md-auto col-6 text-center">
-                        <h3 class="fw-semibold"><span class="counter-value lh-1"
-                                data-count="{{ $counter->counter }}">0</span>+</h3>
-                        <h4 class="fw-normal font1 thm1">{{ $counter->title }}</h4>
-                    </div>
-                @endforeach
-            </div>
-        </section>
-        @endif
-        
-        <section class="SecVideo p-0">
-            <div class="Video StartTuch">
-                <div class="VideoImg">
-                    <video autoplay muted loop playsinline preload="metadata"
-                        poster="{{ \App\Enums\Url::IMG }}video-img.webp" loading="lazy" id="myVideo">
-                        <source src="{{ \App\Enums\Url::IMG }}video.mp4" type="video/mp4">
-                    </video>
+        @if ($counters->isNotEmpty())
+            <section class="SecCounter">
+                <div class="container row row-gap-5 justify-content-between">
+                    @foreach ($counters as $counter)
+                        <div class="col-md-auto col-6 text-center">
+                            <h3 class="fw-semibold"><span class="counter-value lh-1"
+                                    data-count="{{ $counter->counter }}">0</span>+</h3>
+                            <h4 class="fw-normal font1 thm1">{{ $counter->title }}</h4>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
+
+        @if (!empty($videoBanner))
+            <section class="SecVideo p-0">
+                <div class="Video StartTuch">
+                    <div class="VideoImg">
+                        <video autoplay muted loop playsinline preload="metadata"
+                            src="{{ \Image::showFile('banner', 0, $videoBanner->image) }}" loading="lazy" id="myVideo">
+                        </video>
+                    </div>
+                </div>
+            </section>
+        @endif
 
         @if ($blogs->isNotEmpty())
             <section>

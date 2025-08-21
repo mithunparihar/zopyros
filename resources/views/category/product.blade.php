@@ -120,7 +120,7 @@
                                 <div class="Sizes ms-1 mt-2">
                                     @foreach ($sizes as $size)
                                         @php $checkSizeExists = \App\Models\ProductVariant::whereProductId($product->id)->whereColorId($selectedcolor->id)->whereVariantId($size->variant_id)->exists(); @endphp
-                                        <div class="sizebtn {{ !$checkSizeExists ? 'opacity-75' : '' }} "
+                                        <div class="sizebtn {{ !$checkSizeExists ? 'opacity-50' : '' }} "
                                             @if (!$checkSizeExists) style="cursor:no-drop" @endif>
                                             <input class="sizebtn-check btn-check" type="radio" name="sizes"
                                                 id="sizes{{ $size->id }}" @checked($selectedvariant->variant_id == $size->variant_id)>

@@ -54,7 +54,9 @@ class UpdateForm extends Component
         $data = \App\Models\Banner::findOrFail($this->info->id);
         if (! empty($this->image)) {
             \Image::removeFile('banner/', $this->info->image);
-            $imageName   = \Image::uploadFile('banner', $this->image);
+
+            // $extention = $this->image->getClientOriginalExtension();
+            $imageName = \Image::uploadFile('banner', $this->image);
             $data->image = $imageName;
         }
         $data->image_alt         = $this->image_alt;

@@ -7,12 +7,14 @@
                 <div class="card-header">
                     <div class="head-label d-flex justify-content-between">
                         <h5 class="card-title mb-0">Banner Edit</h5>
-                        <x-admin.button.back />
+                        @if (!in_array($banner->id, [3, 4]))
+                            <x-admin.button.back />
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        @livewire('admin.banner.update-form',['data'=>$banner->id])
+        @livewire('admin.banner.update-form', ['data' => $banner->id])
     </div>
 @endsection
 @push('js')

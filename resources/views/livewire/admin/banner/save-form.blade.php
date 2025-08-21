@@ -48,7 +48,7 @@
     </div>
 
 
-    <div class="card mt-2 position-sticky  bottom-0" style="box-shadow:0 -4px 6px -6px rgb(0 0 0/.3);">
+    <div wire:loading.remove wire:target="image" class="card mt-2 position-sticky  bottom-0" style="box-shadow:0 -4px 6px -6px rgb(0 0 0/.3);">
         <div class="row">
             <div class="col-12">
                 <x-admin.form.save-button class="py-3 text-center" target="images,UpdateForm">

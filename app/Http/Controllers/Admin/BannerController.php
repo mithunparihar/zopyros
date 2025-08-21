@@ -11,7 +11,7 @@ class BannerController extends Controller
     public function index()
     {
         if (\request()->ajax()) {
-            $data = Banner::latest()->whereNotIn('id', [3]);
+            $data = Banner::latest()->whereNotIn('id', [3,4]);
             $data = $data->get();
             return $this->dataTable($data);
         }

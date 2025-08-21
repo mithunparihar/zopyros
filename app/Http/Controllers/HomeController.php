@@ -5,14 +5,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders      = \App\Models\Banner::active()->whereNotIn('id', [3])->latest()->get();
+        $sliders      = \App\Models\Banner::active()->whereNotIn('id', [3, 4])->latest()->get();
         $banner       = \App\Models\Banner::active()->find(3);
+        $videoBanner  = \App\Models\Banner::active()->find(4);
         $categories   = \App\Models\Category::parent(0)->active()->latest()->take(10)->get();
-        $counters   = \App\Models\Counter::active()->latest()->get();
+        $counters     = \App\Models\Counter::active()->latest()->get();
         $blogs        = \App\Models\Blog::active()->latest('post_date')->take(10)->get();
         $products     = \App\Models\Product::active()->latest()->take(10)->get();
         $testimonials = \App\Models\Testimonial::active()->latest()->take(10)->get();
-        return view('home', compact('sliders', 'categories', 'banner','counters', 'blogs', 'products', 'testimonials'));
+        return view('home', compact('sliders', 'categories', 'banner','videoBanner', 'counters', 'blogs', 'products', 'testimonials'));
     }
 
     public function about()

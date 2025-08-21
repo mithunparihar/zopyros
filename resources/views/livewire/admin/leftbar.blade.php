@@ -25,7 +25,7 @@
             </a>
             <ul class="menu-sub">
                 <li
-                    class="menu-item {{ request()->segment(2) == 'banner' && request()->segment(3) != 3 ? 'active' : '' }}">
+                    class="menu-item {{ request()->segment(2) == 'banner' && !in_array(request()->segment(3), [3, 4]) ? 'active' : '' }}">
                     <a href="{{ route('admin.banner.index') }}" class="menu-link">
                         <div class="text-truncate" title="Banner Management" data-i18n="Banner">Banner</div>
                     </a>
@@ -56,6 +56,13 @@
                 <li class="menu-item {{ request()->segment(2) == 'counter' ? 'active' : '' }}">
                     <a href="{{ route('admin.counter.index') }}" class="menu-link">
                         <div class="text-truncate" title="Counter Management" data-i18n="Counter">Counter</div>
+                    </a>
+                </li>
+                <li
+                    class="menu-item {{ request()->segment(2) == 'banner' && request()->segment(4) == 'edit' && request()->segment(3) == 4 ? 'active' : '' }}">
+                    <a href="{{ route('admin.banner.edit', ['banner' => 4]) }}" class="menu-link">
+                        <div class="text-truncate" title="Banner Management" data-i18n="Video Banner">Video Banner
+                        </div>
                     </a>
                 </li>
                 <li

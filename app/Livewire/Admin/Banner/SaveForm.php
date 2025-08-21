@@ -25,14 +25,14 @@ class SaveForm extends Component
             'link'      => ['nullable', 'url', 'max:300'],
             'image'     => [
                 'required',
-                'mimes:jpeg,png,jpg,webp',
-                'max:5000',
+                'mimes:jpeg,png,jpg,webp,mp4',
+                'max:60000',
             ],
         ];
     }
 
-    protected $validationAttributes=[
-        'link' => 'banner link'
+    protected $validationAttributes = [
+        'link' => 'banner link',
     ];
 
     public function UpdateForm()
@@ -45,7 +45,7 @@ class SaveForm extends Component
             $data->image = $imageName;
         }
         $data->image_alt = $this->image_alt;
-        $data->url = $this->link;
+        $data->url       = $this->link;
         $data->save();
         $this->reset();
         $this->dispatch('successtoaster', ['title' => AlertMessageType::SAVE, 'message' => AlertMessage::SAVE]);

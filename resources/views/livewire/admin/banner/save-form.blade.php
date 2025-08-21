@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-4 mt-2">
                 <x-admin.form.label for="formFile" class="formFile form-label" asterisk="false">
-                    Best Image <small>(1000px * 800px)</small>
+                    Best Image <a role="button" class="sws-bounce sws-top" data-title="You can upload both video and image here. Only MP4 video can be uploaded."><i class="fas fa-info-circle"></i></a> <small>(1000px * 800px)</small>
                 </x-admin.form.label>
                 <x-admin.form.input name="image" @class(['is-invalid' => $errors->has('image')]) wire:model="image" type="file"
                     accept="image/*" />

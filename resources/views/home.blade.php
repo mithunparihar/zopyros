@@ -92,21 +92,21 @@
                 </div>
             </div>
         </section>
+
+        @if($counters->isNotEmpty())
         <section class="SecCounter">
             <div class="container row row-gap-5 justify-content-between">
-                <?php $whys = [['title'=>'Products','count'=>"100",'plus'=>"+"],
-      ['title'=>'Employees','count'=>"80",'plus'=>"+"],
-      ['title'=>'Clients','count'=>"20",'plus'=>"+"],
-      ['title'=>'Years of Experience','count'=>"8",'plus'=>"+"]];
-      foreach ($whys as $why) {?>
-                <div class="col-md-auto col-6 text-center">
-                    <h3 class="fw-semibold"><span class="counter-value lh-1"
-                            data-count="<?= $why['count'] ?>">0</span><?= $why['plus'] ?></h3>
-                    <h4 class="fw-normal font1 thm1"><?= $why['title'] ?></h4>
-                </div>
-                <?php } ?>
+                @foreach ($counters as $counter)
+                    <div class="col-md-auto col-6 text-center">
+                        <h3 class="fw-semibold"><span class="counter-value lh-1"
+                                data-count="{{ $counter->counter }}">0</span>+</h3>
+                        <h4 class="fw-normal font1 thm1">{{ $counter->title }}</h4>
+                    </div>
+                @endforeach
             </div>
         </section>
+        @endif
+        
         <section class="SecVideo p-0">
             <div class="Video StartTuch">
                 <div class="VideoImg">
@@ -155,25 +155,27 @@
 
         @livewire('contact-box')
 
-        <section class="pb-0 SecVideo Home">
-            <div class="EndTuch Video">
-                <div class="VideoImg">
-                    <picture>
-                        <source srcset="{{ \App\Enums\Url::IMG }}bg-img.webp" type="image/webp">
-                        <img loading="lazy" fetchpriority="low" src="{{ \App\Enums\Url::IMG }}bg-img.jpg"
-                            alt="bg-img" width="1600" height="900">
-                    </picture>
-                </div>
-                <div class="VideoText StartTuch text-end">
-                    <div class="row align-items-center justify-content-end h-100">
-                        <div class="col-xxl-7 col-md-9">
-                            <span class="SubTitle">Our New</span>
-                            <h2 class="Heading h1">Made with love and dedication</h2>
+        @if (!empty($banner))
+            <section class="pb-0 SecVideo Home">
+                <div class="EndTuch Video">
+                    <div class="VideoImg">
+                        <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner"
+                            width="1600" height="900" :image="$banner->image" />
+                    </div>
+                    <div class="VideoText StartTuch text-end">
+                        <div class="row align-items-center justify-content-end h-100">
+                            <div class="col-xxl-7 col-md-9">
+                                <span class="SubTitle">{{ $banner->short_description }}</span>
+                                <h2 class="Heading h1">{{ $banner->image_alt }}</h2>
+                                @if (!empty($banner->link))
+                                    <a class="btn btn-thm1" href="{{ $banner->link }}">Discover More</a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
 
         @if ($testimonials->isNotEmpty())
             <section class="overflow-hidden">
@@ -220,6 +222,14 @@
 @endsection
 
 @push('css')
+    <x-meta :options="[
+        'imgpath' => '',
+        'img' => '',
+        'title' => \Content::meta(1)->title ?? '',
+        'keywords' => \Content::meta(1)->keywords ?? '',
+        'description' => \Content::meta(1)->description ?? '',
+        'breadcrumb' => $breadcrumb ?? '',
+    ]" />
     <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}index.min.css" fetchpriority="high">
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css"
         fetchpriority="high" onload="this.rel='stylesheet'"

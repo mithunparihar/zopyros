@@ -12,7 +12,7 @@ use Livewire\WithFileUploads;
 class UpdateForm extends Component
 {
     use WithFileUploads;
-    public $image_alt, $image,$link;
+    public $image_alt, $image, $link, $heading;
     public $info;
     protected $listeners = ['refreshBlogEdit' => 'mount'];
     public function mount(Banner $data)
@@ -21,6 +21,7 @@ class UpdateForm extends Component
         $this->preId     = $data->id;
         $this->image_alt = $data->image_alt;
         $this->link      = $data->url;
+        $this->heading   = $data->short_description;
     }
 
     public function render()
@@ -32,11 +33,12 @@ class UpdateForm extends Component
     {
         return [
             'image_alt' => ['required', 'max:200', new TextRule(), new NoDangerousTags()],
+            'heading'   => ['nullable', 'max:200', new TextRule(), new NoDangerousTags()],
             'link'      => ['nullable', 'url', 'max:300'],
             'image'     => [
                 'nullable',
-                'mimes:mp4,mpeg',
-                'max:30000',
+                'mimes:jpeg,png,jpg,webp,mp4',
+                'max:60000',
             ],
         ];
     }
@@ -55,8 +57,9 @@ class UpdateForm extends Component
             $imageName   = \Image::uploadFile('banner', $this->image);
             $data->image = $imageName;
         }
-        $data->image_alt = $this->image_alt;
-        $data->url       = $this->link;
+        $data->image_alt         = $this->image_alt;
+        $data->url               = $this->link;
+        $data->short_description = $this->heading;
 
         $data->save();
         $this->dispatch('refreshBlogEdit', data: $data->id);

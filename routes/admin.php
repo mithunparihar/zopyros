@@ -96,6 +96,16 @@ Route::middleware(['isAdmin'])->group(function () {
         /// Awards & Recognitions
         Route::resource('awards', App\Http\Controllers\Admin\AwardController::class, ['only' => ['index']]);
 
+        /// Clients
+        Route::resource('clients', App\Http\Controllers\Admin\ClientController::class, ['only' => ['index']]);
+
+        ///Counter
+        Route::resource('counter', App\Http\Controllers\Admin\CounterController::class);
+        Route::controller(App\Http\Controllers\Admin\CounterController::class)->name('counter.')->prefix('counter')->group(function () {
+            Route::post('{counter}/publish', 'publish')->name('publish');
+            Route::post('remove', 'destory')->name('remove');
+        });
+
         ///Variants
         Route::resource('variants', App\Http\Controllers\Admin\VariantController::class);
         Route::controller(App\Http\Controllers\Admin\VariantController::class)->name('variants.')->prefix('variants')->group(function () {
@@ -110,6 +120,17 @@ Route::middleware(['isAdmin'])->group(function () {
             Route::post('{product}/publish', 'publish')->name('publish');
             Route::post('{product}/home/publish', 'homePublish')->name('home.publish');
             Route::post('remove', 'destory')->name('remove');
+        });
+
+
+        /// Facilities
+        Route::controller(App\Http\Controllers\Admin\FacilityController::class)->name('facilities.')->group(function () {
+            Route::get('facilities', 'index')->name('index');
+            Route::get('facilities/create', 'create')->name('create');
+            Route::get('facilities/{facility}/edit', 'edit')->name('edit');
+
+            Route::post('facilities/{facility}/publish', 'publish')->name('publish');
+            Route::post('facilities/remove', 'destory')->name('remove');
         });
 
         /// Categories

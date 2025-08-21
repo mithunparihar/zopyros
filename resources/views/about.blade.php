@@ -42,24 +42,22 @@
                 </div>
             </div>
         </section>
-        <div class="SecLogos py-4 border-bottom border-dark border-opacity-50">
-            <div class="container-fluid p-0">
-                <div class="Logos">
-                    <div class="swiper-wrapper">
-                        <?php for($b=1; $b<=4; $b++) {
-          for($ba=1; $ba<=4; $ba++) {?>
-                        <div class="swiper-slide text-center">
-                            <picture>
-                                <source srcset="img/cer-img<?= $ba ?>.webp" type="image/webp">
-                                <img loading="lazy" fetchpriority="low" src="img/cer-img<?= $ba ?>.png" alt="cer<?= $ba ?>"
-                                    width="165" height="54">
-                            </picture>
+
+        @if ($clients->isNotEmpty())
+            <div class="SecLogos py-4 border-bottom border-dark border-opacity-50">
+                <div class="container-fluid p-0">
+                    <div class="Logos">
+                        <div class="swiper-wrapper">
+                            @foreach ($clients as $client)
+                                <div class="swiper-slide text-center">
+                                    <x-image-preview width="200" height="54" imagepath="clients" :image="$client->image" />
+                                </div>
+                            @endforeach
                         </div>
-                        <?php }} ?>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         @if ($awards->isNotEmpty())
             <section>
@@ -101,8 +99,8 @@
         'imgpath' => '',
         'img' => '',
         'title' => \Content::meta(2)->title ?? '',
-        'keywords' => \Content::meta(2)->title ?? '',
-        'description' => \Content::meta(2)->title ?? '',
+        'keywords' => \Content::meta(1)->keywords ?? '',
+        'description' => \Content::meta(1)->description ?? '',
         'breadcrumb' => $breadcrumb ?? '',
     ]" />
     <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}pages.min.css" fetchpriority="high">

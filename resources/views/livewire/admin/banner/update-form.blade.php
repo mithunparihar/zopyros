@@ -2,14 +2,31 @@
     @csrf
     <div class="card p-3 mt-2">
         <div class="row">
+            @if ($info->id == 3)
+                <div class="mb-2 col-md-12">
+                    <x-admin.form.label class="form-label" for="heading" :asterisk="false">Heading</x-admin.form.label>
+                    <x-admin.form.input @class(['otherValidation', 'is-invalid' => $errors->has('heading')]) wire:model="heading" placeholder="Heading Here..."
+                        type="text" />
+                    @error('heading')
+                        <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                    @enderror
+                </div>
+            @endif
+
+
             <div class="mb-2 col-md-12">
-                <x-admin.form.label class="form-label" for="image_alt" :asterisk="true">Image Alt</x-admin.form.label>
+                <x-admin.form.label class="form-label" for="image_alt" :asterisk="true">
+                    @if ($info->id == 3)
+                        Title /
+                    @endif Image Alt
+                </x-admin.form.label>
                 <x-admin.form.input @class(['otherValidation', 'is-invalid' => $errors->has('image_alt')]) wire:model="image_alt" placeholder="Image Alt Here..."
                     type="text" />
                 @error('image_alt')
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>
+
             <div class="mb-2 col-md-12">
                 <x-admin.form.label class="form-label" for="link" :asterisk="false">Banner Link</x-admin.form.label>
                 <x-admin.form.input @class(['otherValidation', 'is-invalid' => $errors->has('link')]) wire:model="link" placeholder="Banner Link Here..."
@@ -25,7 +42,12 @@
         <div class="row">
             <div class="col-4 mt-2">
                 <x-admin.form.label for="formFile" class="formFile form-label" asterisk="false">
-                    Best Image <small>(1000px * 800px)</small>
+                    Best Image <a role="button" class="sws-bounce sws-top" data-title="You can upload both video and image here. Only MP4 video can be uploaded."><i class="fas fa-info-circle"></i></a>
+                    @if ($info->id == 3)
+                        <small>(1600px * 900px)</small>
+                    @else
+                        <small>(1000px * 800px)</small>
+                    @endif
                 </x-admin.form.label>
                 <x-admin.form.input name="image" @class(['is-invalid' => $errors->has('image')]) wire:model="image" type="file"
                     accept="video/mp4" />

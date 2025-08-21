@@ -18,13 +18,14 @@
             </a>
         </li>
         <li
-            class="menu-item {{ in_array(request()->segment(2), ['banner']) || (request()->segment(2) == 'cms' && in_array(request()->segment(3), [1, 2, 3, 4, 5, 6])) ? 'active open' : '' }}">
+            class="menu-item {{ in_array(request()->segment(2), ['banner', 'counter']) || (request()->segment(2) == 'cms' && in_array(request()->segment(3), [1, 2, 3, 4, 5, 6])) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-spreadsheet'></i>
                 <div class="text-truncate" data-i18n="Home Page">Home Page</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->segment(2) == 'banner' ? 'active' : '' }}">
+                <li
+                    class="menu-item {{ request()->segment(2) == 'banner' && request()->segment(3) != 3 ? 'active' : '' }}">
                     <a href="{{ route('admin.banner.index') }}" class="menu-link">
                         <div class="text-truncate" title="Banner Management" data-i18n="Banner">Banner</div>
                     </a>
@@ -52,6 +53,11 @@
                             Product Section (Heading)</div>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->segment(2) == 'counter' ? 'active' : '' }}">
+                    <a href="{{ route('admin.counter.index') }}" class="menu-link">
+                        <div class="text-truncate" title="Counter Management" data-i18n="Counter">Counter</div>
+                    </a>
+                </li>
                 <li
                     class="menu-item {{ request()->segment(2) == 'cms' && request()->segment(3) == 4 ? 'active' : '' }}">
                     <a href="{{ route('admin.cms.edit', ['cm' => 4]) }}" class="menu-link">
@@ -65,6 +71,13 @@
                         <div class="text-truncate" title="Contact Section (Heading)"
                             data-i18n="Contact Section (Heading)">
                             Contact Section (Heading)</div>
+                    </a>
+                </li>
+                <li
+                    class="menu-item {{ request()->segment(2) == 'banner' && request()->segment(4) == 'edit' && request()->segment(3) == 3 ? 'active' : '' }}">
+                    <a href="{{ route('admin.banner.edit', ['banner' => 3]) }}" class="menu-link">
+                        <div class="text-truncate" title="Banner Management" data-i18n="Second Banner">Second Banner
+                        </div>
                     </a>
                 </li>
                 <li
@@ -98,6 +111,12 @@
             <a href="{{ route('admin.products.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-box"></i>
                 <div data-i18n="Products">Products</div>
+            </a>
+        </li>
+        <li class="menu-item @if (request()->segment(2) == 'facilities') active @endif">
+            <a href="{{ route('admin.facilities.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-bar-chart-alt-2"></i>
+                <div data-i18n="Facilities">Facilities</div>
             </a>
         </li>
 
@@ -138,7 +157,7 @@
             <span class="menu-header-text">Quick Link</span>
         </li>
         <li
-            class="menu-item {{ in_array(request()->segment(2), ['team', 'insurance']) || (request()->segment(2) == 'cms' && in_array(request()->segment(3), [7, 8, 9])) ? 'active open' : '' }}">
+            class="menu-item {{ in_array(request()->segment(2), ['team', 'insurance', 'clients']) || (request()->segment(2) == 'cms' && in_array(request()->segment(3), [7, 8, 9])) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-spreadsheet'></i>
                 <div class="text-truncate" data-i18n="About Us">About Us</div>
@@ -162,6 +181,12 @@
                     class="menu-item {{ request()->segment(2) == 'cms' && request()->segment(3) == 9 ? 'active' : '' }}">
                     <a href="{{ route('admin.cms.edit', ['cm' => 9]) }}" class="menu-link">
                         <div class="text-truncate" title="Our Vision" data-i18n="Our Vision">Our Vision</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->segment(2) == 'clients' ? 'active' : '' }}">
+                    <a href="{{ route('admin.clients.index') }}" class="menu-link">
+                        <div class="text-truncate" title="Our Mission" data-i18n="Clients">
+                            Clients</div>
                     </a>
                 </li>
             </ul>

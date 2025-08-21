@@ -33,7 +33,6 @@
                                 { data: 'title',className:'text-wrap text-break'},
                                 { data: 'variants'},
                                 { data: 'set_home'},
-                                { data: 'set_footer'},
                                 { data: 'is_publish'},
                                  {data : 'sequence'},
                                 {
@@ -75,7 +74,9 @@
                                         @endif
                                         <th>Variants</th>
                                         <th>Set Home</th>
+                                        @if ($level < 2)
                                         <th>Set Footer</th>
+                                         @endif
                                         <th>Is Publish</th>
                                         <th>Sequence</th>
                                         <th>

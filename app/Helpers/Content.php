@@ -117,7 +117,7 @@ class Content
                 return 'Categories (Page Content)';
                 break;
             case '17':
-                return 'Contact (Page Content)';
+                return 'FAQs (Page Content)';
                 break;
             case '18':
                 return 'Our Team (Heading Content)';

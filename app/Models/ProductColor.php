@@ -19,6 +19,14 @@ class ProductColor extends Model
         );
     }
 
+    protected function alias(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => strtolower(Str::slug($value)),
+            get: fn($value) => strtolower(Str::slug($value))
+        );
+    }
+
     protected function hex(): Attribute
     {
         return Attribute::make(

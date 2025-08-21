@@ -3,7 +3,7 @@
     <main>
         <section class="pt-4 Home">
             <div class="container">
-                <x-breadcrumb :lists="[
+                <x-breadcrumb :lists="$breadcrumb = [
                     'About Us' => url()->current(),
                 ]" />
                 <h1 class="Heading h2 mb-4">{{ \Content::cmsData(7)->title }}</h1>
@@ -97,6 +97,14 @@
     </main>
 @endsection
 @push('css')
+    <x-meta :options="[
+        'imgpath' => '',
+        'img' => '',
+        'title' => \Content::meta(2)->title ?? '',
+        'keywords' => \Content::meta(2)->title ?? '',
+        'description' => \Content::meta(2)->title ?? '',
+        'breadcrumb' => $breadcrumb ?? '',
+    ]" />
     <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}pages.min.css" fetchpriority="high">
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css"
         onload="this.rel='stylesheet'" fetchpriority="high"

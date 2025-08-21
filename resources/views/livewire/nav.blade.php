@@ -52,13 +52,15 @@
                 <ul class="navbar-nav">
                     <li class="nav-item active"><a href="" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="about.php" class="nav-link">About Us</a></li>
-                    <li class="nav-item dropdown CatMegamenu"><a href="category.php" class="nav-link">Category</a>
+                    <li class="nav-item dropdown CatMegamenu"><a href="{{ route('categories') }}"
+                            class="nav-link">Category</a>
                         <div class="dropdown-menu Megamenu Mmenu p-0 ps-md-4">
                             <div class="row">
-                                <?php foreach ($Cat ?? [] as $a=>$Cats) { ?>
-                                <div class="col-md-6"><a class="TitleMenu fw-semibold" href="#"
-                                        title="<?= $Cats['title'] ?>"><?= $Cats['title'] ?></a></div>
-                                <?php }?>
+                                @foreach ($categories as $category)
+                                    <div class="col-md-6"><a class="TitleMenu fw-semibold"
+                                            href="{{ route('category', ['category' => $category->fullURL()]) }}"
+                                            title="{{ $category->title }}">{{ $category->title }}</a></div>
+                                @endforeach
                             </div>
                         </div>
                     </li>

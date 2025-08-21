@@ -71,10 +71,13 @@ class Category extends Model
     {
         return $this->hasOne(Category::class, 'id', 'parent_id');
     }
-
+    public function products()
+    {
+        return $this->hasMany(ProductCategory::class, 'category_id', 'id');
+    }
     public function variants()
     {
-        return $this->hasMany(CategoryVariant::class,'category_id','id');
+        return $this->hasMany(CategoryVariant::class, 'category_id', 'id');
     }
 
     public function scopeActive($query)

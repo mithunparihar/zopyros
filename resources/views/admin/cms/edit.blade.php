@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="head-label d-flex justify-content-between">
                         <h5 class="card-title mb-0">{{ \Content::cmsHeading($cm->id) }}</h5>
-                        @if(in_array($cm->id,[10,13,14,15,16]))
+                        @if(in_array($cm->id,[10,13,14,15,16,17]))
                         <x-admin.button.back />
                         @endif
                     </div>

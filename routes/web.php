@@ -15,8 +15,8 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/blog-{category}', 'blogcategory')->name('blog.category');
 
     Route::get('/contact', 'contact')->name('contact');
-    Route::get('/career', 'career')->name('career');
-    Route::get('/faqs', 'faqs')->name('faqs');
+    Route::get('/career/{alias?}', 'career')->name('career');
+    Route::get('/faqs/{category?}', 'faqs')->name('faqs');
     Route::get('/privacy', 'privacy')->name('privacy');
     Route::get('/terms', 'terms')->name('terms');
 });
@@ -27,3 +27,9 @@ Route::get('/image/{path}/ws_{width}/{filename}', function ($path, $width, $file
         ->header('Content-Type', 'image/avif')
         ->header('Cache-Control', 'public, max-age=31536000');
 })->name('image.resize');
+
+Route::controller(App\Http\Controllers\CategoryController::class)->group(function () {
+    Route::get('/categories', 'index')->name('categories');
+    // Route::get('/p/{alias}', 'product')->name('product');
+    Route::get('/{category}', 'category')->name('category')->where('category', '^(?!control-panel|sitemap\.xml).*$');
+});

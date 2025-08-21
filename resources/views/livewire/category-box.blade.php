@@ -1,4 +1,4 @@
-<a href="products-listing.php" class="{{ $className }} shadow-none card ProBlock ProCatS">
+<a href="{{route('category',['category'=>$category->fullURL()])}}" class="{{ $className }} shadow-none card ProBlock ProCatS">
     <div class="card-header">
         <div class="proimg">
             <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="categories" width="500"

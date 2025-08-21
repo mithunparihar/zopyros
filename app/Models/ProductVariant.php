@@ -47,4 +47,9 @@ class ProductVariant extends Model
     {
         return $this->hasOne(ProductColor::class, 'id', 'color_id');
     }
+
+    public function variantInfo()
+    {
+        return $this->hasOne(CategoryVariant::class, 'id', 'variant_id');
+    }
 }

@@ -24,9 +24,9 @@
         <div class="col-lg-2">
             <h3 class="mb-md-3 mb-2">Category</h3>
             <div class="links">
-                <?php for($cat=1; $cat<=5; $cat++) { ?>
-                <a href="category.php">Category <?= $cat ?></a>
-                <?php } ?>
+                @foreach($categories as $category)
+                <a href="{{route('category',['category'=>$category->fullURL()])}}">{{$category->title}}</a>
+                @endforeach
             </div>
         </div>
         <div class="col-lg-2">

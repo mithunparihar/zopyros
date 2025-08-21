@@ -314,6 +314,7 @@ class UpdateForm extends Component
             }
             $data->hex        = $inputs['colors']['code'];
             $data->name       = $inputs['colors']['name'];
+            $data->alias       = $inputs['colors']['name'];
             $data->is_publish = 1;
             $data->save();
 

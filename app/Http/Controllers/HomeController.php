@@ -34,6 +34,41 @@ class HomeController extends Controller
         $teams = \App\Models\Team::active()->latest()->paginate(80);
         return view('team', compact('teams'));
     }
+    public function terms()
+    {
+        return view('terms');
+    }
+    public function privacy()
+    {
+        return view('privacy');
+    }
+    public function contact()
+    {
+        $contact = \App\Models\Contact::find(1);
+        return view('contact', compact('contact'));
+    }
+    public function career($alias = null)
+    {
+        if ($alias) {
+            $list = \App\Models\Career::active()->whereAlias($alias)->firstOrFail();
+            return view('career.info', compact('list'));
+        }
+        $lists = \App\Models\Career::active()->latest()->paginate(40);
+        return view('career.list', compact('lists'));
+    }
+    public function faqs($category = null)
+    {
+        $lists = \App\Models\Faq::active();
+        if ($category) {
+            $lists = $lists->whereHas('categoryInfo', function ($qry) use ($category) {
+                $qry->whereAlias($category)->active();
+            });
+            $category = \App\Models\FaqCategory::whereAlias($category)->active()->firstOrFail();
+        }
+        $lists      = $lists->latest()->paginate(20);
+        $categories = \App\Models\FaqCategory::orderBy('title')->active()->get();
+        return view('faqs', compact('lists', 'categories', 'category'));
+    }
 
     public function projects($alias = null)
     {
@@ -48,14 +83,14 @@ class HomeController extends Controller
     public function blog($alias = null)
     {
         if ($alias) {
-            $blog = \App\Models\Blog::active()->whereSlug($alias)->firstOrFail();
-            $categories = \App\Models\BlogCategory::whereHas('blogs')->active()->get();
+            $blog            = \App\Models\Blog::active()->whereSlug($alias)->firstOrFail();
+            $categories      = \App\Models\BlogCategory::whereHas('blogs')->active()->get();
             $previous        = \App\Models\Blog::where('post_date', '<', $blog->post_date)->active()->latest('post_date')->first();
             $next            = \App\Models\Blog::where('post_date', '>', $blog->post_date)->active()->latest('post_date')->first();
             $latest          = \App\Models\Blog::whereNot('slug', $alias)->active()->latest('post_date')->get();
             $tableofcontents = $blog->tableofcontent()->orderBy('sequence')->whereIsPublish(1)->get();
-            
-            return view('blog.info', compact('blog','previous','next','latest','tableofcontents','categories'));
+
+            return view('blog.info', compact('blog', 'previous', 'next', 'latest', 'tableofcontents', 'categories'));
         }
         $blogs = \App\Models\Blog::active()->latest()->paginate(80);
         return view('blog.lists', compact('blogs'));
@@ -65,7 +100,7 @@ class HomeController extends Controller
     {
         $categoryAlias = $category;
         $lists         = \App\Models\BlogCategory::whereSlug($categoryAlias)->active()->firstOrFail();
-        $blogs = \App\Models\Blog::where('category_id',$lists->id)->active()->paginate(40);
+        $blogs         = \App\Models\Blog::where('category_id', $lists->id)->active()->paginate(40);
         return view('blog.category', compact('lists', 'blogs'));
     }
 

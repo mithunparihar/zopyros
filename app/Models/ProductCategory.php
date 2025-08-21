@@ -17,4 +17,8 @@ class ProductCategory extends Model
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
+
+    function scopeCategory($query,$category){
+        return $query->whereCategoryId($category);
+    }
 }

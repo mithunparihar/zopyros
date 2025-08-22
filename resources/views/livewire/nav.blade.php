@@ -18,18 +18,7 @@
                 <div class="col LastNav z-lg-3">
                     <div class="SearchBoxs">
                         <form action="{{ route('search') }}" id="Hsearch" class="collapse" tabindex="-1">
-                            <div class="tabtype">
-                                <a href="#Hsearch" data-bs-toggle="collapse" aria-expanded="false"
-                                    aria-controls="Hsearch" title="Close" class="IconImg Dsearch collapsed">
-                                    <svg viewBox="0 0 8 8" id="closeBtn">
-                                        <path d="M1,7,7,1M7,7,1,1" />
-                                    </svg>
-                                    <span id="spinnerBtn" class="spinner-border"
-                                        style="font-size: 11px;width:23px;height:23px"></span>
-                                </a>
-                                <input type="text" name="q" id="SearchB" class="form-control"
-                                    value="{{ request('q') }}" placeholder="Search..." autocomplete="off">
-                            </div>
+                            @livewire('search-box')
                         </form>
                         <label data-bs-toggle="collapse" data-bs-target="#Hsearch" for="SearchB"
                             aria-controls="Hsearch" title="Search" class="IconImg Dsearch collapsed"><svg
@@ -78,28 +67,3 @@
         </div>
     </div>
 </div>
-
-@push('js')
-    <script>
-        let time;
-        let closeBtn = document.getElementById('closeBtn');
-        let spinnerBtn = document.getElementById('spinnerBtn');
-        let SearchB = document.getElementById('SearchB');
-        spinnerBtn.style.display = "none";
-        SearchB.addEventListener('input', function(event) {
-            let query = event.target.value;
-            closeBtn.style.display = "none";
-            spinnerBtn.style.display = "block";
-            clearTimeout(time);
-            time = setTimeout(() => {
-                Livewire.dispatch('autoSearchData', {
-                    query: query
-                });
-                setTimeout(() => {
-                    closeBtn.style.display = "block";
-                    spinnerBtn.style.display = "none";
-                }, 500);
-            }, 300);
-        });
-    </script>
-@endpush

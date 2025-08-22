@@ -110,8 +110,38 @@ class Category extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where(function ($qry) use ($search) {
-            return $qry->where('title', 'LIKE', '%' . $search . '%');
+        $words      = explode(" ", $search);
+        $totalWords = count($words);
+        $results    = [];
+
+        for ($length = $totalWords; $length >= 1; $length--) {
+            for ($i = 0; $i <= $totalWords - $length; $i++) {
+                $slice     = array_slice($words, $i, $length);
+                $results[] = implode(" ", $slice);
+            }
+        }
+
+        return $query->where(function ($qry) use ($results) {
+            foreach ($results as $index => $phrase) {
+                if ($index === 0) {
+                    $qry->where('title', 'LIKE', '%' . $phrase . '%');
+                } else {
+                    $qry->orWhere('title', 'LIKE', '%' . $phrase . '%');
+                }
+            }
+            $qry->orWhereHas('products', function ($productQuery) use ($results) {
+                $productQuery->where(function ($q) use ($results) {
+                    $q->whereHas('productInfo', function ($qer) use ($results) {
+                        foreach ($results as $index => $phrase) {
+                            if ($index === 0) {
+                                $qer->where('title', 'LIKE', '%' . $phrase . '%');
+                            } else {
+                                $qer->orWhere('title', 'LIKE', '%' . $phrase . '%');
+                            }
+                        }
+                    });
+                });
+            });
         });
     }
 }

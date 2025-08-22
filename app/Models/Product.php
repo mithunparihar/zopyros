@@ -73,4 +73,25 @@ class Product extends Model implements Viewable
         return $query->where('id', '!=', $product->id)
             ->limit(10);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        $words      = explode(" ", $search);
+        $totalWords = count($words);
+        $results    = [];
+
+        for ($length = $totalWords; $length >= 1; $length--) {
+            for ($i = 0; $i <= $totalWords - $length; $i++) {
+                $slice     = array_slice($words, $i, $length);
+                $results[] = implode(" ", $slice);
+            }
+        }
+
+        return $query->where(function ($qry) use ($results) {
+
+            foreach ($results as $phrase) {
+                $qry->orWhere('title', 'LIKE', '%' . $phrase . '%');
+            }
+        });
+    }
 }

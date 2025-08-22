@@ -21,6 +21,10 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/terms', 'terms')->name('terms');
 });
 
+Route::controller(\App\Http\Controllers\SearchController::class)->group(function () {
+    Route::get('/search', 'search')->name('search');
+});
+
 Route::get('/image/{path}/ws_{width}/{filename}', function ($path, $width, $filename) {
     $binary = \Image::getBinary($path, $width, $filename);
     return response($binary, 200)

@@ -21,6 +21,7 @@
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     @stack('css')
+    @livewireStyles
     <link rel="dns-prefetch" href="{{ route('home') }}">
     <link rel="preconnect" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="//cdn.jsdelivr.net">
@@ -32,6 +33,7 @@
     @livewire('nav')
     @yield('content')
     @livewire('footer')
+    @livewireScripts
     
     <div class="modal CallBack NoImgB fade" id="getInTouch" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="getInTouch" aria-hidden="true">

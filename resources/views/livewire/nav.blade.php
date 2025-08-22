@@ -14,17 +14,21 @@
                 <div class="col logom"><a class="navbar-brand" href="{{ route('home') }}"><img loading="lazy"
                             fetchpriority="low" src="{{ \App\Enums\Url::IMG }}logo.svg"
                             alt="{{ \Content::ProjectName() }}" width="180" height="152"></a></div>
+
                 <div class="col LastNav z-lg-3">
                     <div class="SearchBoxs">
-                        <form action="#" id="Hsearch" class="collapse" tabindex="-1">
+                        <form action="{{ route('search') }}" id="Hsearch" class="collapse" tabindex="-1">
                             <div class="tabtype">
                                 <a href="#Hsearch" data-bs-toggle="collapse" aria-expanded="false"
-                                    aria-controls="Hsearch" title="Close" class="IconImg Dsearch collapsed"><svg
-                                        viewBox="0 0 8 8">
+                                    aria-controls="Hsearch" title="Close" class="IconImg Dsearch collapsed">
+                                    <svg viewBox="0 0 8 8" id="closeBtn">
                                         <path d="M1,7,7,1M7,7,1,1" />
-                                    </svg></a>
-                                <input type="text" name="search" id="SearchB" class="form-control"
-                                    placeholder="Search..." autocomplete="off">
+                                    </svg>
+                                    <span id="spinnerBtn" class="spinner-border"
+                                        style="font-size: 11px;width:23px;height:23px"></span>
+                                </a>
+                                <input type="text" name="q" id="SearchB" class="form-control"
+                                    value="{{ request('q') }}" placeholder="Search..." autocomplete="off">
                             </div>
                         </form>
                         <label data-bs-toggle="collapse" data-bs-target="#Hsearch" for="SearchB"
@@ -50,8 +54,8 @@
                         <path d="M1,19,19,1M19,19,1,1" />
                     </svg></button>
                 <ul class="navbar-nav">
-                    <li class="nav-item active"><a href="" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.php" class="nav-link">About Us</a></li>
+                    <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About Us</a></li>
                     <li class="nav-item dropdown CatMegamenu"><a href="{{ route('categories') }}"
                             class="nav-link">Category</a>
                         <div class="dropdown-menu Megamenu Mmenu p-0 ps-md-4">
@@ -64,13 +68,38 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="projects.php" class="nav-link">Projects</a></li>
-                    <li class="nav-item"><a href="career.php" class="nav-link">Career</a></li>
-                    <li class="nav-item"><a href="testimonials.php" class="nav-link">Testimonials</a>
+                    <li class="nav-item"><a href="{{ route('projects') }}" class="nav-link">Projects</a></li>
+                    <li class="nav-item"><a href="{{ route('career') }}" class="nav-link">Career</a></li>
+                    <li class="nav-item"><a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a>
                     </li>
-                    <li class="nav-item"><a href="contact.php" class="nav-link">Contact Us</a></li>
+                    <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contact Us</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        let time;
+        let closeBtn = document.getElementById('closeBtn');
+        let spinnerBtn = document.getElementById('spinnerBtn');
+        let SearchB = document.getElementById('SearchB');
+        spinnerBtn.style.display = "none";
+        SearchB.addEventListener('input', function(event) {
+            let query = event.target.value;
+            closeBtn.style.display = "none";
+            spinnerBtn.style.display = "block";
+            clearTimeout(time);
+            time = setTimeout(() => {
+                Livewire.dispatch('autoSearchData', {
+                    query: query
+                });
+                setTimeout(() => {
+                    closeBtn.style.display = "block";
+                    spinnerBtn.style.display = "none";
+                }, 500);
+            }, 300);
+        });
+    </script>
+@endpush

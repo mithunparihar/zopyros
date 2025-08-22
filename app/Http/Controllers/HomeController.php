@@ -108,4 +108,18 @@ class HomeController extends Controller
         return view('blog.category', compact('lists', 'blogs'));
     }
 
+
+    
+    function thankyouSubscribe(){
+        return view('thankyou.subscribe');
+    }
+
+    function thankyouContact(){
+        return view('thankyou.contact');
+    }
+
+    function thankyouCareer(){
+        return view('thankyou.career');
+    }
+
 }

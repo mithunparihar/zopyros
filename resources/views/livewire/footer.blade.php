@@ -20,8 +20,8 @@
         <div class="col-lg-2">
             <h3 class="mb-md-3 mb-2">Category</h3>
             <div class="links">
-                @foreach($categories as $category)
-                <a href="{{route('category',['category'=>$category->fullURL()])}}">{{$category->title}}</a>
+                @foreach ($categories as $category)
+                    <a href="{{ route('category', ['category' => $category->fullURL()]) }}">{{ $category->title }}</a>
                 @endforeach
             </div>
         </div>
@@ -37,12 +37,20 @@
             </div>
         </div>
         <div class="col-lg-3">
-            <div class="ps-lg-4">
+            <form wire:submit="saveSubscribe" class="ps-lg-4">
                 <h3 class="mb-md-3 mb-2">Subscribe</h3>
                 <p>Get all the latest offers & info</p>
-                <input type="text" class="form-control" placeholder="Enter your Email ID">
-                <button class="btn btn-o-thm1">Submit</button>
-            </div>
+                <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror " wire:model="subscribe_email"
+                    placeholder="Enter your Email ID">
+                @error('subscribe_email')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+                <button wire:loading.remove wire:target="saveSubscribe" class="btn btn-o-thm1">Submit</button>
+                <button wire:loading wire:target="saveSubscribe" type="button" disabled class="btn btn-o-thm1 Noar">
+                    <span class="spinner-border" style="width: 18px;height:18px;font-size:10px;"></span>
+                    Loading...
+                </button>
+            </form>
         </div>
     </div>
     <div class="fbottom">

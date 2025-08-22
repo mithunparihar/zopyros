@@ -19,6 +19,10 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/faqs/{category?}', 'faqs')->name('faqs');
     Route::get('/privacy', 'privacy')->name('privacy');
     Route::get('/terms', 'terms')->name('terms');
+
+    Route::get('/thankyou/subscribe', 'thankyouSubscribe')->name('thankyou.subscribe');
+    Route::get('/thankyou/contact', 'thankyouContact')->name('thankyou.contact');
+    Route::get('/thankyou/career', 'thankyouCareer')->name('thankyou.career');
 });
 
 Route::controller(\App\Http\Controllers\SearchController::class)->group(function () {

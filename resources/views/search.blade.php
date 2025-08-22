@@ -14,18 +14,18 @@
                 @endif
                 <div class="row">
                     @if ($categories->isNotEmpty())
-                    <div class="col-3">
-                        <ul>
-                            @foreach ($categories as $categor)
-                                <li>
-                                    <a
-                                        href="{{ route('category', ['category' => $categor->fullURL()]) }}">{{ $categor->title }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        <div class="col-3">
+                            <ul>
+                                @foreach ($categories as $categor)
+                                    <li>
+                                        <a
+                                            href="{{ route('category', ['category' => $categor->fullURL()]) }}">{{ $categor->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
-                    <div class="{{$categories->isNotEmpty() ? 'col-9' : 'col-12'}}">
+                    <div class="{{ $categories->isNotEmpty() ? 'col-9' : 'col-12' }}">
                         <div class="row">
                             @if ($products->isNotEmpty())
                                 @foreach ($products as $product)

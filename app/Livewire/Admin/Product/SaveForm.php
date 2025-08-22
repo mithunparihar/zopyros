@@ -19,6 +19,7 @@ class SaveForm extends Component
     protected $listeners       = ['updateEditorValue' => 'updateEditorValue', 'resetMount' => 'mount'];
     public $categoriesArr      = [];
     public $sizeCategoryArr    = [];
+    public $brochure, $technical;
     public $inputs, $inputsArr = [
         'colors'        => ['code' => '', 'name' => ''],
         'images'        => [],
@@ -108,6 +109,9 @@ class SaveForm extends Component
             'meta_keywords'            => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
             'meta_description'         => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
 
+            'brochure'    => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'technical'    => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+
             'inputs.*.colors.name'     => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
             'inputs.*.colors.code'     => ['required', 'distinct', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/'],
             'inputs.*.images'          => ['required'],
@@ -151,6 +155,12 @@ class SaveForm extends Component
         $data->meta_title       = $this->meta_title;
         $data->meta_keywords    = $this->meta_title;
         $data->meta_description = $this->meta_title;
+        if ($this->brochure) {
+            $data->brochure_doc = \Image::uploadFile('product/brochure', $this->brochure);
+        }
+        if ($this->technical) {
+            $data->technical_doc = \Image::uploadFile('product/technical', $this->technical);
+        }
         $data->save();
 
         $this->saveColors($data->id);

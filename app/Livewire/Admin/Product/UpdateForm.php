@@ -17,9 +17,10 @@ class UpdateForm extends Component
     public $info;
     public $title, $alias, $description, $size_category, $specifications;
     public $meta_description, $meta_keywords, $meta_title;
-    public $categories         = [];
-    public $categoriesArr      = [];
-    public $sizeCategoryArr    = [];
+    public $categories      = [];
+    public $categoriesArr   = [];
+    public $sizeCategoryArr = [];
+    public $brochure, $technical;
     public $inputs, $inputsArr = [
         'colors'        => ['code' => '', 'name' => ''],
         'images'        => [],
@@ -168,10 +169,10 @@ class UpdateForm extends Component
     }
     public function eliminarImage($key, $index)
     {
-        $inputs                     = $this->inputs->toArray();
+        $inputs = $this->inputs->toArray();
 
         array_splice($inputs[$key]['images'], $index, 1);
-        $this->inputs               = collect($inputs);
+        $this->inputs = collect($inputs);
     }
     public function getImages($key)
     {
@@ -227,6 +228,9 @@ class UpdateForm extends Component
             'meta_keywords'        => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
             'meta_description'     => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
 
+            'brochure'             => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'technical'            => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+
             'inputs.*.colors.name' => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
             'inputs.*.colors.code' => ['required', 'distinct', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/'],
             'inputs.*.images.*'    => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
@@ -280,6 +284,14 @@ class UpdateForm extends Component
         $data->meta_title       = $this->meta_title;
         $data->meta_keywords    = $this->meta_keywords;
         $data->meta_description = $this->meta_description;
+        if ($this->brochure) {
+            \Image::removeFile('product/brochure', $data->brochure_doc);
+            $data->brochure_doc = \Image::uploadFile('product/brochure', $this->brochure);
+        }
+        if ($this->technical) {
+            \Image::removeFile('product/technical', $data->technical_doc);
+            $data->technical_doc = \Image::uploadFile('product/technical', $this->technical);
+        }
         $data->save();
 
         $this->saveColors($data->id);
@@ -314,7 +326,7 @@ class UpdateForm extends Component
             }
             $data->hex        = $inputs['colors']['code'];
             $data->name       = $inputs['colors']['name'];
-            $data->alias       = $inputs['colors']['name'];
+            $data->alias      = $inputs['colors']['name'];
             $data->is_publish = 1;
             $data->save();
 

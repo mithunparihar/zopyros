@@ -144,7 +144,7 @@
                                     @endif
                                 @endif
 
-                                <a role="button" wire:click="eliminarImage({{$key}},{{$imk}})"
+                                <a role="button" wire:click="eliminarImage({{ $key }},{{ $imk }})"
                                     wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
                                     style="width:20px;height:20px;top:-7px;right:5px" data-title="Remove"
                                     class="bg-danger sws-bounce sws-top text-white text-center rounded-circle position-absolute ">
@@ -174,7 +174,8 @@
                                 <x-image-preview class="defaultimg w-100" id="blah" width="200"
                                     imagepath="product" :image="$pre_images->image" />
 
-                                <a role="button" wire:click="removePreImage({{ $pre_images->id }},{{$key}})"
+                                <a role="button"
+                                    wire:click="removePreImage({{ $pre_images->id }},{{ $key }})"
                                     wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
                                     style="width:20px;height:20px;top:-7px;right:5px" data-title="Remove"
                                     class="bg-danger sws-bounce sws-top text-white text-center rounded-circle position-absolute ">
@@ -300,6 +301,108 @@
                     <span class="spinner-border"></span> Adding...
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div class="card p-3 mt-2">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class=" bg-secondary bg-opacity-25 rounded-1">
+                    <h5 class="h6 mb-0 p-2">Brochure & Technical Document </h5>
+                </div>
+            </div>
+            <div class="col-4 mt-3">
+                <x-admin.form.label for="brochure" class="formFile form-label" :asterisk="false">
+                    Brochure Document
+                </x-admin.form.label>
+                <x-admin.form.input wire:model="brochure" @class(['is-invalid' => $errors->has('brochure')]) type="file"
+                    accept=".pdf,.doc,.docx" />
+                @error('brochure')
+                    <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                @enderror
+            </div>
+
+            <div class="col-2 mt-3">
+                @if ($brochure)
+                    @php
+                        if ($brochure->getMimeType() == 'application/msword') {
+                            $documentType = 'doc';
+                        }
+                        if ($brochure->getMimeType() == 'application/pdf') {
+                            $documentType = 'pdf';
+                        }
+                        if (
+                            $brochure->getMimeType() ==
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                        ) {
+                            $documentType = 'docx';
+                        }
+                    @endphp
+                    <img src="{{ asset('frontend/img/' . strtolower($documentType) . '.svg') }}" class="defaultimg"
+                        alt="Brochure Document Pdf">
+                @endif
+                @if (!empty($info->brochure_doc))
+                    @php $bExplode = explode('.',$info->brochure_doc); @endphp
+                    <a href="{{ \Image::showFile('product/brochure', 0, $info->brochure_doc) }}"
+                        data-title="Click to download" download
+                        class="position-relative sws-bounce sws-top d-inline-block w-100 border rounded pb-3">
+                        <img src="{{ asset('frontend/img/' . strtolower(end($bExplode)) . '.svg') }}"
+                            class="defaultimg w-100 border-0 pb-3" style="height:90px" alt="Brochure Document Pdf">
+                        <div class="position-absolute bg-dark w-100 text-white rounded-bottom text-center"
+                            style="bottom:0;left:0">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </div>
+                    </a>
+                @endif
+            </div>
+
+            <div class="col-4 mt-3">
+                <x-admin.form.label for="technical" class="formFile form-label" :asterisk="false">
+                    Technical Document
+                </x-admin.form.label>
+                <x-admin.form.input wire:model="technical" @class(['is-invalid' => $errors->has('technical')]) type="file"
+                    accept=".pdf,.doc,.docx" />
+                @error('technical')
+                    <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                @enderror
+            </div>
+
+            <div class="col-2 mt-3">
+                @if ($technical)
+                    @php
+                        if ($technical->getMimeType() == 'application/msword') {
+                            $documentType = 'doc';
+                        }
+                        if ($technical->getMimeType() == 'application/pdf') {
+                            $documentType = 'pdf';
+                        }
+                        if (
+                            $technical->getMimeType() ==
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                        ) {
+                            $documentType = 'docx';
+                        }
+                    @endphp
+                    <img src="{{ asset('frontend/img/' . strtolower($documentType) . '.svg') }}" class="defaultimg"
+                        alt="Brochure Document Pdf">
+                @endif
+                @if (!empty($info->technical_doc))
+                    @php $bExplode = explode('.',$info->technical_doc); @endphp
+                    <a href="{{ \Image::showFile('product/technical', 0, $info->technical_doc) }}" download
+                        data-title="Click to download"
+                        class="position-relative sws-bounce sws-top d-inline-block w-100 border rounded pb-3">
+                        <img src="{{ asset('frontend/img/' . strtolower(end($bExplode)) . '.svg') }}"
+                            class="defaultimg w-100 border-0 pb-3" style="height:90px" alt="Technical Document Pdf">
+                        <div class="position-absolute bg-dark w-100 text-white rounded-bottom text-center"
+                            style="bottom:0;left:0">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </div>
+                    </a>
+                @endif
+            </div>
+
         </div>
     </div>
 

@@ -162,23 +162,32 @@
                                             viewBox="0 0 26 18">
                                             <path d="M1,1H25V17H1ZM22,4l-9,7L4,4" />
                                         </svg> Send Enquiry</a>
-                                    <span class="sws-top sws-bounce" data-title="Download Brochure"><a href="#"
+                                    @if(!empty($product->brochure_doc))
+                                    <span class="sws-top sws-bounce" data-title="Download Brochure"><a href="{{ \Image::showFile('product/brochure', 0, $product->brochure_doc) }}" download
                                             class="btn btn-o-thm1 m-0 AddCart OnlyIcon h-100"><svg viewBox="0 0 19 20">
                                                 <path d="M10,1V18m7-7-7,7L2,11M1,19H18" />
                                             </svg></a></span>
-                                    <span class="sws-top sws-bounce" data-title="Technical Data"><a href="#"
-                                            class="btn btn-thm1 m-0 Noar OnlyIcon pdf h-100"><svg viewBox="0 0 100 127">
-                                                <path
-                                                    d="M94,110V33H67V6H17V27H11V0H70l30,30v85H66l4-5ZM59,29V61H0V29ZM29,55c13,0,14-23-6-19V55ZM14,48c10-2,7-17-8-12V55h4V48Zm37-1V43H45V39h7V35H41V54h4V47ZM35,98H46V76H64V98H75L55,127Zm10,18H11V63h6v47H41ZM27,39c9-2,9,13,0,12ZM10,39c8-1,9,7,0,5Z" />
-                                            </svg></a></span>
+                                    @endif
+                                    @if(!empty($product->technical_doc))
+                                    @php $bExplode = explode('.',$product->technical_doc); @endphp
+                                    <span class="sws-top sws-bounce" data-title="Technical Data">
+                                        <a href="{{ \Image::showFile('product/technical', 0, $product->technical_doc) }}" target="_blank"
+                                            class="btn btn-thm1 m-0 Noar OnlyIcon {{end($bExplode)}} h-100">
+                                        </a>
+                                    </span>
+                                    @endif
                                 </span>
                             </div>
+
+                            @if(strlen(strip_tags($product->specification)) > 0 )
                             <div class="Des d-flex flex-column gap-2">
                                 <span class="fw-semibold text-secondary">Specifications</span>
                                 <div class="CmsPage text">
                                     {!! $product->specification !!}
                                 </div>
                             </div>
+                            @endif
+                            
                             <div class="Des d-flex flex-column gap-2">
                                 <span class="fw-semibold text-secondary">Description</span>
                                 <div class="text">{!! $product->description !!}</div>

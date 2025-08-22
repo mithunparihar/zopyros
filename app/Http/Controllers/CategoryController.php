@@ -49,6 +49,9 @@ class CategoryController extends Controller
         $selectedcolor   = \App\Models\ProductColor::whereProductId($product->id)->whereAlias(end($explode))->firstOrFail();
         $selectedvariant = \App\Models\ProductVariant::whereProductId($selectedcolor->product_id)->whereColorId($selectedcolor->id)->whereVariantId(request('pid'))->firstOrFail();
         $images          = $selectedcolor->images ?? '';
+
+        
+
         return view('category.product', compact('product', 'sizes', 'selectedcolor', 'selectedvariant', 'images', 'colors'));
     }
 }

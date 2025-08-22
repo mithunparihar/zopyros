@@ -110,6 +110,17 @@
       0 => 'Flasher\\Laravel\\FlasherServiceProvider',
     ),
   ),
+  'think.studio/laravel-recently-viewed' => 
+  array (
+    'aliases' => 
+    array (
+      'RecentlyViewed' => 'RecentlyViewed\\Facades\\RecentlyViewed',
+    ),
+    'providers' => 
+    array (
+      0 => 'RecentlyViewed\\ServiceProvider',
+    ),
+  ),
   'yajra/laravel-datatables-oracle' => 
   array (
     'aliases' => 

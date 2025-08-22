@@ -1,8 +1,10 @@
 <?php
-
 namespace App\Providers;
 
+use App\Models\Product;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use RecentlyViewed\Facades\RecentlyViewed;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -19,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+            $recentProducts = RecentlyViewed::get(Product::class, 10);
+            $productIds     = $recentProducts->pluck('id');
+            $recentProducts = Product::active()
+                ->whereIn('id', $productIds)
+                ->whereNot('alias',request()->segment(1))
+                ->get();
+            $view->with('recentProducts', $recentProducts);
+        });
     }
 }

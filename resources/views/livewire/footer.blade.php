@@ -4,10 +4,6 @@
             <a href="" class="d-inline-block mb-2"><img loading="lazy" fetchpriority="low"
                     src="{{ \App\Enums\Url::IMG }}logo.svg" alt="{{ \Content::ProjectName() }}" width="200"
                     height="168" class="flogo"></a>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged.</p>
         </div>
         <div class="col-lg-2">
             <h3 class="mb-md-3 mb-2">Quick Link</h3>

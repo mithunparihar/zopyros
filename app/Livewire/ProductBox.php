@@ -9,12 +9,14 @@ class ProductBox extends Component
     public $product;
     public $lowestPrice;
     public $colorInfo, $images;
-    public function mount(Product $product)
+    public $className;
+    public function mount(Product $product,$class=null)
     {
         $this->product     = $product;
         $this->lowestPrice = $product->lowestPrice[0];
         $this->colorInfo   = $this->lowestPrice->colorInfo;
         $this->images      = $this->colorInfo->images;
+        $this->className      = $class;
     }
     public function render()
     {

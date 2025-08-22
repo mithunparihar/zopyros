@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cd8e14bce07245a5780bff8029dc955",
+    "content-hash": "c2e87b66f7f2c110994687293c1e4d77",
     "packages": [
         {
             "name": "brick/math",
@@ -6610,6 +6610,71 @@
                 }
             ],
             "time": "2025-07-29T20:02:46+00:00"
+        },
+        {
+            "name": "think.studio/laravel-recently-viewed",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dev-think-one/laravel-recently-viewed.git",
+                "reference": "d6c0ecb73ecadc639e7cb16592fb182d6a5392db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dev-think-one/laravel-recently-viewed/zipball/d6c0ecb73ecadc639e7cb16592fb182d6a5392db",
+                "reference": "d6c0ecb73ecadc639e7cb16592fb182d6a5392db",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "orchestra/testbench": "^6.19",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-laravel": "^1.5",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "RecentlyViewed": "RecentlyViewed\\Facades\\RecentlyViewed"
+                    },
+                    "providers": [
+                        "RecentlyViewed\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RecentlyViewed\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yaroslav Georgitsa",
+                    "email": "yaroslav.georgitsa@gmail.com",
+                    "homepage": "https://github.com/yaroslawww",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Package to make quickly recently viewed functionality",
+            "homepage": "https://github.com/yaroslawww/laravel-recently-viewed",
+            "keywords": [
+                "laravel-recently-viewed",
+                "recently-viewed"
+            ],
+            "support": {
+                "issues": "https://github.com/dev-think-one/laravel-recently-viewed/issues",
+                "source": "https://github.com/dev-think-one/laravel-recently-viewed/tree/2.1.1"
+            },
+            "time": "2022-02-13T17:40:31+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

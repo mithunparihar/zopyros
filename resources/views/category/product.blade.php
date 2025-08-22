@@ -26,21 +26,8 @@
                                         <path d="M13,10C1,10,1,15,1,15S0,5,13,5V1l7,7-7,7Z" />
                                     </svg></a>
                                 <div class="SharePost dropdown-menu notbg py-0">
-                                    <div id="social-links">
-                                        <ul>
-                                            <li><a href="https://www.instagram.com/" target="_blank"
-                                                    class="social-button"><span class="fab fa-instagram"></span></a></li>
-                                            <li><a href="https://www.facebook.com/" target="_blank"
-                                                    class="social-button"><span class="fab fa-facebook-f"></span></a></li>
-                                            <!-- <li><a href="https://www.tiktok.com/" target="_blank" class="social-button"><span class="fab fa-tiktok"></span></a></li> -->
-                                            <li><a href="https://twitter.com/" target="_blank" class="social-button"><span
-                                                        class="fab fa-twitter"></span></a></li>
-                                            <li><a href="https://www.linkedin.com/" target="_blank"
-                                                    class="social-button"><span class="fab fa-linkedin-in"></span></a></li>
-                                            <li><a href="https://wa.me/" target="_blank" class="social-button"><span
-                                                        class="fab fa-whatsapp"></span></a></li>
-                                        </ul>
-                                    </div>
+                                    {!! Share::page(url()->current().'?pid='.request('pid'), $product->title)->facebook()->twitter()->linkedin()->whatsapp()->reddit() !!}
+                                    
                                 </div>
                             </div>
                             <div class="swiper SlideThum ms-lg-0">
@@ -144,12 +131,14 @@
                             </div>
                             <div
                                 class="btnn border-top border-bottom border-secondary border-opacity-10 Usp d-flex gap-4 py-3 justify-content-between align-items-center">
-                                <div><img src="img/sild.svg" height="32" width="32" alt="warranty"><span>warranty
-                                        <strong>2 Years</strong></span></div> |
-                                <div><img src="img/repost.svg" height="32" width="32"
-                                        alt="Replacements"><span>Hassle-Free <strong>Replacements</strong></span></div> |
-                                <div><img src="img/support.svg" height="32" width="32"
-                                        alt="Support"><span>Dedicated <strong>Support</strong></span></div>
+                                @foreach ($facilities as $facilit)
+                                    <div>
+                                        <x-image-preview fetchpriority="low" loading="lazy" alt="{{ $facilit->title }}"
+                                            imagepath="facilities" width="32" height="32" :image="$facilit->image ?? ''" />
+                                        <span>{{ $facilit->title }}
+                                            <strong>{{ $facilit->description }}</strong></span>
+                                    </div> {{ $loop->last ? '' : '|' }}
+                                @endforeach
                             </div>
                             <div class="btnn position-sticky py-2">
                                 <span class="lh-sm">
@@ -162,32 +151,35 @@
                                             viewBox="0 0 26 18">
                                             <path d="M1,1H25V17H1ZM22,4l-9,7L4,4" />
                                         </svg> Send Enquiry</a>
-                                    @if(!empty($product->brochure_doc))
-                                    <span class="sws-top sws-bounce" data-title="Download Brochure"><a href="{{ \Image::showFile('product/brochure', 0, $product->brochure_doc) }}" download
-                                            class="btn btn-o-thm1 m-0 AddCart OnlyIcon h-100"><svg viewBox="0 0 19 20">
-                                                <path d="M10,1V18m7-7-7,7L2,11M1,19H18" />
-                                            </svg></a></span>
+                                    @if (!empty($product->brochure_doc))
+                                        <span class="sws-top sws-bounce" data-title="Download Brochure"><a
+                                                href="{{ \Image::showFile('product/brochure', 0, $product->brochure_doc) }}"
+                                                download class="btn btn-o-thm1 m-0 AddCart OnlyIcon h-100"><svg
+                                                    viewBox="0 0 19 20">
+                                                    <path d="M10,1V18m7-7-7,7L2,11M1,19H18" />
+                                                </svg></a></span>
                                     @endif
-                                    @if(!empty($product->technical_doc))
-                                    @php $bExplode = explode('.',$product->technical_doc); @endphp
-                                    <span class="sws-top sws-bounce" data-title="Technical Data">
-                                        <a href="{{ \Image::showFile('product/technical', 0, $product->technical_doc) }}" target="_blank"
-                                            class="btn btn-thm1 m-0 Noar OnlyIcon {{end($bExplode)}} h-100">
-                                        </a>
-                                    </span>
+                                    @if (!empty($product->technical_doc))
+                                        @php $bExplode = explode('.',$product->technical_doc); @endphp
+                                        <span class="sws-top sws-bounce" data-title="Technical Data">
+                                            <a href="{{ \Image::showFile('product/technical', 0, $product->technical_doc) }}"
+                                                target="_blank"
+                                                class="btn btn-thm1 m-0 Noar OnlyIcon {{ end($bExplode) }} h-100">
+                                            </a>
+                                        </span>
                                     @endif
                                 </span>
                             </div>
 
-                            @if(strlen(strip_tags($product->specification)) > 0 )
-                            <div class="Des d-flex flex-column gap-2">
-                                <span class="fw-semibold text-secondary">Specifications</span>
-                                <div class="CmsPage text">
-                                    {!! $product->specification !!}
+                            @if (strlen(strip_tags($product->specification)) > 0)
+                                <div class="Des d-flex flex-column gap-2">
+                                    <span class="fw-semibold text-secondary">Specifications</span>
+                                    <div class="CmsPage text">
+                                        {!! $product->specification !!}
+                                    </div>
                                 </div>
-                            </div>
                             @endif
-                            
+
                             <div class="Des d-flex flex-column gap-2">
                                 <span class="fw-semibold text-secondary">Description</span>
                                 <div class="text">{!! $product->description !!}</div>
@@ -258,78 +250,33 @@
                 </div>
             </div>
         </section>
-        <section class="grey">
-            <div class="container row row-gap-md-4 row-gap-3 justify-content-between">
-                <div class="col-md-auto">
-                    <h2 class="Heading">Related Designs Products</h2>
-                </div>
-                <div class="col-12 order-md-last">
-                    <div class="ProDuct swiper">
-                        <div class="swiper-wrapper">
-                            <?php for($pro=1; $pro<=6; $pro++) { ?>
-                            <a href="product-detail.php" class="shadow-none card ProBlock swiper-slide">
-                                <div class="card-header">
-                                    <div class="proimg">
-                                        <picture>
-                                            <source srcset="img/proimg/<?= $pro ?>.webp" type="image/webp">
-                                            <img loading="lazy" fetchpriority="low" src="img/proimg/<?= $pro ?>.jpg"
-                                                alt="pro-proimg/<?= $pro ?>" width="300" height="300">
-                                        </picture>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h3 class="h4 m-0 text-u" title="Product Name">Product Name</h3>
-                                    <span class="small">Z1100-310-4</span>
-                                </div>
-                            </a>
-                            <?php }?>
+
+        @if ($related->isNotEmpty())
+            <section class="grey">
+                <div class="container row row-gap-md-4 row-gap-3 justify-content-between">
+                    <div class="col-md-auto">
+                        <h2 class="Heading">Related Designs Products</h2>
+                    </div>
+                    <div class="col-12 order-md-last">
+                        <div class="ProDuct swiper">
+                            <div class="swiper-wrapper">
+                                @foreach ($related as $relat)
+                                    @livewire('product-box', ['product' => $relat, 'class' => 'swiper-slide'], key('Relt' . $relat->id))
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex gap-2 align-items-end">
+                        <div class="swiper-button d-md-flex d-none h-auto">
+                            <div class="swiper-button-prev pro-prev"></div>
+                            <div class="swiper-button-next pro-next"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-auto d-flex gap-2 align-items-end">
-                    <div class="swiper-button d-md-flex d-none h-auto">
-                        <div class="swiper-button-prev pro-prev"></div>
-                        <div class="swiper-button-next pro-next"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="container row row-gap-md-4 row-gap-3 justify-content-between">
-                <div class="col-md-auto">
-                    <h2 class="Heading">Recent View Products</h2>
-                </div>
-                <div class="col-12 order-md-last">
-                    <div class="ProDuct swiper">
-                        <div class="swiper-wrapper">
-                            <?php for($pro=1; $pro<=6; $pro++) { ?>
-                            <a href="product-detail.php" class="shadow-none card ProBlock swiper-slide">
-                                <div class="card-header">
-                                    <div class="proimg">
-                                        <picture>
-                                            <source srcset="img/proimg/<?= $pro ?>.webp" type="image/webp">
-                                            <img loading="lazy" fetchpriority="low" src="img/proimg/<?= $pro ?>.jpg"
-                                                alt="pro-proimg/<?= $pro ?>" width="300" height="300">
-                                        </picture>
-                                    </div>
-                                </div>
-                                <div class="card-body text-center">
-                                    <h3 class="h4 m-0 text-u" title="Product Name">Product Name</h3>
-                                    <span class="small">Z1100-310-4</span>
-                                </div>
-                            </a>
-                            <?php }?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto d-flex gap-2 align-items-end">
-                    <div class="swiper-button d-md-flex d-none h-auto">
-                        <div class="swiper-button-prev pro-prev"></div>
-                        <div class="swiper-button-next pro-next"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        @endif
+
+        @include('partials.recently-viewed', ['current' => $product->id])
     </main>
 @endsection
 @push('css')

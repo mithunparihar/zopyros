@@ -1,16 +1,14 @@
 <?php
-
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use RecentlyViewed\Facades\RecentlyViewed;
 
 class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        \App\Events\Subscribe::class => [ \App\Listeners\SubscribeEmail::class],
-        \App\Events\ContactEnquiry::class => [ \App\Listeners\ContactEnquiry::class],
-        \App\Events\CareerEnquiry::class => [ \App\Listeners\CareerEnquiry::class],
-        \App\Events\FreeEstimation::class => [ \App\Listeners\FreeEstimation::class],
+        Login::class => [\App\Listeners\MergeRecentlyViewedOnLogin::class],
     ];
 
     public function register(): void

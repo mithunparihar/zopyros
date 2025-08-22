@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use RecentlyViewed\Facades\RecentlyViewed;
+
 class CategoryController extends Controller
 {
     public function index()
@@ -50,8 +52,10 @@ class CategoryController extends Controller
         $selectedvariant = \App\Models\ProductVariant::whereProductId($selectedcolor->product_id)->whereColorId($selectedcolor->id)->whereVariantId(request('pid'))->firstOrFail();
         $images          = $selectedcolor->images ?? '';
 
-        
+        $facilities = \App\Models\Facilities::active()->get();
+        $related    = \App\Models\Product::related($product)->get();
+        RecentlyViewed::add($product);
 
-        return view('category.product', compact('product', 'sizes', 'selectedcolor', 'selectedvariant', 'images', 'colors'));
+        return view('category.product', compact('product', 'facilities', 'related', 'sizes', 'selectedcolor', 'selectedvariant', 'images', 'colors'));
     }
 }

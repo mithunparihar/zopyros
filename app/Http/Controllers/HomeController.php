@@ -13,7 +13,7 @@ class HomeController extends Controller
         $blogs        = \App\Models\Blog::active()->latest('post_date')->take(10)->get();
         $products     = \App\Models\Product::active()->latest()->take(10)->get();
         $testimonials = \App\Models\Testimonial::active()->latest()->take(10)->get();
-        return view('home', compact('sliders', 'categories', 'banner','videoBanner', 'counters', 'blogs', 'products', 'testimonials'));
+        return view('home', compact('sliders', 'categories', 'banner', 'videoBanner', 'counters', 'blogs', 'products', 'testimonials'));
     }
 
     public function about()
@@ -54,8 +54,9 @@ class HomeController extends Controller
     public function career($alias = null)
     {
         if ($alias) {
-            $list = \App\Models\Career::active()->whereAlias($alias)->firstOrFail();
-            return view('career.info', compact('list'));
+            $list   = \App\Models\Career::active()->whereAlias($alias)->firstOrFail();
+            $others = \App\Models\Career::active()->whereNot('id', $list->id)->latest()->paginate(10);
+            return view('career.info', compact('list','others'));
         }
         $lists = \App\Models\Career::active()->latest()->paginate(40);
         return view('career.list', compact('lists'));
@@ -108,17 +109,18 @@ class HomeController extends Controller
         return view('blog.category', compact('lists', 'blogs'));
     }
 
-
-    
-    function thankyouSubscribe(){
+    public function thankyouSubscribe()
+    {
         return view('thankyou.subscribe');
     }
 
-    function thankyouContact(){
+    public function thankyouContact()
+    {
         return view('thankyou.contact');
     }
 
-    function thankyouCareer(){
+    public function thankyouCareer()
+    {
         return view('thankyou.career');
     }
 

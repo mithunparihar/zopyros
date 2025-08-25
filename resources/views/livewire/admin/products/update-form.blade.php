@@ -60,6 +60,93 @@
         </div>
     </div>
 
+    <div class="card p-3 mt-2">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class=" bg-secondary bg-opacity-25 rounded-1">
+                    <h5 class="h6 mb-0 p-2">Mapped With Variants</h5>
+                </div>
+            </div>
+
+            @foreach ($variants as $variant)
+                <div class="mb-1 col-md-12">
+                    <x-admin.form.label for="variant_{{ $variant->id }}" class="form-label"
+                        :asterisk="false">{{ $variant->title }}</x-admin.form.label>
+                    <div wire:ignore>
+                        <x-admin.form.select-box class="select2 pVariantb" id="p_variant{{ $variant->id }}"
+                            wire:model="p_variant.{{ $variant->id }}" multiple :lists="$variant->childs" />
+                    </div>
+                    @error('p_variants.' . $variant->id)
+                        <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                    @enderror
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+
+    <div class="card p-3 mt-2">
+        <div class="row">
+            <div wire:loading wire:target="images" class="col-12 my-5 text-center">
+                <div class="spinner-border" style="width: 20px;height:20px;font-size:10px;" role="status"></div>
+                Uploading...
+            </div>
+            <div wire:loading.remove wire:target="images" class="col-5 my-3">
+                <x-admin.form.label for="images" class="formFile form-label" :asterisk="true">
+                    Best Image 900px * 900px <small class='text-secondary'>(You can`t upload more than 6 images)</small>
+                </x-admin.form.label>
+                <x-admin.form.input wire:model="images" multiple type="file" accept='image/*' />
+                <x-admin.form.invalid-error errorFor="images" />
+            </div>
+
+            <div wire:loading.remove wire:target="images" class="row align-items-start">
+                @foreach ($productimages as $img)
+                    <div wire:key="img{{ $img->id }}"
+                        class="col-2 my-3 {{ $img->is_primary == 1 ? 'setPrimary' : 'notPrimary' }}"
+                        style="position: relative">
+                        <div
+                            @if ($img->is_primary!==1) wire:click="setPrimaryImage({{ $img->id }})" @endif>
+                            <x-image-preview class="defaultimg w-100" width="200" imagepath="product" :image="$img->image" />
+                        </div>
+                        <a role="button" wire:click="removeImage({{ $img->id }})"
+                            wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
+                            class="btn rounded-pill btn-icon btn-label-danger"><i class="fa fa-times"></i></a>
+                        @if ($img->is_primary == 1)
+                            <a role="button" class="btn rounded-pill btn-icon btn-success text-white"><i
+                                    class="fas fa-check"></i></a>
+                            <div class="badge bg-label-primary w-100 mt-2">
+                                Primary
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+
+                @if ($images)
+                    @foreach ($images as $key => $image)
+                        <div class="col-2 my-3 {{ !empty($image->primary_image) && $image->primary_image ? 'setPrimary' : 'notPrimary' }}"
+                            style="position: relative">
+                            @if (in_array($image->getMimeType(), \CommanFunction::getSupportedFiles(\App\Enums\ButtonText::SUPPORTEDIMAGE)))
+                                <img src="{{ $image->temporaryUrl() }}"
+                                    wire:click="setPreviewImagePrimary({{ $key }})" class="defaultimg w-100">
+                            @endif
+                            <x-admin.form.invalid-error errorFor="images.{{ $key }}" />
+                            <a role="button" wire:click="eliminarImage({{ $key }})"
+                                wire:confirm="Are you sure you want to delete this image? This action cannot be undone."
+                                data-title="Remove"
+                                class="btn rounded-pill sws-bounce sws-top btn-icon btn-label-danger"><i
+                                    class="fa fa-times"></i></a>
+                            <a role="button" class="btn rounded-pill btn-icon btn-success text-white"><i
+                                    class="fas fa-check"></i></a>
+                            <div class="badge bg-label-primary w-100 mt-2">
+                                Primary
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+
     {{-- <div class="card p-3 mt-2">
         <div class="row">
             <div class="col-12 mb-2">
@@ -406,6 +493,8 @@
         </div>
     </div>
 
+
+
     <div class="card p-3 mt-2">
         <div class="row">
             <div class="col-12 mb-2">
@@ -455,3 +544,40 @@
         </div>
     </div>
 </form>
+
+
+@push('js')
+    <script>
+        function initializeSelect2() {
+            document.querySelectorAll('.pVariantb').forEach(function(el) {
+                if (!$(el).hasClass("select2-hidden-accessible")) {
+                    $(el).select2();
+
+                    $(el).on('change', function(e) {
+                        const data = $(this).val();
+                        console.log('data', data);
+
+                        const model = this.getAttribute('wire:model');
+                        console.log('model', model);
+                        if (model) {
+                            @this.set(model, data);
+                        }
+                    });
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSelect2();
+        });
+
+        document.addEventListener('livewire:load', function() {
+            window.livewire_component_id = Livewire.first().id;
+            initializeSelect2();
+        });
+
+        Livewire.hook('message.processed', () => {
+            initializeSelect2();
+        });
+    </script>
+@endpush

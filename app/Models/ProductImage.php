@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductImage extends Model
 {
     use HasFactory, SoftDeletes;
-    public $fillable = ['is_publish'];
+    public $fillable = ['is_publish','is_primary'];
 
     public function scopeProduct($query, $productId)
     {
@@ -18,5 +18,10 @@ class ProductImage extends Model
     public function scopeColor($query, $colorId)
     {
         return $query->whereColorId($colorId);
+    }
+
+    public function scopePrimary($query)
+    {
+        return $query->whereIsPrimary(1);
     }
 }

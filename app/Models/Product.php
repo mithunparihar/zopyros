@@ -63,6 +63,7 @@ class Product extends Model implements Viewable
         return $this->hasMany(ProductVariant::class)->orderBy('price');
     }
 
+
     public function maxPrice()
     {
         return $this->hasMany(ProductVariant::class)->orderBy('price','DESC');

@@ -15,11 +15,13 @@ class SaveForm extends Component
     use WithFileUploads;
     public $title, $heading, $description, $specifications;
     public $categories = [], $size_category;
+    public $p_variant=[];
     public $meta_description, $meta_keywords, $meta_title;
     protected $listeners       = ['updateEditorValue' => 'updateEditorValue', 'resetMount' => 'mount'];
     public $categoriesArr      = [];
     public $sizeCategoryArr    = [];
     public $brochure, $technical;
+    public $variants=[];
     public $inputs, $inputsArr = [
         'colors'        => ['code' => '', 'name' => ''],
         'images'        => [],
@@ -29,13 +31,14 @@ class SaveForm extends Component
     public function mount()
     {
         $this->categoriesArr   = \App\Models\Category::parent(0)->get();
-        $this->sizeCategoryArr = \App\Models\Category::whereHas('variants', function ($qty) {
-            return $qty->where('variant_id', 1);
-        })->get();
+        $this->variants   = \App\Models\Variant::active()->parent(0)->get();
+        // $this->sizeCategoryArr = \App\Models\Category::whereHas('variants', function ($qty) {
+        //     return $qty->where('variant_id', 1);
+        // })->get();
 
-        $this->fill([
-            'inputs' => collect([$this->inputsArr]),
-        ]);
+        // $this->fill([
+        //     'inputs' => collect([$this->inputsArr]),
+        // ]);
     }
     public function catgeorySize($category)
     {

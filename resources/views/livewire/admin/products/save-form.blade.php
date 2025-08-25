@@ -24,7 +24,6 @@
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>
-
             <div class="col-md-12 mt-2">
                 <x-admin.form.label for="specifications" class="form-label"
                     :asterisk="false">Specifications</x-admin.form.label>
@@ -34,7 +33,6 @@
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
                 @enderror
             </div>
-
         </div>
     </div>
 
@@ -48,6 +46,26 @@
             @foreach ($categoriesArr as $category)
                 <div class="col-md-12">
                     <x-admin.category-tree :category="$category" />
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="card p-3 mt-2">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class=" bg-secondary bg-opacity-25 rounded-1">
+                    <h5 class="h6 mb-0 p-2">Mapped With Variants</h5>
+                </div>
+            </div>
+            @foreach ($variants as $variant)
+                <div class="mb-1 col-md-12">
+                    <x-admin.form.label for="title" class="form-label"
+                        :asterisk="false">{{ $variant->title }}</x-admin.form.label>
+                    <x-admin.form.select-box class="select2" multiple :lists="$variant->childs" />
+                    @error('variant')
+                        <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                    @enderror
                 </div>
             @endforeach
         </div>

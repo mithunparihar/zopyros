@@ -11,6 +11,9 @@ class ProductVariant extends Model
 {
     use HasFactory, SoftDeletes;
     public $fillable = ['is_publish'];
+    protected $casts = [
+        'title' => 'array',
+    ];
 
     protected function sku(): Attribute
     {

@@ -24,7 +24,7 @@ class SaveForm extends Component
     public function rules()
     {
         return [
-            'title' => ['required', 'unique:variants,title,NULL,id,deleted_at,NULL', 'max:50', new TextRule()],
+            'title' => ['required', 'unique:variants,title,NULL,id,deleted_at,NULL,parent_id,'.$this->parent, 'max:50', new TextRule()],
         ];
     }
 

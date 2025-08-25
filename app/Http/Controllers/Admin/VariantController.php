@@ -10,7 +10,9 @@ class VariantController extends Controller
     public function index()
     {
         if (\request()->ajax()) {
-            $data = Variant::latest()->get();
+            $data = Variant::latest();
+            $data = $data->parent(request('parent'));
+            $data = $data->get();
             return $this->dataTable($data);
         }
         return view('admin.variant.lists');
@@ -29,12 +31,13 @@ class VariantController extends Controller
         $variant->update(['is_publish' => request('publish')]);
         return response()->json(['status' => 200]);
     }
-    function destory(){
+    public function destory()
+    {
         $data = Variant::findOrFail(request('id'));
         $data->categories()->delete();
         $data->delete();
         return response()->json([
-            'status'=>200
+            'status' => 200,
         ]);
     }
     protected function dataTable($data)
@@ -50,6 +53,15 @@ class VariantController extends Controller
                 $html .= '</div>';
                 $html .= '</div>';
 
+                return $html;
+            })
+            ->addColumn('types', function ($row) {
+                $html = '';
+                $html .= '<span class="d-inline-block">';
+                $html .= '<a href="' . route('admin.variants.index', ['parent' => $row->id]) . '" class="btn btn-icon rounded-pill btn-label-slack">';
+                $html .= $row->childs()->count();
+                $html .= '</a>';
+                $html .= '<span>';
                 return $html;
             })
             ->addColumn('is_publish', function ($row) {
@@ -69,7 +81,7 @@ class VariantController extends Controller
                 $actionBtn .= '</div>';
                 return $actionBtn;
             })
-            ->rawColumns(['action', 'lists','is_publish'])
+            ->rawColumns(['action', 'types', 'lists', 'is_publish'])
             ->make(true);
     }
 }

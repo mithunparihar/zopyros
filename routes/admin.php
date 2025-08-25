@@ -106,6 +106,12 @@ Route::middleware(['isAdmin'])->group(function () {
             Route::post('remove', 'destory')->name('remove');
         });
 
+        /// Gallery
+        Route::resource('gallery', App\Http\Controllers\Admin\GalleyController::class);
+        Route::post('gallery/{gallery}/publish', [App\Http\Controllers\Admin\GalleyController::class, 'publish'])->name('gallery.publish');
+        Route::post('gallery/remove', [App\Http\Controllers\Admin\GalleyController::class, 'destory'])->name('gallery.remove');
+
+
         ///Variants
         Route::resource('variants', App\Http\Controllers\Admin\VariantController::class);
         Route::controller(App\Http\Controllers\Admin\VariantController::class)->name('variants.')->prefix('variants')->group(function () {

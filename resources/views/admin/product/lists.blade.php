@@ -18,7 +18,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Information</th>
-                                        <th>Colors</th>
                                         <th>Is Publish</th>
                                         <th></th>
                                     </tr>
@@ -51,9 +50,6 @@
             {
                 data: 'info',
                 className: 'text-wrap text-break',
-            },
-            {
-                data: 'colors'
             }, {
                 data: 'is_publish'
             },

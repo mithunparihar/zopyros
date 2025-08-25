@@ -7,7 +7,10 @@
                 <h4 class="fw-bold mb-0">Variants </h4>
             </div>
             <div class="d-flex gap-2">
-                <x-admin.button.add-more :href="route('admin.variants.create')" icon="fas fa-plus">Add More</x-admin.button.add-more>
+                @if (request('parent'))
+                    <x-admin.button.back />
+                @endif
+                <x-admin.button.add-more :href="route('admin.variants.create', ['parent' => request('parent')])" icon="fas fa-plus">Add More</x-admin.button.add-more>
             </div>
         </div>
         <div class="row">
@@ -20,6 +23,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Variants</th>
+                                        @if (!request('parent'))
+                                            <th>Variant Types</th>
+                                        @endif
                                         <th>Is Publish</th>
                                         <th></th>
                                     </tr>
@@ -47,26 +53,32 @@
     </script>
     {{-- <script src="{{ asset('admin/assets/js/tables-datatables-basic.js') }}"></script> --}}
     <script src="{{ asset('admin/js/table.js') }}"></script>
+    @php
+        $tableList = "[{ data: 'DT_RowIndex'},
+                { data: 'lists',className:'text-wrap text-break'},
+                { data: 'types'},
+                { data: 'is_publish'},
+                {
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                }]";
+        if (request('parent')) {
+            $tableList = "[{ data: 'DT_RowIndex'},
+                { data: 'lists',className:'text-wrap text-break'},
+                { data: 'is_publish'},
+                {
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                }]";
+        }
+    @endphp
     <script>
         searching = false;
-        const tableListUrl = @json(route('admin.variants.index'));
+        const tableListUrl = @json(route('admin.variants.index', ['parent' => request('parent')]));
         const removeRecordUrl = @json(route('admin.variants.remove'));
-
-        let columns = [{
-                data: 'DT_RowIndex'
-            },
-            {
-                data: 'lists',
-            },
-            {
-                data: 'is_publish'
-            },
-            {
-                data: 'action',
-                orderable: false,
-                searchable: false
-            },
-        ];
+        let columns = {!! $tableList !!};
     </script>
     <script type="text/javascript">
         $(function() {

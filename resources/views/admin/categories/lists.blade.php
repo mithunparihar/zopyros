@@ -12,7 +12,6 @@
                               { data: 'DT_RowIndex'},
                                 { data: 'title',className:'text-wrap text-break'},
                                 { data: 'childs'},
-                                { data: 'variants'},
                                 { data: 'set_home'},
                                 { data: 'set_footer'},
                                 { data: 'is_publish'},
@@ -31,7 +30,6 @@
 
                         $tableList = "[{ data: 'DT_RowIndex'},
                                 { data: 'title',className:'text-wrap text-break'},
-                                { data: 'variants'},
                                 { data: 'set_home'},
                                 { data: 'is_publish'},
                                  {data : 'sequence'},
@@ -72,7 +70,6 @@
                                         @if ($level < 2)
                                             <th>Childs</th>
                                         @endif
-                                        <th>Variants</th>
                                         <th>Set Home</th>
                                         @if ($level < 2)
                                         <th>Set Footer</th>

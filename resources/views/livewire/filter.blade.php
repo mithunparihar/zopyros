@@ -17,78 +17,35 @@
                         <div class="slider-container">
                             <input type="range" id="minRange" min="0" max="10000" step="100"
                                 value="0">
-                            <input type="range" id="maxRange" min="0" max="10000" step="100"
-                                value="10000">
+                            <input type="range" id="maxRange" min="0" max="{{$maxprice}}" step="100"
+                                value="{{$maxprice}}">
                         </div>
                         <div class="range-values">&#8377; <span id="minVal">0</span> – &#8377; <span
-                                id="maxVal">10000</span></div>
+                                id="maxVal">{{$maxprice}}</span></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="FilterOp">
-            <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces" href="#Spaces" aria-expanded="false"
-                aria-controls="Spaces">Spaces</a>
-            <div id="Spaces" class="collapse" aria-labelledby="ProSpaces" data-bs-parent="#allFilter">
-                <div class="ullist">
-                    <?php $Space = [['size'=>'Bedroom','num'=>'23'],
-          ['size'=>'Living Room','num'=>'46'],
-          ['size'=>'Dining Room','num'=>'21'],
-          ['size'=>'Kitchen','num'=>'62'],
-          ['size'=>'Entry Foyer','num'=>'12'],
-          ['size'=>'Stairways','num'=>'12'],
-          ['size'=>'Study Room','num'=>'12']];
-            foreach ($Space as $g=>$Spaces) {?>
-                    <label class="form-check form-check-label lh-normal">
-                        <span>
-                            <input class="form-check-input border-black border-opacity-50" type="checkbox"
-                                value="" id="Gues<?= $g ?>"> <?= $Spaces['size'] ?>
-                        </span>
-                        <span><?= $Spaces['num'] ?></span>
-                    </label>
-                    <?php } ?>
+        @foreach ($variants as $variant)
+            <div class="FilterOp">
+                <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces" href="#variant{{ $variant->id }}"
+                    aria-expanded="false" aria-controls="{{ $variant->title }}">{{ $variant->title }}</a>
+                <div id="variant{{ $variant->id }}" class="collapse" aria-labelledby="ProSpaces"
+                    data-bs-parent="#allFilter">
+                    <div class="ullist">
+                        @foreach ($variant->categories as $g => $label)
+                            <label class="form-check form-check-label lh-normal">
+                                <span>
+                                    <input class="form-check-input border-black border-opacity-50" type="checkbox"
+                                        value="" id="Gues<?= $g ?>"> {{ $label->title }}
+                                </span>
+                                <span>{{ $label->products()->distinct('product_id')->count() }}</span>
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="FilterOp">
-            <a data-bs-toggle="collapse" class="collapsed" id="Prosize" href="#size" aria-expanded="false"
-                aria-controls="size">Product Size</a>
-            <div id="size" class="collapse" aria-labelledby="Prosize" data-bs-parent="#allFilter">
-                <div class="ullist">
-                    <?php $size = [['size'=>'Medium','num'=>'23'],
-          ['size'=>'Large','num'=>'46'],
-          ['size'=>'Double Height','num'=>'12']];
-            foreach ($size as $g=>$sizes) {?>
-                    <label class="form-check form-check-label lh-normal">
-                        <span>
-                            <input class="form-check-input border-black border-opacity-50" type="checkbox"
-                                value="" id="size<?= $g ?>"> <?= $sizes['size'] ?>
-                        </span>
-                        <span><?= $sizes['num'] ?></span>
-                    </label>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-        <div class="FilterOp">
-            <a data-bs-toggle="collapse" class="collapsed" id="Promaterial" href="#material" aria-expanded="false"
-                aria-controls="material">Material</a>
-            <div id="material" class="collapse" aria-labelledby="Promaterial" data-bs-parent="#allFilter">
-                <div class="ullist">
-                    <?php $material = [['size'=>'Metal','num'=>'23'],
-          ['size'=>'Glass','num'=>'12']];
-            foreach ($material as $g=>$materials) {?>
-                    <label class="form-check form-check-label lh-normal">
-                        <span>
-                            <input class="form-check-input border-black border-opacity-50" type="checkbox"
-                                value="" id="material<?= $g ?>"> <?= $materials['size'] ?>
-                        </span>
-                        <span><?= $materials['num'] ?></span>
-                    </label>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 

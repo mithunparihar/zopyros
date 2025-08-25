@@ -19,13 +19,27 @@ class Variant extends Model
         );
     }
 
+    public function childs()
+    {
+        return $this->hasMany(Variant::class, 'parent_id', 'id');
+    }
+    public function parentInfo()
+    {
+        return $this->hasOne(Variant::class, 'id', 'parent_id');
+    }
+
     public function categories()
     {
-        return $this->hasMany(CategoryVariant::class,'variant_id','id');
+        return $this->hasMany(CategoryVariant::class, 'variant_id', 'id');
     }
 
     public function scopeActive($query)
     {
         return $query->whereIsPublish(1);
+    }
+
+    public function scopeParent($query, $parentId = 0)
+    {
+        return $query->whereParentId($parentId ?? 0);
     }
 }

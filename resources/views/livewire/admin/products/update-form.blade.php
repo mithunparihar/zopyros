@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="card p-3 mt-2">
+    {{-- <div class="card p-3 mt-2">
         <div class="row">
             <div class="col-12 mb-2">
                 <div class=" bg-secondary bg-opacity-25 rounded-1">
@@ -302,7 +302,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="card p-3 mt-2">
         <div class="row">

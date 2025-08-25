@@ -10,6 +10,12 @@ use Livewire\Component;
 class SaveForm extends Component
 {
     public $title;
+    public $parent;
+    public function mount()
+    {
+        $this->parent = request('parent') ?? 0;
+    }
+
     public function render()
     {
         return view('livewire.admin.variant.save-form');
@@ -25,8 +31,9 @@ class SaveForm extends Component
     public function SaveForm()
     {
         $this->validate();
-        $data        = new Variants();
-        $data->title = $this->title;
+        $data             = new Variants();
+        $data->title      = $this->title;
+        $data->parent_id  = $this->parent;
         $data->is_publish = true;
         $data->save();
         $this->reset(['title']);

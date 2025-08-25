@@ -60,7 +60,7 @@ class ProductController extends Controller
                     }
                 }
                 $html .= '</small>';
-                $html .= '<small class="text-body">Starting from <b>'.\Content::Currency().' '.(number_format($row->lowestPrice[0]->price ?? 0)).'</b></small>';
+                // $html .= '<small class="text-body">Starting from <b>'.\Content::Currency().' '.(number_format($row->lowestPrice[0]->price ?? 0)).'</b></small>';
 
                 $html .= '</div>';
                 $html .= '</div>';

@@ -42,12 +42,14 @@ class ProductVariant extends Model
         );
     }
 
-
     public function colorInfo()
     {
         return $this->hasOne(ProductColor::class, 'id', 'color_id');
     }
-
+    public function productInfo()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
     public function variantInfo()
     {
         return $this->hasOne(CategoryVariant::class, 'id', 'variant_id');

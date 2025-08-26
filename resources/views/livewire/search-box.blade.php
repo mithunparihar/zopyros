@@ -18,13 +18,10 @@
                         $type = '';
                         if ($result->source == 'products') {
                             $product = \App\Models\Product::find($result->id);
-                            $lowestPrice = $product->lowestPrice[0];
-                            $colorInfo = $lowestPrice->colorInfo;
-                            $image = $colorInfo->images[0]->image;
+                            $image = $product->images[0]->image;
 
                             $url = route('category', [
-                                'category' => $result->alias . '/p/' . $colorInfo->alias,
-                                'pid' => $lowestPrice->variant_id,
+                                'category' => $product->alias,
                             ]);
                             $type = '';
                             $folder = 'product';

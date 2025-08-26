@@ -26,8 +26,8 @@
                                         <path d="M13,10C1,10,1,15,1,15S0,5,13,5V1l7,7-7,7Z" />
                                     </svg></a>
                                 <div class="SharePost dropdown-menu notbg py-0">
-                                    {!! Share::page(url()->current().'?pid='.request('pid'), $product->title)->facebook()->twitter()->linkedin()->whatsapp()->reddit() !!}
-                                    
+                                    {!! Share::page(url()->current() . '?pid=' . request('pid'), $product->title)->facebook()->twitter()->linkedin()->whatsapp()->reddit() !!}
+
                                 </div>
                             </div>
                             <div class="swiper SlideThum ms-lg-0">
@@ -44,10 +44,10 @@
                     </div>
                     <div class="col-xl-6 col-lg-7">
                         <h1 class="h3">{{ $product->title }}</h1>
-                        <div class="small text-secondary">SKU : <span class="white">{{ $selectedvariant->sku }}</span>
-                        </div>
+                        {{-- <div class="small text-secondary">SKU : <span class="white">{{ $selectedvariant->sku }}</span></div> --}}
+
                         <div class="d-flex flex-column gap-4 mt-3 border-top pt-3 border-secondary border-opacity-10">
-                            <div class="d-flex flex-wrap gap-4 gap-xl-5">
+                            {{-- <div class="d-flex flex-wrap gap-4 gap-xl-5">
                                 <div
                                     class="flex-row gap-3 d-flex flex-wrap flex-lg-nowrap justify-content-between align-items-end">
                                     <div class="PriceBox d-flex flex-column gap-2">
@@ -81,54 +81,57 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
-                            <div class="flex-row gap-3">
-                                <span class="fw-semibold text-secondary small">Select Colors</span>
-                                <div class="Colors ms-1 mt-2">
-                                    @foreach ($colors as $color)
-                                        @php $checkColorExists = \App\Models\ProductVariant::whereProductId($product->id)->whereColorId($color->id)->whereVariantId($selectedvariant->variant_id)->exists(); @endphp
+                            </div> --}}
 
-                                        <div class="cbtn sws-bounce sws-top {{ !$checkColorExists ? 'opacity-50' : '' }} "
-                                            @if (!$checkColorExists) style="cursor:no-drop" @endif
-                                            data-title="{{ $color->name }}">
-                                            <input class="cbtn-check btn-check" type="radio" name="colors"
-                                                id="colors{{ $color->id }}" @checked($selectedcolor->id == $color->id)>
-                                            <label class="cbtn-label"
-                                                @if (!$checkColorExists) style="background:{{ $color->hex }};border: solid 1px white; pointer-events: none"
-                                                @else style="background:{{ $color->hex }}" @endif
-                                                onclick="redirectUrl('{{ route('category', ['category' => $product->alias . '/p/' . $color->alias, 'pid' => $selectedvariant->variant_id]) }}')"
-                                                for="colors{{ $color->id }}" role="button"></label>
-                                        </div>
-                                    @endforeach
+                            @if (count($colors ?? []) > 0)
+                                <div class="flex-row gap-3">
+                                    <span class="fw-semibold text-secondary small">Select Colors</span>
+                                    <div class="Colors ms-1 mt-2">
+                                        @foreach ($colors ?? [] as $color)
+                                            <div class="cbtn sws-bounce sws-top "
+                                                data-title="{{ $color->variantTypeInfo->title ?? '' }}">
+                                                <input class="cbtn-check btn-check" type="radio" name="colors"
+                                                    value="{{ $color->id }}" id="colors{{ $color->id }}">
+                                                <label class="cbtn-label"
+                                                    style="background:{{ $color->variantTypeInfo->title ?? '' }};border: solid 1px white;"
+                                                    for="colors{{ $color->id }}" role="button"></label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex-row gap-3">
-                                <span class="fw-semibold text-secondary small">Select Dimensions</span>
-                                <div class="Sizes ms-1 mt-2">
-                                    @foreach ($sizes as $size)
-                                        @php $checkSizeExists = \App\Models\ProductVariant::whereProductId($product->id)->whereColorId($selectedcolor->id)->whereVariantId($size->variant_id)->exists(); @endphp
-                                        <div class="sizebtn {{ !$checkSizeExists ? 'opacity-50' : '' }} "
-                                            @if (!$checkSizeExists) style="cursor:no-drop" @endif>
-                                            <input class="sizebtn-check btn-check" type="radio" name="sizes"
-                                                id="sizes{{ $size->id }}" @checked($selectedvariant->variant_id == $size->variant_id)>
-                                            <label class="sizebtn-label" for="sizes{{ $size->id }}"
-                                                @if (!$checkSizeExists) style="border: dashed 1px red; pointer-events: none" @endif
-                                                onclick="redirectUrl('{{ route('category', ['category' => $product->alias . '/p/' . $selectedcolor->alias, 'pid' => $size->variant_id]) }}')"
-                                                role="button">{{ $size->variantInfo->title ?? '' }}</label>
-                                        </div>
-                                    @endforeach
+                            @endif
+
+                            @if (count($sizes ?? []) > 0)
+                                <div class="flex-row gap-3">
+                                    <span class="fw-semibold text-secondary small">Select Dimensions</span>
+                                    <div class="Sizes ms-1 mt-2">
+                                        @foreach ($sizes ?? [] as $size)
+                                            <div class="sizebtn">
+                                                <input class="sizebtn-check btn-check" type="radio" name="sizes"
+                                                    id="sizes{{ $size->id }}">
+                                                <label class="sizebtn-label" for="sizes{{ $size->id }}"
+                                                    role="button">{{ $size->variantTypeInfo->title ?? '' }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex-row gap-3">
-                                <lable for="finish" class="fw-semibold text-secondary small m-0">Select Finishing
-                                </lable>
-                                <select name="finish" id="finish" class="form-select">
-                                    <?php $finish = ['Matte Black','Glossy Black','Matte White','Glossy White','Satin Nickel','Brushed Nickel','Chrome / Polished Chrome','Antique Brass','Brushed Brass / Satin Brass','Gold / Champagne Gold','Copper / Rose Gold','Oil-Rubbed Bronze','Pewter','Gunmetal Grey','Wood Finish / Teak / Walnut','Crystal / Glass Clear','Frosted Glass','Smoked Glass / Grey Glass','Textured / Hammered Finish','Custom RAL Color (Powder Coated)'];
-                  foreach($finish as $k=>$finishs) { ?>
-                                    <option value="<?= $finishs ?>"><?= $finishs ?></option>
-                                    <?php }?>
-                                </select>
-                            </div>
+                            @endif
+
+
+                            @if (count($metals ?? []) > 0)
+                                <div class="flex-row gap-3">
+                                    <lable for="finish" class="fw-semibold text-secondary small m-0">Select Finishing
+                                    </lable>
+                                    <select name="finish" id="finish" class="form-select">
+                                        <option value="">Choose One</option>
+                                        @foreach ($metals as $metal)
+                                            <option value="{{ $metal->id }}">{{ $metal->variantTypeInfo->title ?? '' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
                             <div
                                 class="btnn border-top border-bottom border-secondary border-opacity-10 Usp d-flex gap-4 py-3 justify-content-between align-items-center">
                                 @foreach ($facilities as $facilit)
@@ -140,6 +143,29 @@
                                     </div> {{ $loop->last ? '' : '|' }}
                                 @endforeach
                             </div>
+
+                            @if (count($highlights ?? []) > 0)
+                                <div class="Des d-flex flex-column gap-2">
+                                    <span class="fw-semibold text-secondary">Highlights</span>
+                                    <ul>
+                                        @foreach ($highlights as $highlight)
+                                            @php
+                                                $variantTitle = $highlight->variantInfo->title ?? '';
+                                                $types = \App\Models\ProductVariant::whereProductId($product->id)
+                                                    ->where('variant_id', $highlight->variant_id)
+                                                    ->get();
+                                            @endphp
+                                            <li>
+                                                <b>{{ $variantTitle ?? '' }} : </b>
+                                                @foreach ($types as $type)
+                                                    {{ $type->variantTypeInfo->title ?? '' }}{{$loop->last?'':', '}}
+                                                @endforeach
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="btnn position-sticky py-2">
                                 <span class="lh-sm">
                                     <small class="d-block">Connect Now for This Product!</small>
@@ -341,8 +367,8 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-black mt-0 gap-2">Submit</button>
-                            <div class="mt-2 small text-white"><small>By clicking Submit, I accept the <a href="#"
-                                        class="text-black">T&C</a> and <a href="#" class="text-black">Privacy
+                            <div class="mt-2 small text-white"><small>By clicking Submit, I accept the <a href="{{route('terms')}}" target="_blank"
+                                        class="text-black">T&C</a> and <a href="{{route('privacy')}}" class="text-black" target="_blank">Privacy
                                         Policy</a>.</small></div>
                         </div>
                     </form>

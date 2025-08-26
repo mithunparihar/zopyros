@@ -13,9 +13,9 @@ class ProductBox extends Component
     public function mount(Product $product,$class=null)
     {
         $this->product     = $product;
-        $this->lowestPrice = $product->lowestPrice[0];
-        $this->colorInfo   = $this->lowestPrice->colorInfo;
-        $this->images      = $this->colorInfo->images;
+        $this->lowestPrice = $product->lowestPrice[0] ?? '';
+        $this->colorInfo   = $this->lowestPrice->colorInfo ?? '';
+        $this->images      = $product->images;
         $this->className      = $class;
     }
     public function render()

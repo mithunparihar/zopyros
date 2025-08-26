@@ -33,6 +33,16 @@ class Variant extends Model
         return $this->hasMany(CategoryVariant::class, 'variant_id', 'id');
     }
 
+    public function products()
+    {
+        return $this->hasMany(ProductVariant::class, 'variant_id', 'id');
+    }
+
+    public function productsVariants()
+    {
+        return $this->hasMany(ProductVariant::class, 'title', 'id');
+    }
+
     public function scopeActive($query)
     {
         return $query->whereIsPublish(1);

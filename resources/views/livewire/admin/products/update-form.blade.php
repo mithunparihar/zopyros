@@ -105,8 +105,9 @@
                         class="col-2 my-3 {{ $img->is_primary == 1 ? 'setPrimary' : 'notPrimary' }}"
                         style="position: relative">
                         <div
-                            @if ($img->is_primary!==1) wire:click="setPrimaryImage({{ $img->id }})" @endif>
-                            <x-image-preview class="defaultimg w-100" width="200" imagepath="product" :image="$img->image" />
+                            @if ($img->is_primary !== 1) wire:click="setPrimaryImage({{ $img->id }})" @endif>
+                            <x-image-preview class="defaultimg w-100" width="200" imagepath="product"
+                                :image="$img->image" />
                         </div>
                         <a role="button" wire:click="removeImage({{ $img->id }})"
                             wire:confirm="Are you sure you want to delete this image? This action cannot be undone."

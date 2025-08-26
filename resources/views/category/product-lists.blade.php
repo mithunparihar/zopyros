@@ -20,37 +20,13 @@
                 <div class="grey TopFilter shadow-sm my-4 px-2">
                     @livewire('filter', ['category' => $category])
                 </div>
-                <div class="SearchS py-2">
+                {{-- <div class="SearchS py-2">
                     <div class="d-flex SearchL gap-3">
                         <input type="search" name="hsearch" class="form-control SearchBox" auto
                             placeholder="Please Enter Product Name">
                     </div>
-                    <div class="d-flex gap-2">
-                        <div class="dropdown FilterDrop DropdownS FilterSort">
-                            <a class="dropdown-toggle d-none d-md-flex" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" title="Sort By"><i>Sort By</i></a>
-                            <a href="#SortByDropb" class="dropdown-toggle d-md-none" data-bs-toggle="offcanvas"
-                                aria-controls="SortByDropb"><svg viewBox="0 0 14 18">
-                                    <line x1="3" y1="1" x2="3" y2="3" />
-                                    <line x1="3" y1="9" x2="3" y2="17" />
-                                    <circle cx="3" cy="6" r="2" />
-                                    <line x1="11" y1="15" x2="11" y2="17" />
-                                    <line x1="11" y1="9" x2="11" y2="1" />
-                                    <circle cx="11" cy="12" r="2" />
-                                </svg> Sort By</a>
-                            <div class="offcanvas offcanvas-bottom dropdown-menu Sort p-1 py-2" id="SortByDropb">
-                                <ul class="m-0 p-0">
-                                    <li data-name="Popularity">Popularity</li>
-                                    <li data-name="Price High to Low">Price High to Low</li>
-                                    <li data-name="Price Low to High">Price Low to High</li>
-                                    <li data-name="A to Z">A to Z</li>
-                                    <li data-name="Z to A">Z to A</li>
-                                    <li data-name="Newest First">Newest First</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <div class="d-flex gap-2"> </div>
+                </div> --}}
                 <div class="row mt-4 row-gap-4" id="items-list">
                     {{-- items Lists Here --}}
                 </div>

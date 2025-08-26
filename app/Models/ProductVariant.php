@@ -55,6 +55,13 @@ class ProductVariant extends Model
     }
     public function variantInfo()
     {
-        return $this->hasOne(CategoryVariant::class, 'id', 'variant_id');
+        // return $this->hasOne(CategoryVariant::class, 'id', 'variant_id');
+        return $this->hasOne(Variant::class, 'id', 'variant_id');
+    }
+
+    public function variantTypeInfo()
+    {
+        // return $this->hasOne(CategoryVariant::class, 'id', 'variant_id');
+        return $this->hasOne(Variant::class, 'id', 'title');
     }
 }

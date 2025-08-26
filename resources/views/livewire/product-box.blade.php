@@ -1,4 +1,4 @@
-<a href="{{ route('category', ['category' => $product->alias.'/p/'.$colorInfo->alias,'pid'=>$lowestPrice->variant_id]) }}" class="shadow-none {{$className}} card ProBlock">
+<a href="{{ route('category', ['category' => $product->alias]) }}" class="shadow-none {{ $className }} card ProBlock">
     <div class="card-header">
         <div class="proimg">
             <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="product" width="500"

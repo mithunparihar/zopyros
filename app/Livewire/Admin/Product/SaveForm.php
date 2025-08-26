@@ -5,23 +5,24 @@ use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Product as Products;
 use App\Rules\EditorRule;
-use App\Rules\TextRule;
 use App\Rules\NoDangerousTags;
+use App\Rules\TextRule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\ProductImage;
 
 class SaveForm extends Component
 {
     use WithFileUploads;
     public $title, $heading, $description, $specifications;
     public $categories = [], $size_category;
-    public $p_variant=[];
+    public $p_variant  = [], $images  = [];
     public $meta_description, $meta_keywords, $meta_title;
-    protected $listeners       = ['updateEditorValue' => 'updateEditorValue', 'resetMount' => 'mount'];
-    public $categoriesArr      = [];
-    public $sizeCategoryArr    = [];
+    protected $listeners    = ['updateEditorValue' => 'updateEditorValue', 'resetMount' => 'mount'];
+    public $categoriesArr   = [];
+    public $sizeCategoryArr = [];
     public $brochure, $technical;
-    public $variants=[];
+    public $variants           = [];
     public $inputs, $inputsArr = [
         'colors'        => ['code' => '', 'name' => ''],
         'images'        => [],
@@ -30,8 +31,8 @@ class SaveForm extends Component
     ];
     public function mount()
     {
-        $this->categoriesArr   = \App\Models\Category::parent(0)->get();
-        $this->variants   = \App\Models\Variant::active()->parent(0)->get();
+        $this->categoriesArr = \App\Models\Category::parent(0)->get();
+        $this->variants      = \App\Models\Variant::active()->parent(0)->get();
         // $this->sizeCategoryArr = \App\Models\Category::whereHas('variants', function ($qty) {
         //     return $qty->where('variant_id', 1);
         // })->get();
@@ -40,50 +41,74 @@ class SaveForm extends Component
         //     'inputs' => collect([$this->inputsArr]),
         // ]);
     }
-    public function catgeorySize($category)
+
+    public function eliminarImage($index)
     {
-        $sizes = \App\Models\CategoryVariant::whereVariantId(1)->category($category)->get()->map(function ($item) {
-            return [
-                'id'      => $item->id,
-                'title'   => $item->title,
-                'sku'     => '',
-                'mrp'     => '',
-                'price'   => '',
-                'stock'   => '',
-                'publish' => 1,
-            ];
-        })->toArray();
-        $inputs = $this->inputs->toArray();
-        foreach ($inputs as $key => $value) {
-           if(count($inputs[$key]['sizes'])==0){
-                $inputs[$key]['sizes'] = $sizes;
+        array_splice($this->images, $index, 1);
+    }
+    public function setPreviewImagePrimary($index)
+    {
+        foreach ($this->images as $key => $images) {
+            if ($key == $index) {
+                $images->primary_image = true;
+            } else {
+                $images->primary_image = false;
             }
         }
-        $this->inputs = collect($inputs);
     }
-    public function eliminarImage($key, $index)
+    public function updated()
     {
-        $inputs                     = $this->inputs->toArray();
-
-        array_splice($inputs[$key]['images'], $index, 1);
-        $this->inputs               = collect($inputs);
-    }
-    public function setPrimaryImage($key, $index)
-    {
-        $inputs                        = $this->inputs->toArray();
-        $inputs[$key]['primary_image'] = $index;
-        $this->inputs                  = collect($inputs);
-    }
-    public function AddMoreColor()
-    {
-        $this->inputs->push($this->inputsArr);
-        $this->catgeorySize($this->size_category);
+        $totalImage = count($this->images ?? []);
+        if ($totalImage > 6) {
+            $this->reset('images');
+            $this->dispatch('errortoaster', ['title' => 'Sorry!', 'message' => 'You can`t upload more than 6 images.']);
+        }
     }
 
-    public function removeColor($index)
-    {
-        $this->inputs->pull($index);
-    }
+    // public function catgeorySize($category)
+    // {
+    //     $sizes = \App\Models\CategoryVariant::whereVariantId(1)->category($category)->get()->map(function ($item) {
+    //         return [
+    //             'id'      => $item->id,
+    //             'title'   => $item->title,
+    //             'sku'     => '',
+    //             'mrp'     => '',
+    //             'price'   => '',
+    //             'stock'   => '',
+    //             'publish' => 1,
+    //         ];
+    //     })->toArray();
+    //     $inputs = $this->inputs->toArray();
+    //     foreach ($inputs as $key => $value) {
+    //        if(count($inputs[$key]['sizes'])==0){
+    //             $inputs[$key]['sizes'] = $sizes;
+    //         }
+    //     }
+    //     $this->inputs = collect($inputs);
+    // }
+    // public function eliminarImage($key, $index)
+    // {
+    //     $inputs                     = $this->inputs->toArray();
+
+    //     array_splice($inputs[$key]['images'], $index, 1);
+    //     $this->inputs               = collect($inputs);
+    // }
+    // public function setPrimaryImage($key, $index)
+    // {
+    //     $inputs                        = $this->inputs->toArray();
+    //     $inputs[$key]['primary_image'] = $index;
+    //     $this->inputs                  = collect($inputs);
+    // }
+    // public function AddMoreColor()
+    // {
+    //     $this->inputs->push($this->inputsArr);
+    //     $this->catgeorySize($this->size_category);
+    // }
+
+    // public function removeColor($index)
+    // {
+    //     $this->inputs->pull($index);
+    // }
 
     public function render()
     {
@@ -112,19 +137,21 @@ class SaveForm extends Component
             'meta_keywords'            => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
             'meta_description'         => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
 
-            'brochure'    => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
-            'technical'    => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'brochure'                 => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'technical'                => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
 
-            'inputs.*.colors.name'     => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
-            'inputs.*.colors.code'     => ['required', 'distinct', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/'],
-            'inputs.*.images'          => ['required'],
-            'inputs.*.images.*'        => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
+            'images.*'         => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
 
-            'inputs.*.sizes.*.sku'     => ['nullable', 'distinct', 'unique:product_variants,sku,NULL,id,deleted_at,NULL', 'regex:/^[A-Za-z0-9_-]+$/', 'required_with:inputs.*.sizes.*.mrp'],
-            'inputs.*.sizes.*.mrp'     => ['nullable', 'integer', 'between:1,10000000', 'required_with:inputs.*.sizes.*.price,inputs.*.sizes.*.sku', 'gte:inputs.*.sizes.*.price'],
-            'inputs.*.sizes.*.price'   => ['nullable', 'integer', 'between:1,10000000', 'required_with:inputs.*.sizes.*.mrp'],
-            'inputs.*.sizes.*.stock'   => ['nullable', 'integer', 'between:1,10000', 'required_with:inputs.*.sizes.*.price,inputs.*.sizes.*.sku'],
-            'inputs.*.sizes.*.publish' => ['nullable', 'integer', 'required_with:inputs.*.sizes.*.mrp'],
+            // 'inputs.*.colors.name'     => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
+            // 'inputs.*.colors.code'     => ['required', 'distinct', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/'],
+            // 'inputs.*.images'          => ['required'],
+            // 'inputs.*.images.*'        => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
+
+            // 'inputs.*.sizes.*.sku'     => ['nullable', 'distinct', 'unique:product_variants,sku,NULL,id,deleted_at,NULL', 'regex:/^[A-Za-z0-9_-]+$/', 'required_with:inputs.*.sizes.*.mrp'],
+            // 'inputs.*.sizes.*.mrp'     => ['nullable', 'integer', 'between:1,10000000', 'required_with:inputs.*.sizes.*.price,inputs.*.sizes.*.sku', 'gte:inputs.*.sizes.*.price'],
+            // 'inputs.*.sizes.*.price'   => ['nullable', 'integer', 'between:1,10000000', 'required_with:inputs.*.sizes.*.mrp'],
+            // 'inputs.*.sizes.*.stock'   => ['nullable', 'integer', 'between:1,10000', 'required_with:inputs.*.sizes.*.price,inputs.*.sizes.*.sku'],
+            // 'inputs.*.sizes.*.publish' => ['nullable', 'integer', 'required_with:inputs.*.sizes.*.mrp'],
         ];
     }
 
@@ -152,7 +179,7 @@ class SaveForm extends Component
         $data                   = new Products();
         $data->title            = $this->title;
         $data->alias            = $this->title;
-        $data->size_category = $this->size_category;
+        // $data->size_category    = $this->size_category;
         $data->specification    = $this->specifications;
         $data->description      = $this->description;
         $data->meta_title       = $this->meta_title;
@@ -166,14 +193,51 @@ class SaveForm extends Component
         }
         $data->save();
 
-        $this->saveColors($data->id);
+        // $this->saveColors($data->id);
         $this->saveCategory($data->id);
+
+        $this->uploadImages($data->id);
+        $this->saveVariants($data->id);
 
         $this->dispatch('emptyEditor');
         $this->dispatch('resetMount');
         $this->inputs = collect($this->inputsArr);
         $this->reset(['title', 'description', 'categories', 'size_category', 'specifications', 'meta_title', 'meta_keywords', 'meta_description']);
         $this->dispatch('successtoaster', ['title' => AlertMessageType::SAVE, 'message' => AlertMessage::SAVE]);
+    }
+
+     public function uploadImages($productId)
+    {
+        if (is_array($this->images)) {
+            $checkPrimary = ProductImage::product($productId)->primary()->first();
+            foreach ($this->images as $k => $image) {
+                $imageName             = \Image::autoheight('product/', $image);
+                $imageData             = new ProductImage();
+                $imageData->image      = $imageName;
+                $imageData->product_id = $productId;
+                if (empty($checkPrimary)) {
+                    $imageData->is_primary = $k == 0 ? 1 : 0;
+                } else {
+                    $imageData->is_primary = $image->primary_image ?? 0;
+                }
+                $imageData->save();
+            }
+            $this->reset('images');
+        }
+    }
+
+    public function saveVariants($productId)
+    {
+        if (count($this->p_variant ?? []) > 0) {
+            \App\Models\ProductVariant::whereProductId($productId)->delete();
+            foreach ($this->p_variant as $pid => $p_variant) {
+                $data             = new \App\Models\ProductVariant();
+                $data->product_id = $productId;
+                $data->variant_id = $pid;
+                $data->title      = $p_variant;
+                $data->save();
+            }
+        }
     }
 
     public function saveCategory($productId)
@@ -187,51 +251,51 @@ class SaveForm extends Component
             }
         }
     }
-    public function saveColors($productId)
-    {
-        foreach ($this->inputs as $key => $inputs) {
-            $data             = new \App\Models\ProductColor();
-            $data->product_id = $productId;
-            $data->hex        = $inputs['colors']['code'];
-            $data->name       = $inputs['colors']['name'];
-            $data->alias       = $inputs['colors']['name'];
-            $data->is_publish = 1;
-            $data->save();
+    // public function saveColors($productId)
+    // {
+    //     foreach ($this->inputs as $key => $inputs) {
+    //         $data             = new \App\Models\ProductColor();
+    //         $data->product_id = $productId;
+    //         $data->hex        = $inputs['colors']['code'];
+    //         $data->name       = $inputs['colors']['name'];
+    //         $data->alias       = $inputs['colors']['name'];
+    //         $data->is_publish = 1;
+    //         $data->save();
 
-            $this->saveImage($productId, $data->id, $inputs);
-            $this->saveSizes($productId, $data->id, $inputs);
-        }
-    }
+    //         $this->saveImage($productId, $data->id, $inputs);
+    //         $this->saveSizes($productId, $data->id, $inputs);
+    //     }
+    // }
 
-    public function saveSizes($productId, $colorId, $inputs)
-    {
-        foreach ($inputs['sizes'] ?? [] as $szk => $sizes) {
-            if ($sizes['mrp'] > 0 && $sizes['price'] > 0) {
-                $data             = new \App\Models\ProductVariant();
-                $data->product_id = $productId;
-                $data->color_id   = $colorId;
-                $data->variant_id = $sizes['id'];
-                $data->sku        = $sizes['sku'];
-                $data->mrp        = $sizes['mrp'];
-                $data->price      = $sizes['price'];
-                $data->stock      = $sizes['stock'];
-                $data->is_publish = $sizes['publish'];
-                $data->save();
-            }
-        }
-    }
-    public function saveImage($productId, $colorId, $inputs)
-    {
-        if (count($inputs['images'] ?? []) > 0) {
-            foreach ($inputs['images'] ?? [] as $imk => $image) {
-                $imageName        = \Image::autoheight('product/', $image);
-                $data             = new \App\Models\ProductImage();
-                $data->product_id = $productId;
-                $data->color_id   = $colorId;
-                $data->image      = $imageName;
-                $data->is_primary = $inputs['primary_image'] == $imk ? 1 : 0;
-                $data->save();
-            }
-        }
-    }
+    // public function saveSizes($productId, $colorId, $inputs)
+    // {
+    //     foreach ($inputs['sizes'] ?? [] as $szk => $sizes) {
+    //         if ($sizes['mrp'] > 0 && $sizes['price'] > 0) {
+    //             $data             = new \App\Models\ProductVariant();
+    //             $data->product_id = $productId;
+    //             $data->color_id   = $colorId;
+    //             $data->variant_id = $sizes['id'];
+    //             $data->sku        = $sizes['sku'];
+    //             $data->mrp        = $sizes['mrp'];
+    //             $data->price      = $sizes['price'];
+    //             $data->stock      = $sizes['stock'];
+    //             $data->is_publish = $sizes['publish'];
+    //             $data->save();
+    //         }
+    //     }
+    // }
+    // public function saveImage($productId, $colorId, $inputs)
+    // {
+    //     if (count($inputs['images'] ?? []) > 0) {
+    //         foreach ($inputs['images'] ?? [] as $imk => $image) {
+    //             $imageName        = \Image::autoheight('product/', $image);
+    //             $data             = new \App\Models\ProductImage();
+    //             $data->product_id = $productId;
+    //             $data->color_id   = $colorId;
+    //             $data->image      = $imageName;
+    //             $data->is_primary = $inputs['primary_image'] == $imk ? 1 : 0;
+    //             $data->save();
+    //         }
+    //     }
+    // }
 }

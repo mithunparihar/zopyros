@@ -29,6 +29,20 @@ class ProductController extends Controller
         $product->update(['is_publish' => request('publish')]);
         return response()->json(['status' => 200]);
     }
+
+     public function destory()
+    {
+        $data = Product::findOrFail(request('id'));
+        $data->images()->delete();
+        $data->categories()->delete();
+        $data->lowestPrice()->delete();
+        $data->delete();
+        return response()->json([
+            'status' => 200,
+        ]);
+        // }
+    }
+
     protected function dataTable($data)
     {
         return \DataTables::of($data)
@@ -37,9 +51,9 @@ class ProductController extends Controller
                 return '<input type="checkbox" class="dt-checkboxes form-check-input" name="check[' . $row->id . ']">';
             })
             ->addColumn('info', function ($row) {
-                $colorInfo = $row->lowestPrice[0]->colorInfo;
+                $colorInfo = $row->lowestPrice[0]->colorInfo ?? '';
                 
-                $image                     = $colorInfo->images[0]->image ?? '';
+                $image                     = $row->images[0]->image ?? '';
                 $imageComponent            = new \App\View\Components\ImagePreview('product', $image);
                 $imageComponent->pathName  = 'product';
                 $imageComponent->imageName = $image;

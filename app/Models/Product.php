@@ -63,10 +63,9 @@ class Product extends Model implements Viewable
         return $this->hasMany(ProductVariant::class)->orderBy('price');
     }
 
-
     public function maxPrice()
     {
-        return $this->hasMany(ProductVariant::class)->orderBy('price','DESC');
+        return $this->hasMany(ProductVariant::class)->orderBy('price', 'DESC');
     }
 
     public function scopeActive($query)
@@ -80,24 +79,48 @@ class Product extends Model implements Viewable
             ->limit(10);
     }
 
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search = null)
     {
-        $words      = explode(" ", $search);
-        $totalWords = count($words);
-        $results    = [];
+        if ($search) {
+            $words      = explode(" ", $search);
+            $totalWords = count($words);
+            $results    = [];
 
-        for ($length = $totalWords; $length >= 1; $length--) {
-            for ($i = 0; $i <= $totalWords - $length; $i++) {
-                $slice     = array_slice($words, $i, $length);
-                $results[] = implode(" ", $slice);
+            for ($length = $totalWords; $length >= 1; $length--) {
+                for ($i = 0; $i <= $totalWords - $length; $i++) {
+                    $slice     = array_slice($words, $i, $length);
+                    $results[] = implode(" ", $slice);
+                }
             }
+
+            $query->where(function ($qry) use ($results) {
+
+                foreach ($results as $phrase) {
+                    $qry->orWhere('title', 'LIKE', '%' . $phrase . '%');
+                }
+            });
         }
 
-        return $query->where(function ($qry) use ($results) {
+        if (request('variant_type')) {
+            $query->whereHas('lowestPrice', function ($qert) {
+                $qert->whereIn('title', request('variant_type', []));
+            });
+        }
+        switch (request('sort')) {
+            case 'a-z':
+                $query->orderBy('title');
+                break;
+            case 'z-a':
+                $query->orderBy('title', 'DESC');
+                break;
+            case 'newest':
+                $query->orderBy('id', 'DESC');
+                break;
+            default:
+                $query->orderBy('id', 'DESC');
+                break;
+        }
 
-            foreach ($results as $phrase) {
-                $qry->orWhere('title', 'LIKE', '%' . $phrase . '%');
-            }
-        });
+        return $query;
     }
 }

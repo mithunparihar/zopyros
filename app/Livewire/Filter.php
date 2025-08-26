@@ -14,11 +14,11 @@ class Filter extends Component
     public function mount(Category $category)
     {
         $this->category = $category;
-        $this->variants = Variant::whereHas('categories', function ($query) {
-            $query->active();
-        })->with(['categories' => function ($qwer) {
-            return $qwer->with(['products']);
-        }])->active()->get();
+        $this->variants = Variant::whereHas('childs', function ($qwert) {
+            $qwert->active();
+        })->with(['childs' => function ($qwert) {
+            $qwert->active();
+        }])->parent(0)->active()->get();
 
         $this->maxprice = ProductVariant::whereHas('productInfo', function ($qwert) use ($category) {
             $qwert->whereHas('categories', function ($qwer) use ($category) {

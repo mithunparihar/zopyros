@@ -30,7 +30,7 @@ class CategoryController extends Controller
             $faqs     = $category->faqs()->active()->get();
             $products = \App\Models\Product::whereHas('categories', function ($query) use ($category) {
                 return $query->category($category['id']);
-            })->active()->paginate(60);
+            })->search()->active()->paginate(60);
             if (request()->ajax()) {
                 return response()->json([
                     'results' => view('category.filter', compact('products'))->render(),
@@ -43,19 +43,35 @@ class CategoryController extends Controller
 
     public function productInfo($product)
     {
-        $explode         = explode('/', $product);
-        $Alias           = $explode[0] ?? '';
-        $product         = \App\Models\Product::active()->whereAlias($Alias)->firstOrFail();
-        $sizes           = \App\Models\ProductVariant::whereProductId($product->id)->groupBy('variant_id')->get();
-        $colors          = \App\Models\ProductColor::whereProductId($product->id)->get();
-        $selectedcolor   = \App\Models\ProductColor::whereProductId($product->id)->whereAlias(end($explode))->firstOrFail();
-        $selectedvariant = \App\Models\ProductVariant::whereProductId($selectedcolor->product_id)->whereColorId($selectedcolor->id)->whereVariantId(request('pid'))->firstOrFail();
-        $images          = $selectedcolor->images ?? '';
+        $explode = explode('/', $product);
+        $Alias   = $explode[0] ?? '';
+        $product = \App\Models\Product::active()->whereAlias($Alias)->firstOrFail();
+        $colors  = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
+            $qwer->active();
+        })->whereVariantId(7)->whereProductId($product->id)->get();
+
+        $sizes = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
+            $qwer->active();
+        })->whereVariantId(1)->whereProductId($product->id)->get();
+
+        $metals = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
+            $qwer->active();
+        })->whereVariantId(3)->whereProductId($product->id)->get();
+
+        $highlights = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
+            $qwer->active();
+        })->whereNotIn('variant_id', [1, 3, 7])->whereProductId($product->id)->groupBy('variant_id')->get();
+
+        // $sizes           = \App\Models\ProductVariant::whereProductId($product->id)->groupBy('variant_id')->get();
+        // $colors          = \App\Models\ProductColor::whereProductId($product->id)->get();
+        // $selectedcolor   = \App\Models\ProductColor::whereProductId($product->id)->whereAlias(end($explode))->firstOrFail();
+        // $selectedvariant = \App\Models\ProductVariant::whereProductId($selectedcolor->product_id)->whereColorId($selectedcolor->id)->whereVariantId(request('pid'))->firstOrFail();
+        $images = $product->images ?? '';
 
         $facilities = \App\Models\Facilities::active()->get();
         $related    = \App\Models\Product::related($product)->get();
         RecentlyViewed::add($product);
 
-        return view('category.product', compact('product', 'facilities', 'related', 'sizes', 'selectedcolor', 'selectedvariant', 'images', 'colors'));
+        return view('category.product', compact('product', 'facilities', 'related', 'images','highlights', 'colors', 'metals', 'sizes'));
     }
 }

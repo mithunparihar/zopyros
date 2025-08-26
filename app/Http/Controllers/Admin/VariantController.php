@@ -35,6 +35,8 @@ class VariantController extends Controller
     {
         $data = Variant::findOrFail(request('id'));
         $data->categories()->delete();
+        $data->products()->delete();
+        $data->productsvariants()->delete();
         $data->delete();
         return response()->json([
             'status' => 200,
@@ -76,7 +78,9 @@ class VariantController extends Controller
                 $actionBtn .= '<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>';
                 $actionBtn .= '<div class="dropdown-menu" style="">';
                 $actionBtn .= '<a class="dropdown-item" href="' . route('admin.variants.edit', ['variant' => $row->id]) . '"><i class="bx bx-edit-alt me-1"></i> Edit</a>';
-                $actionBtn .= '<a class="dropdown-item text-danger" data-delete-id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>';
+                if(!in_array($row->id,[7,3,1])){
+                    $actionBtn .= '<a class="dropdown-item text-danger" data-delete-id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>';
+                }
                 $actionBtn .= '</div>';
                 $actionBtn .= '</div>';
                 return $actionBtn;

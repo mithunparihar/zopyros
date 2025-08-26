@@ -52,7 +52,8 @@ class UpdateForm extends Component
 
         // $this->fillData();
         foreach ($data->lowestPrice as $variants) {
-            $this->p_variant[$variants->variant_id] = $variants->title;
+            $checkData                              = \App\Models\ProductVariant::where(['product_id' => $this->info->id, 'variant_id' => $variants->variant_id])->pluck('title')->toArray();
+            $this->p_variant[$variants->variant_id] = $checkData;
         }
         $this->getImages();
 
@@ -74,6 +75,7 @@ class UpdateForm extends Component
     }
     public function setPreviewImagePrimary($index)
     {
+        ProductImage::product($this->info->id)->update(['is_primary' => 0]);
         foreach ($this->images as $key => $images) {
             if ($key == $index) {
                 $images->primary_image = true;
@@ -81,6 +83,7 @@ class UpdateForm extends Component
                 $images->primary_image = false;
             }
         }
+        $this->getImages();
     }
     public function removeImage(ProductImage $imageId)
     {
@@ -97,6 +100,14 @@ class UpdateForm extends Component
             $this->getImages();
         }
 
+    }
+    public function updated()
+    {
+        $totalImage = $this->productimages->count() + count($this->images ?? []);
+        if ($totalImage > 6) {
+            $this->reset('images');
+            $this->dispatch('errortoaster', ['title' => 'Sorry!', 'message' => 'You can`t upload more than 6 images.']);
+        }
     }
 
     // public function fillData()
@@ -348,7 +359,7 @@ class UpdateForm extends Component
         $this->saveVariants($data->id);
 
         // $this->saveColors($data->id);
-        // $this->saveCategory($data->id);
+        $this->saveCategory($data->id);
 
         $this->dispatch('refreshProductEdit', data: $data->id);
         $this->dispatch('successtoaster', ['title' => AlertMessageType::UPDATE, 'message' => AlertMessage::UPDATE]);
@@ -388,15 +399,32 @@ class UpdateForm extends Component
     }
     public function saveVariants($productId)
     {
+        $titleArr = [];
         if (count($this->p_variant ?? []) > 0) {
-            \App\Models\ProductVariant::whereProductId($productId)->delete();
-            foreach ($this->p_variant as $pid => $p_variant) {
-                $data             = new \App\Models\ProductVariant();
-                $data->product_id = $productId;
-                $data->variant_id = $pid;
-                $data->title      = $p_variant;
-                $data->save();
+            foreach ($this->p_variant as $variantId => $variantValues) {
+                foreach ($variantValues as $key => $variantValue) {
+                    $title = trim($variantValue);
+
+                    $existing = \App\Models\ProductVariant::where([
+                        ['product_id', '=', $productId],
+                        ['variant_id', '=', $variantId],
+                        ['title', '=', $title],
+                    ])->first();
+
+                    if (! $existing) {
+                        $data             = new \App\Models\ProductVariant();
+                        $data->product_id = $productId;
+                        $data->variant_id = $variantId;
+                        $data->title      = (int) $title;
+                        $data->save();
+                    } else {
+                        $data = $existing;
+                    }
+                    $titleArr[] = $data->title;
+                }
             }
+
+            \App\Models\ProductVariant::whereProductId($productId)->whereNotIn('title', $titleArr)->delete();
         }
     }
 

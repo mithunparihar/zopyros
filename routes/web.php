@@ -23,6 +23,7 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/thankyou/subscribe', 'thankyouSubscribe')->name('thankyou.subscribe');
     Route::get('/thankyou/contact', 'thankyouContact')->name('thankyou.contact');
     Route::get('/thankyou/career', 'thankyouCareer')->name('thankyou.career');
+    Route::get('/thankyou/quote', 'thankyouQuote')->name('thankyou.quote');
 });
 
 Route::controller(\App\Http\Controllers\SearchController::class)->group(function () {

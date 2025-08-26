@@ -75,7 +75,26 @@ class Product extends Model implements Viewable
 
     public function scopeRelated($query, Product $product)
     {
+        $categories = $product->categories()->whereHas('categoryInfo', function ($qert) {
+            $qert->active();
+        })->pluck('category_id')->toArray();
+
+        $varianttypes = $product->lowestPrice()->whereHas('variantTypeInfo', function ($qert) {
+            $qert->active();
+        })->pluck('title')->toArray();
+
+        $variants = $product->lowestPrice()->whereHas('variantInfo', function ($qert) {
+            $qert->active();
+        })->pluck('variant_id')->toArray();
+
         return $query->where('id', '!=', $product->id)
+            ->whereHas('categories', function ($qwert) use ($categories) {
+                $qwert->whereIn('category_id', $categories);
+            })
+            ->whereHas('lowestPrice', function ($qwert) use ($varianttypes,$variants) {
+                $qwert->whereIn('title', $varianttypes);
+                // $qwert->whereIn('variant_id', $variants);
+            })
             ->limit(10);
     }
 

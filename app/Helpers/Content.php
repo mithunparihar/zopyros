@@ -26,7 +26,7 @@ class Content
 
     function supportMail()
     {
-        return 'support@fissto.com';
+        return 'support@zopyros.com';
     }
     function cmsData($id)
     {

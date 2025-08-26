@@ -221,9 +221,10 @@ Route::middleware(['isAdmin'])->group(function () {
             Route::post('enquiry/career/remove', 'destoryCareerEnquiry')->name('enquiry.career.remove');
             Route::post('enquiry/career/bulk/remove', 'bulkdestroyCareerEnquiry')->name('enquiry.career.bulkdestroy');
 
-            Route::get('enquiry/free-estimation', 'quoteEnquiry')->name('enquiry.quote');
-            Route::post('enquiry/free-estimation/remove', 'destoryQuoteEnquiry')->name('enquiry.quote.remove');
-            Route::post('enquiry/free-estimation/bulk/remove', 'bulkdestroyQuoteEnquiry')->name('enquiry.quote.bulkdestroy');
+            Route::get('enquiry/quote', 'quoteEnquiry')->name('enquiry.quote');
+            Route::get('enquiry/quote/{info}', 'quoteInfo')->name('enquiry.quote.info');
+            Route::post('enquiry/quote/remove', 'destoryQuoteEnquiry')->name('enquiry.quote.remove');
+            Route::post('enquiry/quote/bulk/remove', 'bulkdestroyQuoteEnquiry')->name('enquiry.quote.bulkdestroy');
 
         });
 

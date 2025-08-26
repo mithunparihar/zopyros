@@ -12,7 +12,7 @@ class QuoteRequest extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $maildata, $requestType = 'Free Estimation';
+    public $maildata, $requestType = 'quote';
     public function __construct($data)
     {
         $this->maildata = $data;

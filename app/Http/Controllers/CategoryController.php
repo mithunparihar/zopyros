@@ -72,6 +72,8 @@ class CategoryController extends Controller
         $related    = \App\Models\Product::related($product)->get();
         RecentlyViewed::add($product);
 
-        return view('category.product', compact('product', 'facilities', 'related', 'images','highlights', 'colors', 'metals', 'sizes'));
+        $galleries = \App\Models\Gallery::type(1)->active()->latest()->get();
+        $videos = \App\Models\Gallery::type(2)->active()->latest()->get();
+        return view('category.product', compact('product','galleries','videos', 'facilities', 'related', 'images','highlights', 'colors', 'metals', 'sizes'));
     }
 }

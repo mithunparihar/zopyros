@@ -15,4 +15,8 @@ class Gallery extends Model
     public function scopeActive($query){
         return $query->whereIsPublish(1);
     }
+
+    public function scopeType($query,$type){
+        return $query->whereType($type);
+    }
 }

@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CareerEnquiry;
 use App\Models\ContactEnquiry as Enquiry;
-use App\Models\QuoteRequest;
+use App\Models\QuoteEnquiry as QuoteRequest;
 use App\Models\Subscribe as Newsletter;
 use Illuminate\Http\Request;
+use Illuminate\View\ComponentAttributeBag;
 
 class EnquiryController extends Controller
 {
@@ -39,7 +39,7 @@ class EnquiryController extends Controller
             return back();
         } else {
             $removeProduct = 0;
-            $skipProduct = '';
+            $skipProduct   = '';
             foreach ($request->check as $key => $check) {
                 $data = Enquiry::findOrFail($key);
                 $data->delete();
@@ -121,7 +121,7 @@ class EnquiryController extends Controller
             return back();
         } else {
             $removeProduct = 0;
-            $skipProduct = '';
+            $skipProduct   = '';
             foreach ($request->check as $key => $check) {
                 $data = Newsletter::findOrFail($key);
                 $data->delete();
@@ -189,7 +189,7 @@ class EnquiryController extends Controller
             return back();
         } else {
             $removeProduct = 0;
-            $skipProduct = '';
+            $skipProduct   = '';
             foreach ($request->check as $key => $check) {
                 $data = CareerEnquiry::findOrFail($key);
                 \Image::removeFile('resume/', $data->resume);
@@ -256,6 +256,10 @@ class EnquiryController extends Controller
         }
         return view('admin.enquiry.other');
     }
+    public function quoteInfo(QuoteRequest $info)
+    {
+        return view('admin.enquiry.other-info', compact('info'));
+    }
     public function destoryQuoteEnquiry()
     {
         $data = QuoteRequest::findOrFail(request('id'));
@@ -271,7 +275,7 @@ class EnquiryController extends Controller
             return back();
         } else {
             $removeProduct = 0;
-            $skipProduct = '';
+            $skipProduct   = '';
             foreach ($request->check as $key => $check) {
                 $data = QuoteRequest::findOrFail($key);
                 $data->delete();
@@ -298,7 +302,7 @@ class EnquiryController extends Controller
                 $html .= '<div class="d-flex align-items-center">';
                 $html .= '<div class="d-flex flex-column">';
                 $html .= '<h6 class="mb-0">' . $row->name . '</h6>';
-                $html .= '<span class="text-body small"><b>Phone : </b> <span class="sws-bounce sws-top">' . $row->phone . '</span> </span>';
+                $html .= '<span class="text-body small"><b>Phone : </b> <span class="sws-bounce sws-top">' . $row->contact . '</span> </span>';
                 $html .= '<span class="text-body small"><b>Email : </b>' . $row->email . '</span>';
                 $html .= '</div>';
                 $html .= '</div>';
@@ -306,10 +310,21 @@ class EnquiryController extends Controller
                 return $html;
             })
             ->addColumn('message', function ($row) {
+                $image                     = $row->productInfo->images[0]->image;
+                $imageComponent            = new \App\View\Components\ImagePreview('product', $image);
+                $imageComponent->pathName  = 'product';
+                $imageComponent->imageName = $image;
+
+                $attributes = new ComponentAttributeBag(['class' => 'me-2 rounded-2', 'width' => '200', 'style' => 'width:50px!important']);
+                $imageComponent->withAttributes($attributes->getAttributes());
+
                 $html = '';
-                $html .= '<small class="d-flex align-items-center">';
-                $html .= $row->message;
-                $html .= '</small>';
+                $html .= '<div class="d-flex align-items-center">';
+                $html .= $imageComponent->render()->with($imageComponent->data());
+                $html .= '<div class="d-flex flex-column">';
+                $html .= '<h6 class="mb-0">' . ($row->productInfo->title ?? '') . '</h6>';
+                $html .= '</div>';
+                $html .= '</div>';
 
                 return $html;
             })
@@ -317,6 +332,7 @@ class EnquiryController extends Controller
                 $actionBtn = '<div class="dropdown">';
                 $actionBtn .= '<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>';
                 $actionBtn .= '<div class="dropdown-menu" style="">';
+                $actionBtn .= '<a class="dropdown-item" href="' . route('admin.enquiry.quote.info', ['info' => $row->id]) . '"> <i class="fas fa-info-circle"></i> Information </a>';
                 $actionBtn .= '<a class="dropdown-item text-danger" data-delete-id="' . $row->id . '" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>';
                 $actionBtn .= '</div>';
                 $actionBtn .= '</div>';

@@ -91,7 +91,8 @@
                                             <div class="cbtn sws-bounce sws-top "
                                                 data-title="{{ $color->variantTypeInfo->title ?? '' }}">
                                                 <input class="cbtn-check btn-check" type="radio" name="colors"
-                                                    value="{{ $color->id }}" id="colors{{ $color->id }}">
+                                                    @checked($loop->index == 0) value="{{ $color->id }}"
+                                                    id="colors{{ $color->id }}">
                                                 <label class="cbtn-label"
                                                     style="background:{{ $color->variantTypeInfo->title ?? '' }};border: solid 1px white;"
                                                     for="colors{{ $color->id }}" role="button"></label>
@@ -108,7 +109,7 @@
                                         @foreach ($sizes ?? [] as $size)
                                             <div class="sizebtn">
                                                 <input class="sizebtn-check btn-check" type="radio" name="sizes"
-                                                    id="sizes{{ $size->id }}">
+                                                    @checked($loop->index == 0)  id="sizes{{ $size->id }}">
                                                 <label class="sizebtn-label" for="sizes{{ $size->id }}"
                                                     role="button">{{ $size->variantTypeInfo->title ?? '' }}</label>
                                             </div>
@@ -123,9 +124,8 @@
                                     <lable for="finish" class="fw-semibold text-secondary small m-0">Select Finishing
                                     </lable>
                                     <select name="finish" id="finish" class="form-select">
-                                        <option value="">Choose One</option>
                                         @foreach ($metals as $metal)
-                                            <option value="{{ $metal->id }}">{{ $metal->variantTypeInfo->title ?? '' }}
+                                            <option value="{{ $metal->id }}" @selected($loop->index==0) >{{ $metal->variantTypeInfo->title ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -158,7 +158,7 @@
                                             <li>
                                                 <b>{{ $variantTitle ?? '' }} : </b>
                                                 @foreach ($types as $type)
-                                                    {{ $type->variantTypeInfo->title ?? '' }}{{$loop->last?'':', '}}
+                                                    {{ $type->variantTypeInfo->title ?? '' }}{{ $loop->last ? '' : ', ' }}
                                                 @endforeach
                                             </li>
                                         @endforeach
@@ -216,66 +216,79 @@
                 </div>
             </div>
         </section>
-        <section class="PageProD pt-0">
-            <div class="container">
-                <h2 class="h3">Gallery / Applications</h2>
-                <div id="galleryPnV" class="galleryPnV">
-                    <ul class="nav nav-pills Rlink">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#gallery">Photos <small>(15)</small></a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="#video">Video Book</a>
-                        </li>
-                    </ul>
-                    <div id="gallery">
-                        <div class="row ListPhoto row-gap-3">
-                            <?php for($j=1; $j<=12;$j++) { ?>
-                            <div class="col-lg-3 col-sm-4 col-6">
-                                <a href="img/proimg/<?= $j ?>.jpg" data-fancybox="photo"
-                                    class="card photo border border-dark shadow">
-                                    <div class="card-body p-0">
-                                        <picture>
-                                            <source srcset="img/proimg/<?= $j ?>.webp" type="image/webp">
-                                            <img fetchpriority="low" loading="lazy" src="img/proimg/<?= $j ?>.jpg"
-                                                alt="img<?= $j ?>" width="200" height="200">
-                                        </picture>
-                                    </div>
-                                </a>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div id="video" class="mt-4">
-                        <h3 class="h4">Videos</h3>
-                        <div class="row ListVideo row-gap-3">
-                            <?php $Video = [['title'=>'Video Name','url'=>'V2zpLzoJBuQ',],
-            ['title'=>'Video Name','url'=>'eEY50BOF0wM',],
-            ['title'=>'Video Name','url'=>'hNN9Q3GuWEM',],];
-            foreach ($Video as $k=>$Videos) { ?>
-                            <div class="col-lg-3 col-md-4 col-6">
-                                <a href="https://www.youtube.com/watch?v=<?= $Videos['url'] ?>" data-fancybox="video"
-                                    class="card photo border border-dark shadow" data-caption="<?= $Videos['title'] ?>">
-                                    <div class="card-body p-0">
-                                        <picture>
-                                            <source
-                                                srcset="https://img.youtube.com/vi_webp/<?= $Videos['url'] ?>/sddefault.webp"
-                                                type="image/webp">
-                                            <img fetchpriority="low" loading="lazy"
-                                                src="https://img.youtube.com/vi/<?= $Videos['url'] ?>/sddefault.jpg"
-                                                alt="<?= $Videos['url'] ?>" height="200" width="200">
-                                        </picture>
-                                    </div>
-                                </a>
-                                <div class="title mt-2 fw-medium text-center"><?= $Videos['title'] ?></div>
-                            </div>
-                            <?php } ?>
-                        </div>
 
+        @if ($galleries->isNotEmpty() || $videos->isNotEmpty())
+            <section class="PageProD pt-0">
+                <div class="container">
+                    <h2 class="h3">Gallery / Applications</h2>
+                    <div id="galleryPnV" class="galleryPnV">
+                        <ul class="nav nav-pills Rlink">
+                            @if ($galleries->isNotEmpty())
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#gallery">Photos
+                                        <small>({{ count($galleries) }})</small></a>
+                                </li>
+                            @endif
+                            @if ($videos->isNotEmpty())
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" href="#video">Video Book
+                                        <small>({{ count($videos) }})</small></a>
+                                </li>
+                            @endif
+                        </ul>
+
+                        @if ($galleries->isNotEmpty())
+                            <div id="gallery">
+                                <div class="row ListPhoto row-gap-3">
+                                    @foreach ($galleries as $galler)
+                                        <div class="col-lg-3 col-sm-4 col-6">
+                                            <a href="{{ \Image::showFile('gallery', 1000, $galler->image) }}"
+                                                data-fancybox="photo" class="card photo border border-dark shadow">
+                                                <div class="card-body p-0">
+                                                    <x-image-preview fetchpriority="low" loading="lazy"
+                                                        imagepath="gallery" width="400" height="400"
+                                                        :image="$galler->image ?? ''" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($videos->isNotEmpty())
+                            <div id="video" class="mt-4">
+                                <h3 class="h4">Videos</h3>
+                                <div class="row ListVideo row-gap-3">
+                                    @foreach ($videos as $video)
+                                        <div class="col-lg-3 col-md-4 col-6">
+                                            <a href="https://www.youtube.com/watch?v=<?= $video['url'] ?>"
+                                                data-fancybox="video" class="card photo border border-dark shadow"
+                                                data-caption="<?= $video['title'] ?>">
+                                                <div class="card-body p-0">
+                                                    <picture>
+                                                        <source
+                                                            srcset="https://img.youtube.com/vi_webp/{{ \CommanFunction::getYoutubeVideoId($video->url) }}/sddefault.webp"
+                                                            type="image/webp">
+                                                        <img fetchpriority="low" loading="lazy"
+                                                            src="https://img.youtube.com/vi/{{ \CommanFunction::getYoutubeVideoId($video->url) }}/sddefault.jpg"
+                                                            alt="{{ \CommanFunction::getYoutubeVideoId($video->url) }}"
+                                                            height="200" width="200">
+                                                    </picture>
+                                                </div>
+                                            </a>
+                                            {{-- <div class="title mt-2 fw-medium text-center"><?= $Videos['title'] ?></div> --}}
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                            </div>
+                        @endif
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
+
 
         @if ($related->isNotEmpty())
             <section class="grey">
@@ -328,50 +341,18 @@
                 <div class="modal-body justify-content-center p-0">
                     <div
                         class="bg-dark text-center m-4 mx-0 d-none d-md-flex align-items-center flex-column gap-2 justify-content-center">
-
                         <x-image-preview fetchpriority="low" loading="lazy" class="w-100" imagepath="product"
                             width="800" height="800" :image="$images[0]->image ?? ''" />
                         <div class="mb-3">
                             <h3 class="h5 m-0 fw-bold">{{ $product->title }}</h3>
                         </div>
                     </div>
-                    <form class="bgthm rounded-3 shadow-lg p-4 d-flex flex-column gap-3" method="POST" action="mail.php"
-                        enctype="multipart/form-data">
-                        <input type="hidden" name="contact" value="yes">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <h2 class="h5 text-center fw-bold text-u m-0 lh-1">Get a Quote</h2>
-                        <div>
-                            <label for="OName" class="form-label small lh-1 m-0 small">Your Name<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control border-dark-subtle" id="OName" name="Name" type="text"
-                                placeholder="Anil Kumar" onkeypress="return /[a-z ]/i.test(event.key)" maxlength="30">
-                        </div>
-                        <div>
-                            <label for="Ocontact" class="form-label small lh-1 m-0 small">Your Contact No.<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control border-dark-subtle" id="Ocontact" name="Name" type="tel"
-                                placeholder="9898989898" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                maxlength="10">
-                        </div>
-
-                        <div>
-                            <label for="OEmail" class="form-label small lh-1 m-0 small">Your Email ID<span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control border-dark-subtle" id="OEmail" name="Email" type="email"
-                                placeholder="info@yourdomain.com" onkeypress="return /[a-zA-z0-9@_.-]/i.test(event.key)"
-                                maxlength="30">
-                        </div>
-                        <div>
-                            <label for="OMessage" class="form-label m-0 small">Message</label>
-                            <textarea class="form-control border-dark-subtle" id="OMessage" name="Message"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-black mt-0 gap-2">Submit</button>
-                            <div class="mt-2 small text-white"><small>By clicking Submit, I accept the <a href="{{route('terms')}}" target="_blank"
-                                        class="text-black">T&C</a> and <a href="{{route('privacy')}}" class="text-black" target="_blank">Privacy
-                                        Policy</a>.</small></div>
-                        </div>
-                    </form>
+                    @livewire('quote-form', [
+                        'product' => $product,
+                        'colors' => $colors ?? [],
+                        'sizes' => $sizes ?? [],
+                        'metals' => $metals ?? [],
+                    ])
                 </div>
             </div>
         </div>
@@ -450,5 +431,33 @@
             })
         }
         window.addEventListener('load', ProCatSlider);
+
+        const colors = document.querySelectorAll('input[name="colors"]');
+        colors.forEach(function(color) {
+            color.addEventListener('click', function() {
+                const colorId = this.value;
+                Livewire.dispatch('getcolor', {
+                    color: colorId
+                });
+            });
+        });
+
+        const sizes = document.querySelectorAll('input[name="sizes"]');
+        sizes.forEach(function(size) {
+            size.addEventListener('click', function() {
+                const sizeId = this.value;
+                Livewire.dispatch('getsize', {
+                    size: sizeId
+                });
+            });
+        });
+
+        const finish = document.getElementById('finish');
+        finish.addEventListener('change', function() {
+            const finishId = this.value;
+            Livewire.dispatch('getmaterial', {
+                material: finishId
+            });
+        });
     </script>
 @endpush

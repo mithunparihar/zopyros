@@ -279,8 +279,8 @@ class CommanFunction
                 $redirectUrl = route('admin.enquiry.subscribe');
                 break;
             case 'App\Notifications\Estimation':
-                $Type = "FE";
-                $Message = 'A new free estimation request has been received';
+                $Type = "QR";
+                $Message = 'A new quote request has been received';
                 $class = 'primary';
                 $redirectUrl = route('admin.enquiry.quote');
                 break;

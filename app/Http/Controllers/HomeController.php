@@ -124,4 +124,11 @@ class HomeController extends Controller
         return view('thankyou.career');
     }
 
+    public function thankyouQuote()
+    {
+        return view('thankyou.quote');
+    }
+
+    
+
 }

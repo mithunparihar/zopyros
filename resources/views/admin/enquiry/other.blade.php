@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
-@section('metatitle', 'Free Estimation : ' . \Content::ProjectName())
+@section('metatitle', 'Quote Request : ' . \Content::ProjectName())
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold py-3 mb-4">Free Estimation</h4>
+            <h4 class="fw-bold py-3 mb-4">Quote Request</h4>
             <div class="d-flex gap-2"> </div>
         </div>
         <div class="row">
@@ -21,7 +21,7 @@
                                         </th>
                                         <th width="25%">Date & Time</th>
                                         <th width="25%">User Info</th>
-                                        <th width="40%">Message</th>
+                                        <th width="40%">Product Info</th>
                                         <th>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -89,6 +89,7 @@
     <script type="text/javascript">
         $(function() {
             generateTable();
+            
         });
     </script>
 @endpush

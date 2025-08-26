@@ -130,6 +130,15 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Inquiry Management</span>
         </li>
+        <li class="menu-item @if (request()->segment(2) == 'enquiry' && request()->segment(3) == 'quote') active @endif">
+            <a role="button" wire:click='redirectData("{{ route('admin.enquiry.quote') }}","career")'
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Quote Request">Quote Request</div>
+                <span style="display:{{ ($quoteCount ?? 0) > 0 ? 'block' : 'none' }}" id="careerNotification"
+                    class="badge rounded-pill bg-dark ms-auto">{{ $quoteCount ?? 0 }}</span>
+            </a>
+        </li>
         <li class="menu-item @if (request()->segment(2) == 'enquiry' && request()->segment(3) == 'contact') active @endif">
             <a role="button" wire:click='redirectData("{{ route('admin.enquiry.contact') }}","contact")'
                 class="menu-link">
@@ -142,7 +151,7 @@
         <li class="menu-item @if (request()->segment(2) == 'enquiry' && request()->segment(3) == 'career') active @endif">
             <a role="button" wire:click='redirectData("{{ route('admin.enquiry.career') }}","career")'
                 class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
+                <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Career">Career</div>
                 <span style="display:{{ ($careerCount ?? 0) > 0 ? 'block' : 'none' }}" id="careerNotification"
                     class="badge rounded-pill bg-dark ms-auto">{{ $careerCount ?? 0 }}</span>
@@ -151,7 +160,7 @@
         <li class="menu-item @if (request()->segment(2) == 'enquiry' && request()->segment(3) == 'subscribe') active @endif">
             <a role="button" wire:click='redirectData("{{ route('admin.enquiry.subscribe') }}","subscribe")'
                 class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-comment-detail"></i>
+                <i class="menu-icon tf-icons bx bxs-detail"></i>
                 <div data-i18n="Newsletter">Newsletter</div>
                 <span style="display:{{ ($subscribeNotification ?? 0) > 0 ? 'block' : 'none' }}"
                     id="subscribeNotification"

@@ -270,13 +270,18 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Others Links</span>
         </li>
-
-        <li class="menu-item  @if (request()->segment(2) == 'countries') active @endif">
+        <li class="menu-item  @if (request()->segment(2) == 'gallery') active @endif">
+            <a href="{{ route('admin.gallery.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-images"></i>
+                <div data-i18n="Gallery">Gallery</div>
+            </a>
+        </li>
+        {{-- <li class="menu-item  @if (request()->segment(2) == 'countries') active @endif">
             <a href="{{ route('admin.countries.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-map"></i>
                 <div data-i18n="Countries">Countries</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item @if (request()->segment(2) == 'meta') active @endif">
             <a href="{{ route('admin.meta.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-detail"></i>

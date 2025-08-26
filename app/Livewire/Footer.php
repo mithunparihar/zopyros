@@ -9,11 +9,13 @@ use Livewire\Component;
 class Footer extends Component
 {
     public $categories = [];
+    public $icons=[];
     public $subscribe_email;
 
     public function mount()
     {
         $this->categories = \App\Models\Category::active()->footer()->get();
+        $this->icons = \App\Models\SocialMedia::active()->get();
     }
     public function render()
     {

@@ -40,8 +40,8 @@
             <form wire:submit="saveSubscribe" class="ps-lg-4">
                 <h3 class="mb-md-3 mb-2">Subscribe</h3>
                 <p>Get all the latest offers & info</p>
-                <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror " wire:model="subscribe_email"
-                    placeholder="Enter your Email ID">
+                <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror "
+                    wire:model="subscribe_email" placeholder="Enter your Email ID">
                 @error('subscribe_email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -59,28 +59,19 @@
                     class="text-u fw-semibold">{{ \Content::ProjectName() }}</strong>. All Rights Reserved.</div>
             <div class="col-lg-4 text-center">
                 <div class="icons justify-content-center mt-3">
-                    <a href="https://www.facebook.com/" target="_blank" title="Facebook"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}facebook-i-w.svg" alt="Facebook"
-                            width="20" height="20"></a>
-                    <a href="https://www.instagram.com/" target="_blank" title="Instagram"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}instagram-i-w.svg" alt="Instagram"
-                            width="20" height="20"></a>
-                    <a href="https://www.twitter.com/" target="_blank" title="Twitter"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}twitter-i-x-w.svg" alt="Twitter"
-                            width="20" height="20"></a>
-                    <a href="https://www.linkedin.com/" target="_blank" title="Linkedin"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}linkedin-i-w.svg" alt="Linkedin"
-                            width="20" height="20"></a>
-                    <a href="https://www.youtube.com/" target="_blank" title="Youtube"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}youtube-i-w.svg" alt="Youtube"
-                            width="20" height="20"></a>
-                    <a href="https://www.pinterest.com/" target="_blank" title="Pinterest"><img loading="lazy"
-                            fetchpriority="low" src="{{ \App\Enums\Url::IMG }}pinterest-i-w.svg" alt="Pinterest"
-                            width="20" height="20"></a>
-                    <a href="https://wa.me/<?= $Whatsapp ?? '' ?>?text=Hi,&nbsp;I&nbsp;would&nbsp;like&nbsp;to&nbsp;get&nbsp;more&nbsp;information..!"
-                        target="_blank" title="Whatsapp"><img loading="lazy" fetchpriority="low"
-                            src="{{ \App\Enums\Url::IMG }}whatsapp-w.svg" alt="Whatsapp" width="20"
-                            height="20"></a>
+                    @foreach ($icons as $icon)
+                        @if ($icon->social_media_icon == 'whatsapp')
+                            <a href="https://wa.me/<?= $icon->link ?>?text=Hi,&nbsp;I&nbsp;would&nbsp;like&nbsp;to&nbsp;get&nbsp;more&nbsp;information..!"
+                                target="_blank" title="Whatsapp"><img loading="lazy" fetchpriority="low"
+                                    src="{{ \App\Enums\Url::IMG }}whatsapp-w.svg" alt="Whatsapp" width="20"
+                                    height="20"></a>
+                        @else
+                            <a href="{{ $icon->link }}" target="_blank" title="{{ $icon->social_media_icon }}"><img
+                                    loading="lazy" fetchpriority="low"
+                                    src="{{ \App\Enums\Url::IMG }}{{ $icon->social_media_icon }}-i-w.svg"
+                                    alt="{{ $icon->social_media_icon }}" width="20" height="20"></a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <div class="col-lg-4 text-md-end text-center">Made with <span class="text-danger">&#10084;</span> by <a

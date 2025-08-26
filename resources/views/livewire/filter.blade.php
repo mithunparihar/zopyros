@@ -1,6 +1,8 @@
-<form id="FilterBar" class="offcanvas offcanvas-start" data-bs-scroll="false" id="FilterBar" tabindex="-1">
+<form id="FilterBar" class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1">
+    <button type="submit" id="FilterBarBtn" style="display: none">submit</button>
     <div class="d-flex justify-content-between d-lg-none py-2 mb-2 fw-bold text-u position-sticky top-0 fs-5 z-3"><span
-            class="d-flex align-items-center gap-2">Filter <button class="Refresh" title="Refresh"><svg viewBox="0 0 38 29">
+            class="d-flex align-items-center gap-2">Filter <button class="Refresh" title="Refresh"><svg
+                    viewBox="0 0 38 29">
                     <polyline points="13 9 5 13 1 5" />
                     <polyline points="25 22 33 18 37 26" />
                     <path d="M5,18a15,19,0,0,0,28,0" />
@@ -35,9 +37,9 @@
                     data-bs-parent="#allFilter">
                     <div class="ullist">
                         @foreach ($variant->childs as $g => $label)
-                            <label class="form-check form-check-label lh-normal" onclick="$('#FilterBar').submit();">
+                            <label class="form-check form-check-label lh-normal">
                                 <span>
-                                    <input class="form-check-input border-black border-opacity-50" type="checkbox"
+                                    <input class="form-check-input border-black border-opacity-50" type="checkbox"  onclick="$('#FilterBar').submit();"
                                         @checked(in_array($label->id, request('variant_type', []))) value="{{ $label->id }}" name="variant_type[]"
                                         id="Gues<?= $g ?>"> {{ $label->title }}
                                 </span>

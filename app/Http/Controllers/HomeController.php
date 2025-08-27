@@ -8,7 +8,7 @@ class HomeController extends Controller
         $sliders      = \App\Models\Banner::active()->whereNotIn('id', [3, 4])->latest()->get();
         $banner       = \App\Models\Banner::active()->find(3);
         $videoBanner  = \App\Models\Banner::active()->find(4);
-        $categories   = \App\Models\Category::parent(0)->active()->latest()->take(10)->get();
+        $categories   = \App\Models\Category::active()->latest()->home()->take(10)->get();
         $counters     = \App\Models\Counter::active()->latest()->get();
         $blogs        = \App\Models\Blog::active()->latest('post_date')->take(10)->get();
         $products     = \App\Models\Product::active()->latest()->take(10)->get();
@@ -56,7 +56,7 @@ class HomeController extends Controller
         if ($alias) {
             $list   = \App\Models\Career::active()->whereAlias($alias)->firstOrFail();
             $others = \App\Models\Career::active()->whereNot('id', $list->id)->latest()->paginate(10);
-            return view('career.info', compact('list','others'));
+            return view('career.info', compact('list', 'others'));
         }
         $lists = \App\Models\Career::active()->latest()->paginate(40);
         return view('career.list', compact('lists'));
@@ -128,7 +128,5 @@ class HomeController extends Controller
     {
         return view('thankyou.quote');
     }
-
-    
 
 }

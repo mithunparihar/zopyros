@@ -310,7 +310,7 @@ class EnquiryController extends Controller
                 return $html;
             })
             ->addColumn('message', function ($row) {
-                $image                     = $row->productInfo->images[0]->image;
+                $image                     = $row->productInfo->images[0]->image ?? '';
                 $imageComponent            = new \App\View\Components\ImagePreview('product', $image);
                 $imageComponent->pathName  = 'product';
                 $imageComponent->imageName = $image;

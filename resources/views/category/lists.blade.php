@@ -24,6 +24,19 @@
                     @endforeach
                 </div>
                 <div class="CmsPage mt-4">{!! $category->description !!}</div>
+                @if ($faqs->isNotEmpty())
+                    <div class="FAQsD mt-4">
+                        <h2 class="">{{ $category->title }} FAQs</h2>
+                        @foreach ($faqs as $faq)
+                            <details name="accordion" {{$loop->index==0?'open':''}}>
+                                <summary>{{$faq->title}}</summary>
+                                <div class="text">
+                                    {!! $faq->description !!}
+                                </div>
+                            </details>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
     </main>

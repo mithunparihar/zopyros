@@ -25,7 +25,7 @@ class UpdateForm extends Component
     public function rules()
     {
         return [
-            'title' => ['required', 'unique:variants,title,' . $this->info->id . ',id,deleted_at,NULL,parent_id,' . $this->parent, 'regex:/^([-.a-zA-Z\s])+$/u', 'max:50', new TextRule()],
+            'title' => ['required', 'unique:variants,title,' . $this->info->id . ',id,deleted_at,NULL,parent_id,' . $this->info->parent_id, 'regex:/^([-.a-zA-Z\s])+$/u', 'max:50', new TextRule()],
         ];
     }
 

@@ -26,8 +26,9 @@ class CategoryController extends Controller
             $category = \App\Models\Category::whereAlias($exp)->active()->firstOrFail();
             $parentid = $category->parent_id;
         }
+         $faqs     = $category->faqs()->active()->get();
         if ($category->products()->count() > 0) {
-            $faqs     = $category->faqs()->active()->get();
+           
             $products = \App\Models\Product::whereHas('categories', function ($query) use ($category) {
                 return $query->category($category['id']);
             })->search()->active()->paginate(60);
@@ -38,7 +39,7 @@ class CategoryController extends Controller
             }
             return view('category.product-lists', compact('category', 'parentid', 'faqs', 'explode'));
         }
-        return view('category.lists', compact('category', 'parentid', 'explode'));
+        return view('category.lists', compact('category', 'parentid', 'explode','faqs'));
     }
 
     public function productInfo($product)

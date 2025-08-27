@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,7 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $quotes = \App\Models\QuoteEnquiry::latest()->take(5)->get();
+        $lists  = \App\Models\ContactEnquiry::latest()->take(8)->get();
+        return view('admin.dashboard', compact('quotes', 'lists'));
     }
 
     public function setting($id = null)
@@ -22,15 +23,15 @@ class HomeController extends Controller
     {
         if ($request->hasFile('file')) {
             $originName = $request->file('file')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('file')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
+            $fileName   = pathinfo($originName, PATHINFO_FILENAME);
+            $extension  = $request->file('file')->getClientOriginalExtension();
+            $fileName   = $fileName . '_' . time() . '.' . $extension;
 
             $request->file('file')->move(public_path('ck-images'), $fileName);
 
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('ck-images/' . $fileName);
-            $msg = 'Image uploaded successfully';
+            $url             = asset('ck-images/' . $fileName);
+            $msg             = 'Image uploaded successfully';
             return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
         }
     }
@@ -39,10 +40,10 @@ class HomeController extends Controller
     public function performanceChart()
     {
         $lastMonths = [];
-        $lastQuote = [];
-        $lastBulk = [];
+        $lastQuote  = [];
+        $lastBulk   = [];
         $totalQuote = 0;
-        $totalBulk = 0;
+        $totalBulk  = 0;
         for ($A = 0; $A <= 6; $A++) {
             $bulkrequest = \App\Models\BulkRequest::whereBetween('created_at', [
                 \Carbon\Carbon::now()->subMonth($A)->startOfMonth(),
@@ -66,11 +67,11 @@ class HomeController extends Controller
 
     public function performanceChart2()
     {
-        $lastMonths = [];
+        $lastMonths  = [];
         $lastBuylead = [];
-        $lastPost = [];
+        $lastPost    = [];
         $totaBuylead = 0;
-        $totalPost = 0;
+        $totalPost   = 0;
         for ($A = 0; $A <= 6; $A++) {
             $leadrequest = \App\Models\BuyLeadRequest::whereBetween('created_at', [
                 \Carbon\Carbon::now()->subMonth($A)->startOfMonth(),
@@ -110,7 +111,7 @@ class HomeController extends Controller
 
     public function registrationChart()
     {
-        $lastweek = [];
+        $lastweek  = [];
         $registers = [];
         for ($A = 6; $A >= 0; $A--) {
             $register = \App\Models\User::whereDate('created_at', \Carbon\Carbon::now()->subDay($A))->count();
@@ -125,9 +126,9 @@ class HomeController extends Controller
     public function totalIncomeChart()
     {
         $lastMonths = [];
-        $lastSales = [];
-        $maxSales = 0;
-        $minSales = 0;
+        $lastSales  = [];
+        $maxSales   = 0;
+        $minSales   = 0;
         for ($A = 11; $A >= 0; $A--) {
             $sales = \App\Models\Order::where(['delivered_status' => 1, 'canceled_status' => 0])
                 ->whereBetween('created_at', [

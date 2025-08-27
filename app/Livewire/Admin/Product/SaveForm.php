@@ -140,6 +140,7 @@ class SaveForm extends Component
             'brochure'                 => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
             'technical'                => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
 
+            'images' => ['required'],
             'images.*'         => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
 
             // 'inputs.*.colors.name'     => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
@@ -202,7 +203,7 @@ class SaveForm extends Component
         $this->dispatch('emptyEditor');
         $this->dispatch('resetMount');
         $this->inputs = collect($this->inputsArr);
-        $this->reset(['title', 'description', 'categories', 'size_category', 'specifications', 'meta_title', 'meta_keywords', 'meta_description']);
+        $this->reset(['title', 'description','brochure','technical', 'categories', 'size_category', 'specifications', 'meta_title', 'meta_keywords', 'meta_description']);
         $this->dispatch('successtoaster', ['title' => AlertMessageType::SAVE, 'message' => AlertMessage::SAVE]);
     }
 

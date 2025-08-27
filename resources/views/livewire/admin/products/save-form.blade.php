@@ -48,31 +48,37 @@
                     <x-admin.category-tree :category="$category" />
                 </div>
             @endforeach
+
+            @error('categories')
+                <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+            @enderror
         </div>
     </div>
 
-    <div class="card p-3 mt-2">
-        <div class="row">
-            <div class="col-12 mb-2">
-                <div class=" bg-secondary bg-opacity-25 rounded-1">
-                    <h5 class="h6 mb-0 p-2">Mapped With Variants</h5>
-                </div>
-            </div>
-            @foreach ($variants as $variant)
-                <div class="mb-1 col-md-12">
-                    <x-admin.form.label for="variant_{{ $variant->id }}" class="form-label"
-                        :asterisk="false">{{ $variant->title }}</x-admin.form.label>
-                    <div wire:ignore>
-                        <x-admin.form.select-box class="select2 pVariantb" id="p_variant{{ $variant->id }}"
-                            wire:model="p_variant.{{ $variant->id }}" multiple :lists="$variant->childs" />
+    @if ($variants->isNotEmpty())
+        <div class="card p-3 mt-2">
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <div class=" bg-secondary bg-opacity-25 rounded-1">
+                        <h5 class="h6 mb-0 p-2">Mapped With Variants</h5>
                     </div>
-                    @error('p_variants.' . $variant->id)
-                        <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
-                    @enderror
                 </div>
-            @endforeach
+                @foreach ($variants as $variant)
+                    <div class="mb-1 col-md-12">
+                        <x-admin.form.label for="variant_{{ $variant->id }}" class="form-label"
+                            :asterisk="false">{{ $variant->title }}</x-admin.form.label>
+                        <div wire:ignore>
+                            <x-admin.form.select-box class="select2 pVariantb" id="p_variant{{ $variant->id }}"
+                                wire:model="p_variant.{{ $variant->id }}" multiple :lists="$variant->childs" />
+                        </div>
+                        @error('p_variants.' . $variant->id)
+                            <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                        @enderror
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="card p-3 mt-2">
         <div class="row">
@@ -85,7 +91,9 @@
                     Best Image 900px * 900px <small class='text-secondary'>(You can`t upload more than 6 images)</small>
                 </x-admin.form.label>
                 <x-admin.form.input wire:model="images" multiple type="file" accept='image/*' />
-                <x-admin.form.invalid-error errorFor="images" />
+                @error('images')
+                    <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+                @enderror
             </div>
 
             <div wire:loading.remove wire:target="images" class="row align-items-start">
@@ -346,6 +354,7 @@
             <div class="col-2 mt-3">
                 @if ($brochure)
                     @php
+                        $documentType = '';
                         if ($brochure->getMimeType() == 'application/msword') {
                             $documentType = 'doc';
                         }

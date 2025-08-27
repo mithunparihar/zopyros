@@ -57,9 +57,13 @@
                     <x-admin.category-tree :category="$category" />
                 </div>
             @endforeach
+            @error('categories')
+                <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>
+            @enderror
         </div>
     </div>
 
+    @if($variants->isNotEmpty())
     <div class="card p-3 mt-2">
         <div class="row">
             <div class="col-12 mb-2">
@@ -84,6 +88,7 @@
 
         </div>
     </div>
+    @endif
 
     <div class="card p-3 mt-2">
         <div class="row">
@@ -413,6 +418,7 @@
             <div class="col-2 mt-3">
                 @if ($brochure)
                     @php
+                    $documentType='';
                         if ($brochure->getMimeType() == 'application/msword') {
                             $documentType = 'doc';
                         }

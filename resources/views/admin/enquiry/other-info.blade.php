@@ -40,7 +40,7 @@
                                             <div class="d-flex align-items-center gap-2">
                                                 <x-image-preview fetchpriority="low" loading="lazy" imagepath="product"
                                                     style="width: 50px;height: 50px;" width="200" height="200"
-                                                    :image="$info->productInfo->images[0]->image" />
+                                                    :image="$info->productInfo->images[0]->image ?? '' " />
                                                 <div class="d-flex flex-column text-break text-wrap">
                                                     <h6 class="mb-0">{{ $info->productInfo->title ?? '' }}</h6>
                                                     @if ($info->productInfo)

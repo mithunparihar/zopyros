@@ -9,7 +9,6 @@
                 @if (!empty(request('q')))
                     <h1 class="Heading h2 mb-4">Search
                         "{{ request('q') ?? '' }}"
-
                     </h1>
                 @endif
                 <div class="row">

@@ -78,7 +78,7 @@ class SaveForm extends Component
                 'max:200',
                 new TextRule(),
                 new NoDangerousTags(),
-                Rule::unique('blogs')->where(function ($query) {
+                Rule::unique('blogs', 'name')->where(function ($query) {
                     $query->whereNULL('deleted_at');
                     $query->whereRaw('LOWER(TRIM(name)) = ?', [strtolower($this->title)]);
                 }),

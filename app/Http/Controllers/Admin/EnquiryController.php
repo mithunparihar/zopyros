@@ -321,8 +321,11 @@ class EnquiryController extends Controller
                 $html = '';
                 $html .= '<div class="d-flex align-items-center">';
                 $html .= $imageComponent->render()->with($imageComponent->data());
-                $html .= '<div class="d-flex flex-column">';
+                $html .= '<div class="d-flex flex-column align-items-start">';
                 $html .= '<h6 class="mb-0">' . ($row->productInfo->title ?? '') . '</h6>';
+                if ($row->productInfo->deleted_at) {
+                    $html .= '<span class="badge bg-label-danger">Deleted</span>';
+                }
                 $html .= '</div>';
                 $html .= '</div>';
 

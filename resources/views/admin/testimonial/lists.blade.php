@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="fw-bold py-3 mb-4">Testimonials </h4>
             <div class="d-flex gap-2">
-                <x-admin.button.add-more :href="route('admin.cms.edit',['cm'=>10])" icon='fas fa-file-alt'  >Page Content</x-admin.button.add-more>
+                <x-admin.button.add-more :href="route('admin.cms.edit', ['cm' => 10])" icon='fas fa-file-alt'>Page Content</x-admin.button.add-more>
                 <x-admin.button.add-more :href="route('admin.testimonial.create')" icon="fas fa-plus">Add More</x-admin.button.add-more>
             </div>
         </div>
@@ -44,6 +44,7 @@
     <script>
         const tableListUrl = @json(route('admin.testimonial.index'));
         const removeRecordUrl = @json(route('admin.testimonial.remove'));
+
         function deleteconformation(deleteId) {
             if (confirm('Are you sure! You want to remove this record?')) {
                 const DeleteForm = $('.deleteForm' + deleteId).submit();
@@ -60,10 +61,10 @@
                 className: 'text-wrap text-break',
             },
             {
-                data:'is_home'
+                data: 'is_home'
             },
             {
-                data:'is_publish'
+                data: 'is_publish'
             },
             {
                 data: 'action',

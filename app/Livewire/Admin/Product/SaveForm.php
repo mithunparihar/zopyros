@@ -17,7 +17,7 @@ class SaveForm extends Component
     use WithFileUploads;
     public $title, $heading, $description, $specifications;
     public $categories = [], $size_category;
-    public $p_variant  = [], $images  = [];
+    public $p_variant  = [], $images  = [],$primary_image=null;
     public $meta_description, $meta_keywords, $meta_title;
     protected $listeners    = ['updateEditorValue' => 'updateEditorValue', 'resetMount' => 'mount'];
     public $categoriesArr   = [];
@@ -50,6 +50,7 @@ class SaveForm extends Component
     public function setPreviewImagePrimary($index)
     {
         foreach ($this->images as $key => $images) {
+            $this->primary_image = $index;
             if ($key == $index) {
                 $images->primary_image = true;
             } else {
@@ -186,7 +187,6 @@ class SaveForm extends Component
 
     public function SaveForm()
     {
-
         $this->validate();
         $data        = new Products();
         $data->title = $this->title;
@@ -227,27 +227,41 @@ class SaveForm extends Component
                 $imageData             = new ProductImage();
                 $imageData->image      = $imageName;
                 $imageData->product_id = $productId;
-                if (empty($checkPrimary)) {
+                if (empty($checkPrimary) && $this->primary_image == null) {
                     $imageData->is_primary = $k == 0 ? 1 : 0;
-                } else {
-                    $imageData->is_primary = $image->primary_image ?? 0;
+                } elseif($this->primary_image==$k) {
+                    $imageData->is_primary = 1 ?? 0;
                 }
                 $imageData->save();
             }
-            $this->reset('images');
+            $this->reset('images','primary_image');
         }
     }
 
     public function saveVariants($productId)
     {
         if (count($this->p_variant ?? []) > 0) {
-            \App\Models\ProductVariant::whereProductId($productId)->delete();
-            foreach ($this->p_variant as $pid => $p_variant) {
-                $data             = new \App\Models\ProductVariant();
-                $data->product_id = $productId;
-                $data->variant_id = $pid;
-                $data->title      = $p_variant;
-                $data->save();
+            foreach ($this->p_variant as $variantId => $variantValues) {
+                foreach ($variantValues as $key => $variantValue) {
+                    $title = trim($variantValue);
+
+                    $existing = \App\Models\ProductVariant::where([
+                        ['product_id', '=', $productId],
+                        ['variant_id', '=', $variantId],
+                        ['title', '=', $title],
+                    ])->first();
+
+                    if (! $existing) {
+                        $data             = new \App\Models\ProductVariant();
+                        $data->product_id = $productId;
+                        $data->variant_id = $variantId;
+                        $data->title      = (int) $title;
+                        $data->save();
+                    } else {
+                        $data = $existing;
+                    }
+                    $titleArr[] = $data->title;
+                }
             }
         }
     }

@@ -12,7 +12,7 @@ class HomeController extends Controller
         $counters     = \App\Models\Counter::active()->latest()->get();
         $blogs        = \App\Models\Blog::active()->latest('post_date')->take(10)->get();
         $products     = \App\Models\Product::active()->latest()->take(10)->get();
-        $testimonials = \App\Models\Testimonial::active()->latest()->take(10)->get();
+        $testimonials = \App\Models\Testimonial::active()->latest()->home()->take(10)->get();
         return view('home', compact('sliders', 'categories', 'banner', 'videoBanner', 'counters', 'blogs', 'products', 'testimonials'));
     }
 
@@ -99,7 +99,9 @@ class HomeController extends Controller
 
             return view('blog.info', compact('blog', 'previous', 'next', 'latest', 'tableofcontents', 'categories'));
         }
-        $blogs = \App\Models\Blog::active()->latest()->paginate(80);
+        $blogs = \App\Models\Blog::whereHas('categoryInfo',function($qwert){
+                $qwert->active();
+            })->active()->latest()->paginate(80);
         return view('blog.lists', compact('blogs'));
     }
 

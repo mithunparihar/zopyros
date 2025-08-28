@@ -76,22 +76,26 @@
             </section>
         @endif
 
-        <section class="SecProDucts">
-            <div class="container">
-                <div class="text-center">
-                    <span class="SubTitle">Best Selling Collection</span>
-                    <h2 class="Heading h1 mb-5">Our Product</h2>
-                    <div class="ProList row row-gap-4">
-                        @foreach ($products as $product)
-                            <div class="ProList-item col-lg-4 col-sm-6">
-                                @livewire('product-box', ['product' => $product], key('PRD-' . $product->id))
-                            </div>
-                        @endforeach
+        @if ($products->isNotEmpty())
+            <section class="SecProDucts">
+                <div class="container">
+                    <div class="text-center">
+                        @if (!empty(\Content::cmsData(3)->heading))
+                            <span class="SubTitle">{{ \Content::cmsData(3)->heading }}</span>
+                        @endif
+                        <h2 class="Heading h1 mb-5">{{ \Content::cmsData(3)->heading }}</h2>
+                        <div class="ProList row row-gap-4">
+                            @foreach ($products as $product)
+                                <div class="ProList-item col-lg-4 col-sm-6">
+                                    @livewire('product-box', ['product' => $product], key('PRD-' . $product->id))
+                                </div>
+                            @endforeach
+                        </div>
+                        <a href="{{ route('shop') }}" class="btn btn-o-thm1">Explore All Products</a>
                     </div>
-                    <a href="{{ route('shop') }}" class="btn btn-o-thm1">Explore All Products</a>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
 
         @if ($counters->isNotEmpty())
             <section class="SecCounter">
@@ -111,9 +115,20 @@
             <section class="SecVideo p-0">
                 <div class="Video StartTuch">
                     <div class="VideoImg">
-                        <video autoplay muted loop playsinline preload="metadata"
-                            src="{{ \Image::showFile('banner', 0, $videoBanner->image) }}" loading="lazy" id="myVideo">
-                        </video>
+                        @php
+                            $explode = explode('.', $videoBanner->image);
+                            $ext = end($explode);
+                        @endphp
+                        @if (in_array($ext, ['mp4', 'webp']))
+                            <video autoplay muted loop playsinline preload="metadata"
+                                src="{{ \Image::showFile('banner', 0, $videoBanner->image) }}" loading="lazy"
+                                id="myVideo">
+                            </video>
+                        @else
+                            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner"
+                                width="1600" height="500" :image="$videoBanner->image" />
+                        @endif
+
                     </div>
                 </div>
             </section>
@@ -168,8 +183,8 @@
                             <div class="col-xxl-7 col-md-9">
                                 <span class="SubTitle">{{ $banner->short_description }}</span>
                                 <h2 class="Heading h1">{{ $banner->image_alt }}</h2>
-                                @if (!empty($banner->link))
-                                    <a class="btn btn-thm1" href="{{ $banner->link }}">Discover More</a>
+                                @if (!empty($banner->url))
+                                    <a class="btn btn-thm1" href="{{ $banner->url }}">Discover More</a>
                                 @endif
                             </div>
                         </div>
@@ -214,6 +229,7 @@
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
+                        <a href="{{route('testimonials')}}" class="btn btn-thm1 btn-sm">View More</a>
                     </div>
                 </div>
             </section>

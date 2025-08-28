@@ -37,9 +37,9 @@ class TestimonialController extends Controller
     public function homePublish(Testimonial $testimonial)
     {
         $checkHome = Testimonial::where('is_home', 1)->count();
-        if ($checkHome >= 3 && request('publish') == 1) {
+        if ($checkHome >= 10 && request('publish') == 1) {
             return response()->json([
-                'message' => 'You can only publish 3 testimonials on home page.'
+                'message' => 'You can only publish 10 testimonials on home page.',
             ], 422);
         }
         $testimonial->update(['is_home' => request('publish')]);
@@ -73,6 +73,7 @@ class TestimonialController extends Controller
                 $html .= '<div class="d-flex flex-column">';
                 $html .= '<h6 class="mb-0">' . $row->title . '</h6>';
                 $html .= ' <span class="text-body small"><b>Rating : </b>' . $row->designation . ' Star</span>';
+                $html .= ' <span class="text-body small"><b>Description : </b> <a role="button" class="sws-bounce sws-top" data-title="'.strip_tags($row->description).'"><i class="fas fa-info-circle"></i></a> </span>';
                 $html .= '</div>';
                 $html .= '</div>';
 
@@ -102,7 +103,7 @@ class TestimonialController extends Controller
                 $actionBtn .= '</div>';
                 return $actionBtn;
             })
-            ->rawColumns(['action', 'image', 'user', 'is_home', 'is_publish'])
+            ->rawColumns(['action', 'image', 'description', 'user', 'is_home', 'is_publish'])
             ->make(true);
     }
 }

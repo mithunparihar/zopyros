@@ -37,7 +37,7 @@ class UpdateForm extends Component
             'link'      => ['nullable', 'url', 'max:300'],
             'image'     => [
                 'nullable',
-                'mimes:jpeg,png,jpg,webp,mp4',
+                'mimes:jpeg,png,jpg,webp,mp4,webp',
                 'max:60000',
             ],
         ];

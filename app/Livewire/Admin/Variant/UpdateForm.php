@@ -25,6 +25,7 @@ class UpdateForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
         return [
             'title' => [
                 'required',

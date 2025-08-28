@@ -92,7 +92,7 @@
                                 <img src="{{ $image->temporaryUrl() }}"
                                     wire:click="setPreviewImagePrimary({{ $key }})" class="defaultimg w-100">
                             @else
-                                <x-image-preview :options="['class' => 'defaultimg w-100', 'id' => 'blah']" imagepath="" image="" />
+                                <x-image-preview class="defaultimg w-100" width="100" imagepath="" image="" />
                             @endif
                             @error("images.$key")
                                 <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>

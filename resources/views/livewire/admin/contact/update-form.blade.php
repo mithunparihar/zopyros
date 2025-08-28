@@ -3,7 +3,7 @@
     <div class="card p-3 mt-2">
         <div class="row">
             <div class="mb-1 col-md-12">
-                <x-admin.form.label for="title" class="form-label" :asterisk="true">Address Title</x-admin.form.label>
+                <x-admin.form.label for="title" class="form-label" :asterisk="false">Address Title</x-admin.form.label>
                 <x-admin.form.input name="title" wire:model="title" type="text" placeholder="Address Title Here..."
                     @class(['otherValidation', 'is-invalid' => $errors->has('title')]) />
                 @error('title')
@@ -11,7 +11,7 @@
                 @enderror
             </div>
             <div class="mb-1 col-md-12">
-                <x-admin.form.label for="address" class="form-label" :asterisk="true">Address</x-admin.form.label>
+                <x-admin.form.label for="address" class="form-label" :asterisk="false">Address</x-admin.form.label>
                 <x-admin.form.input name="address" wire:model="address" type="text" placeholder="Address Here..."
                     @class(['otherValidation', 'is-invalid' => $errors->has('title')]) />
                 @error('address')
@@ -19,7 +19,7 @@
                 @enderror
             </div>
             <div class="mb-1 col-md-12">
-                <x-admin.form.label for="contact" class="form-label" :asterisk="true">
+                <x-admin.form.label for="contact" class="form-label" :asterisk="false">
                     Contact Numbers <small class='text-danger'>(You can add multiple number with comma(,) )</small>
                 </x-admin.form.label>
                 <x-admin.form.input name="contact" wire:model="contact" type="text"
@@ -30,7 +30,7 @@
                 @enderror
             </div>
             <div class="mb-1 col-md-12">
-                <x-admin.form.label for="email" class="form-label" :asterisk="true">
+                <x-admin.form.label for="email" class="form-label" :asterisk="false">
                     Email Address <small class='text-danger'>(You can add multiple email address with comma(,) )</small>
                 </x-admin.form.label>
                 <x-admin.form.input name="email" wire:model="email" type="text" placeholder="Email Address Here..."

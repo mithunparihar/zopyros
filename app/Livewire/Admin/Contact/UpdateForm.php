@@ -31,10 +31,10 @@ class UpdateForm extends Component
     public function rules()
     {
         return [
-            'contact' => ['nullable', 'regex:/^([,0-9])+$/u', new PhoneRule()],
+            'contact' => ['nullable',new PhoneRule()],
             'email' => ['nullable', new EmailRule()],
-            'title' => ['required', 'max:50',new TextRule()],
-            'address' => ['required', 'max:200',new TextRule()],
+            'title' => ['nullable', 'max:50',new TextRule()],
+            'address' => ['nullable', 'max:200',new TextRule()],
         ];
     }
 

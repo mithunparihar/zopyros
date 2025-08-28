@@ -99,8 +99,8 @@
         'imgpath' => '',
         'img' => '',
         'title' => \Content::meta(2)->title ?? '',
-        'keywords' => \Content::meta(1)->keywords ?? '',
-        'description' => \Content::meta(1)->description ?? '',
+        'keywords' => \Content::meta(2)->keywords ?? '',
+        'description' => \Content::meta(2)->description ?? '',
         'breadcrumb' => $breadcrumb ?? '',
     ]" />
     <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}pages.min.css" fetchpriority="high">

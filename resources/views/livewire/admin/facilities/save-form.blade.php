@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-12 mt-2">
                 <x-admin.form.label for="description" class="form-label"
-                    :asterisk="true">Description</x-admin.form.label>
+                    :asterisk="false">Description</x-admin.form.label>
                 <x-admin.form.text-editor wire:model="description" @class(['is-invalid' => $errors->has('description')]) placeholder="Enter Description Here..." />
                 @error('description')
                     <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>

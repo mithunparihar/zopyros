@@ -43,7 +43,7 @@
                 Uploading...
             </div>
             <div wire:loading.remove wire:target="images" class="col-5 my-3">
-                <x-admin.form.label for="images" class="formFile form-label" :asterisk="false">Best Image 900px *
+                <x-admin.form.label for="images" class="formFile form-label" :asterisk="true">Best Image 900px *
                     900px <a class="sws-bounce sws-dark sws-top" data-title="You can add multiple images here. Please press (CTRL) and select images" role="button"><i class="fas fa-info-circle"></i></a> </x-admin.form.label>
                 <x-admin.form.input wire:model="images" multiple type="file" accept='image/*'
                     @class(['otherValidation', 'is-invalid' => $errors->has('images')]) />
@@ -61,7 +61,7 @@
                                 <img src="{{ $image->temporaryUrl() }}"
                                     wire:click="setPreviewImagePrimary({{ $key }})" class="defaultimg w-100">
                             @else
-                                <x-image-preview :options="['class' => 'defaultimg w-100', 'id' => 'blah']" imagepath="" image="" />
+                                <x-image-preview class="defaultimg w-100" width="100" imagepath="" image="" />
                             @endif
                             @error("images.$key")
                                 <x-admin.form.invalid-error>{{ $message }}</x-admin.form.invalid-error>

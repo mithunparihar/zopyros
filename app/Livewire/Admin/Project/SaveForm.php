@@ -64,6 +64,10 @@ class SaveForm extends Component
         ];
     }
 
+    protected $validationAttributes=[
+        'images.*' =>'images'
+    ];
+
     public function SaveForm()
     {
         $this->validate();

@@ -28,6 +28,16 @@
                         </div>
                         <div class="CmsPage mt-3">
                             {!! $blog->description !!}
+                            @if ($tableofcontents->isNotEmpty($tableofcontents))
+                                @foreach ($tableofcontents as $tableofconten)
+                                    <div id="tableofconten{{ $tableofconten->id }}">
+                                        <h{{ $tableofconten->heading_type }}>
+                                            {{ $tableofconten->title }}
+                                            </h{{ $tableofconten->heading_type }}>
+                                            {!! $tableofconten->description !!}
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="sharebox notbg align-items-cneter mt-4 border-top border-dark py-2">
                             <div class="row justify-content-between align-items-center">
@@ -58,7 +68,8 @@
                                 </div>
                                 <div class="col">
                                     @if ($next)
-                                        <a href="{{ route('blog', ['alias' => $next->slug]) }}" class="d-inline-flex gap-2">
+                                        <a href="{{ route('blog', ['alias' => $next->slug]) }}"
+                                            class="d-inline-flex gap-2">
                                             <i class="fal fa-angle-right"></i>
                                             <span>
                                                 <h2 class="h5 m-0 fw-bold">{{ $next->name ?? '' }}</h2>

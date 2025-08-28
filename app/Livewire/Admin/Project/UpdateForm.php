@@ -43,6 +43,10 @@ class UpdateForm extends Component
         $this->getImages();
     }
 
+    protected $validationAttributes = [
+        'images.*' => 'images',
+    ];
+
     public function render()
     {
         return view('livewire.admin.project.update-form');

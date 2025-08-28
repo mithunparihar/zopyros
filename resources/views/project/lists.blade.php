@@ -8,6 +8,13 @@
                 ]" />
                 <h1 class="Heading h2">{{ \Content::cmsData(13)->title }}</h1>
                 <div class="row mt-4 row-gap-4">
+                    @if ($projects->isEmpty())
+                        <div class="text-center border-top border-bottom py-4 mb-4">
+                            <h2 class="h6 mb-1">Oops! That Project Isn’t Here</h2>
+                            <p class="mb-0">The project you're looking for may have been removed, renamed, or doesn't exist.</p>
+                        </div>
+                    @endif
+
                     @foreach ($projects as $project)
                         <div class="col-xxl-3 col-md-4 col-sm-6">
                             <a href="{{ route('projects', ['alias' => $project->slug]) }}"

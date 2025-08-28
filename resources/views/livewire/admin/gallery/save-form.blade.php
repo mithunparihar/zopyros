@@ -39,7 +39,7 @@
                 @endif
             </div>
             <div class="mb-2 col-md-7" style="display: {{ $inputs[$key]['type'] == 2 ? 'inline' : 'none' }}">
-                <x-admin.form.label for="url{{ $key }}" class="form-label" :asterisk="false">
+                <x-admin.form.label for="url{{ $key }}" class="form-label" :asterisk="true">
                     Youtube URL
                 </x-admin.form.label>
                 <x-admin.form.input wire:model="inputs.{{ $key }}.url" type="text"

@@ -88,7 +88,9 @@ class HomeController extends Controller
     public function blog($alias = null)
     {
         if ($alias) {
-            $blog            = \App\Models\Blog::active()->whereSlug($alias)->firstOrFail();
+            $blog            = \App\Models\Blog::whereHas('categoryInfo',function($qwert){
+                $qwert->active();
+            })->active()->whereSlug($alias)->firstOrFail();
             $categories      = \App\Models\BlogCategory::whereHas('blogs')->active()->get();
             $previous        = \App\Models\Blog::where('post_date', '<', $blog->post_date)->active()->latest('post_date')->first();
             $next            = \App\Models\Blog::where('post_date', '>', $blog->post_date)->active()->latest('post_date')->first();

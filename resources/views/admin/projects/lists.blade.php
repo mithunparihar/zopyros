@@ -22,7 +22,7 @@
                                         <th>#</th>
                                         <th>Projects Info</th>
                                         <th>Images</th>
-                                        <th>Is Home</th>
+                                        {{-- <th>Is Home</th> --}}
                                         <th>Is Publish</th>
                                         <th></th>
                                     </tr>
@@ -63,9 +63,6 @@
             },
             {
                 data:'gallery'
-            },
-            {
-                data: 'is_home'
             },
             {
                 data: 'is_publish'

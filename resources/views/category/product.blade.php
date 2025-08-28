@@ -108,7 +108,7 @@
                                     <div class="Sizes ms-1 mt-2">
                                         @foreach ($sizes ?? [] as $size)
                                             <div class="sizebtn">
-                                                <input class="sizebtn-check btn-check" type="radio" name="sizes"
+                                                <input class="sizebtn-check btn-check" type="radio" name="sizes" value="{{ $size->id }}"
                                                     @checked($loop->index == 0)  id="sizes{{ $size->id }}">
                                                 <label class="sizebtn-label" for="sizes{{ $size->id }}"
                                                     role="button">{{ $size->variantTypeInfo->title ?? '' }}</label>

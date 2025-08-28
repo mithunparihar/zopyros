@@ -234,7 +234,7 @@
             </a>
         </li>
         <li class="menu-item @if (in_array(request()->segment(2), ['blog', 'blog-category']) ||
-                (request()->segment(2) == 'cms' && request()->segment(3) == '8')) active @endif">
+                (request()->segment(2) == 'cms' && request()->segment(3) == '18')) active @endif">
             <a href="{{ route('admin.blog.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxl-blogger"></i>
                 <div data-i18n="Blog">Blog</div>

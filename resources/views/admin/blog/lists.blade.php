@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="fw-bold py-3 mb-4">Blog </h4>
             <div class="d-flex gap-2">
-                <x-admin.button.add-more :href="route('admin.cms.edit',['cm'=>8])" icon="fas fa-file">Page Content</x-admin.button.add-more>
+                <x-admin.button.add-more :href="route('admin.cms.edit',['cm'=>18])" icon="fas fa-file">Page Content</x-admin.button.add-more>
                 <x-admin.button.add-more :href="route('admin.blog-category.index')" icon="fas fa-list">Categories</x-admin.button.add-more>
                 <x-admin.button.add-more :href="route('admin.blog.create')" icon="fas fa-plus">Add More</x-admin.button.add-more>
             </div>

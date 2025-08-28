@@ -120,7 +120,7 @@ class Content
                 return 'FAQs (Page Content)';
                 break;
             case '18':
-                return 'Our Team (Heading Content)';
+                return 'Our Blog (Page Content)';
                 break;
             case '19':
                 return 'Case Study (Page Content)';

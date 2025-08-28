@@ -5,6 +5,7 @@ use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Variant as Variants;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class SaveForm extends Component
@@ -24,7 +25,17 @@ class SaveForm extends Component
     public function rules()
     {
         return [
-            'title' => ['required', 'unique:variants,title,NULL,id,deleted_at,NULL,parent_id,'.$this->parent, 'max:50', new TextRule()],
+            'title' => [
+                'required',
+                'max:50',
+                'regex:/^([-.a-zA-Z\s])+$/u', 
+                new TextRule(),
+                Rule::unique('variants')->where(function ($query) {
+                    $query->whereNULL('deleted_at');
+                    $query->where('parent_id', $this->parent);
+                    $query->whereRaw('LOWER(TRIM(title)) = ?', [strtolower(trim($this->title))]);
+                }),
+            ],
         ];
     }
 

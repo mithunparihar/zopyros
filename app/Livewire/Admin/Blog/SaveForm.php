@@ -7,7 +7,9 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTableContent;
 use App\Rules\EditorRule;
+use App\Rules\NoDangerousTags;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -18,10 +20,9 @@ class SaveForm extends Component
     public $short_description;
     public $image, $banner;
     public $categories         = [];
-    protected $listeners       = ['updateEditorValue' => 'updateEditorValue','refreshBlogAdd'=>'mount'];
+    protected $listeners       = ['updateEditorValue' => 'updateEditorValue', 'refreshBlogAdd' => 'mount'];
     public $tablecontents      = [];
-    public $tablecontentInputs = ['title' => '', 'tag' => '', 'description' => '', 'publish' => 1,'sequence'=>1];
-
+    public $tablecontentInputs = ['title' => '', 'tag' => '', 'description' => '', 'publish' => 1, 'sequence' => 1];
 
     public function mount()
     {
@@ -34,7 +35,7 @@ class SaveForm extends Component
 
     public function addMoreTable()
     {
-        $tablecontentInputs = $this->tablecontentInputs;
+        $tablecontentInputs             = $this->tablecontentInputs;
         $tablecontentInputs['sequence'] = count($this->tablecontents) + 1;
         $this->tablecontents->push($tablecontentInputs);
         $this->dispatch('addMoreTableScrpt');
@@ -66,22 +67,32 @@ class SaveForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
         return [
             'post_date'                   => 'required|date',
             'category'                    => 'required',
             'image'                       => 'required|max:5000|mimes:jpg,png,jpeg,webp',
             'banner'                      => 'required|max:5000|mimes:jpg,png,jpeg,webp',
-            'title'                       => ['required', 'unique:blogs,name,NULL,id,deleted_at,NULL', 'max:200', new TextRule()],
-            'short_description'           => ['nullable', 'max:300', 'min:100', new TextRule()],
+            'title'                       => [
+                'required',
+                'max:200',
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('blogs')->where(function ($query) {
+                    $query->whereNULL('deleted_at');
+                    $query->whereRaw('LOWER(TRIM(name)) = ?', [strtolower($this->title)]);
+                }),
+            ],
+            'short_description'           => ['nullable', 'max:300', 'min:100', new TextRule(), new NoDangerousTags()],
             'description'                 => ['required', new EditorRule()],
-            'meta_title'                  => ['nullable', 'max:100', new TextRule()],
-            'meta_keywords'               => ['nullable', 'max:300', new TextRule()],
-            'meta_description'            => ['nullable', 'max:300', new TextRule()],
+            'meta_title'                  => ['nullable', 'max:100', new TextRule(), new NoDangerousTags()],
+            'meta_keywords'               => ['nullable', 'max:300', new TextRule(), new NoDangerousTags()],
+            'meta_description'            => ['nullable', 'max:300', new TextRule(), new NoDangerousTags()],
 
-            'tablecontents.*.title'       => ['nullable', 'required_with:tablecontents.*.description', 'max:200', new TextRule()],
+            'tablecontents.*.title'       => ['nullable', 'required_with:tablecontents.*.description', 'max:200', new TextRule(), new NoDangerousTags()],
             'tablecontents.*.tag'         => ['nullable', 'required_with:tablecontents.*.title'],
             'tablecontents.*.publish'     => ['nullable', 'required_with:tablecontents.*.title'],
-            'tablecontents.*.sequence'     => ['nullable','distinct', 'required_with:tablecontents.*.title','integer','max:100'],
+            'tablecontents.*.sequence'    => ['nullable', 'distinct', 'required_with:tablecontents.*.title', 'integer', 'max:100'],
             'tablecontents.*.description' => ['nullable', 'required_with:tablecontents.*.title', new EditorRule()],
         ];
     }
@@ -91,7 +102,7 @@ class SaveForm extends Component
         'tablecontents.*.tag'         => 'table of content tag',
         'tablecontents.*.publish'     => 'table of content publish',
         'tablecontents.*.description' => 'table of content description',
-        'tablecontents.*.sequence' => 'table of content sequence',
+        'tablecontents.*.sequence'    => 'table of content sequence',
     ];
 
     public function SaveForm()
@@ -122,20 +133,20 @@ class SaveForm extends Component
     {
         foreach ($this->tablecontents as $content) {
             if (! empty($content['title'])) {
-                $data              = new BlogTableContent();
-                $data->blog_id     = $blogId;
-                $data->title       = $content['title'];
-                $data->description = $content['description'];
-                $data->heading_type         = $content['tag'];
-                $data->is_publish  = $content['publish'];
-                $data->sequence  = $content['sequence'];
+                $data               = new BlogTableContent();
+                $data->blog_id      = $blogId;
+                $data->title        = $content['title'];
+                $data->description  = $content['description'];
+                $data->heading_type = $content['tag'];
+                $data->is_publish   = $content['publish'];
+                $data->sequence     = $content['sequence'];
                 $data->save();
             }
         }
 
         $this->dispatch('relaodPage');
         $this->dispatch('emptyEditor');
-        
+
     }
 
 }

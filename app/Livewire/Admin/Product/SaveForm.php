@@ -4,12 +4,13 @@ namespace App\Livewire\Admin\Product;
 use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Product as Products;
+use App\Models\ProductImage;
 use App\Rules\EditorRule;
 use App\Rules\NoDangerousTags;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\ProductImage;
 
 class SaveForm extends Component
 {
@@ -127,20 +128,30 @@ class SaveForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
         return [
 
-            'title'                    => ['required', 'unique:products,title,NULL,id,deleted_at,NULL', 'max:300', new TextRule(), new NoDangerousTags()],
-            'description'              => ['required', new EditorRule()],
-            'specifications'           => ['nullable', new EditorRule()],
-            'categories'               => ['required', 'array'],
-            'meta_title'               => ['nullable', 'max:300', new TextRule(), new NoDangerousTags()],
-            'meta_keywords'            => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
-            'meta_description'         => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
+            'title'            => [
+                'required',
+                'max:300',
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('products')->where(function ($query) {
+                    $query->whereNULL('deleted_at');
+                    $query->whereRaw('LOWER(TRIM(title)) = ?', [strtolower(trim($this->title))]);
+                }),
+            ],
+            'description'      => ['required', new EditorRule()],
+            'specifications'   => ['nullable', new EditorRule()],
+            'categories'       => ['required', 'array'],
+            'meta_title'       => ['nullable', 'max:300', new TextRule(), new NoDangerousTags()],
+            'meta_keywords'    => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
+            'meta_description' => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
 
-            'brochure'                 => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
-            'technical'                => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'brochure'         => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
+            'technical'        => ['nullable', 'max:5000', 'mimes:pdf,doc,docx'],
 
-            'images' => ['required'],
+            'images'           => ['required'],
             'images.*'         => ['required', 'max:5000', 'mimes:jpg,png,jpeg,webp'],
 
             // 'inputs.*.colors.name'     => ['required', 'distinct', 'max:50', new TextRule(), new NoDangerousTags()],
@@ -177,9 +188,9 @@ class SaveForm extends Component
     {
 
         $this->validate();
-        $data                   = new Products();
-        $data->title            = $this->title;
-        $data->alias            = $this->title;
+        $data        = new Products();
+        $data->title = $this->title;
+        $data->alias = $this->title;
         // $data->size_category    = $this->size_category;
         $data->specification    = $this->specifications;
         $data->description      = $this->description;
@@ -203,11 +214,11 @@ class SaveForm extends Component
         $this->dispatch('emptyEditor');
         $this->dispatch('resetMount');
         $this->inputs = collect($this->inputsArr);
-        $this->reset(['title', 'description','brochure','technical', 'categories', 'size_category', 'specifications', 'meta_title', 'meta_keywords', 'meta_description']);
+        $this->reset(['title', 'description', 'brochure', 'technical', 'categories', 'size_category', 'specifications', 'meta_title', 'meta_keywords', 'meta_description']);
         $this->dispatch('successtoaster', ['title' => AlertMessageType::SAVE, 'message' => AlertMessage::SAVE]);
     }
 
-     public function uploadImages($productId)
+    public function uploadImages($productId)
     {
         if (is_array($this->images)) {
             $checkPrimary = ProductImage::product($productId)->primary()->first();

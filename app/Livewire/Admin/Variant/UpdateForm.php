@@ -5,6 +5,7 @@ use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Variant as Variants;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class UpdateForm extends Component
@@ -25,7 +26,18 @@ class UpdateForm extends Component
     public function rules()
     {
         return [
-            'title' => ['required', 'unique:variants,title,' . $this->info->id . ',id,deleted_at,NULL,parent_id,' . $this->info->parent_id, 'regex:/^([-.a-zA-Z\s])+$/u', 'max:50', new TextRule()],
+            'title' => [
+                'required',
+                'regex:/^([-.a-zA-Z\s])+$/u',
+                'max:50',
+                new TextRule(),
+                Rule::unique('variants')->where(function ($qery) {
+                    $qery->whereNULL('deleted_at');
+                    $qery->where('parent_id', $this->info->parent_id);
+                    $qery->whereNot('id', $this->info->id);
+                    $qery->whereRaw('LOWER(TRIM(title)) = ?', [strtolower(trim($this->title))]);
+                }),
+            ],
         ];
     }
 

@@ -10,6 +10,8 @@ use App\Rules\EditorRule;
 use App\Rules\TextRule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
+use App\Rules\NoDangerousTags;
 
 class UpdateForm extends Component
 {
@@ -101,20 +103,32 @@ class UpdateForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
         return [
             'post_date'                   => 'required|date',
             'category'                    => 'required',
             'image'                       => 'nullable|max:5000|mimes:jpg,png,jpeg,webp',
             'banner'                      => 'nullable|max:5000|mimes:jpg,png,jpeg,webp',
-            'title'                       => ['required', 'unique:blogs,name,' . $this->info->id . ',id,deleted_at,NULL', 'max:200', new TextRule()],
-            'alias'                       => ['required', 'regex:/^[- a-z0-9A-Z]+$/u', 'unique:blogs,slug,' . $this->info->id . ',id,deleted_at,NULL', 'max:200', new TextRule()],
-            'short_description'           => ['nullable', 'max:300', 'min:100', new TextRule()],
+            'title'                       => [
+                'required',
+                'max:200', 
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('blogs')->where(function ($query) {
+                    $query->whereNULL('deleted_at');
+                    $query->whereNot('id', $this->info->id);
+                    $query->whereRaw('LOWER(TRIM(name)) = ?', [strtolower($this->title)]);
+                }),
+            ],
+            'alias'                       => [
+                'required', 'regex:/^[- a-z0-9A-Z]+$/u', 'unique:blogs,slug,' . $this->info->id . ',id,deleted_at,NULL', 'max:200', new TextRule(),new NoDangerousTags()],
+            'short_description'           => ['nullable', 'max:300', 'min:100', new TextRule(),new NoDangerousTags()],
             'description'                 => ['nullable', new EditorRule()],
-            'meta_title'                  => ['nullable', 'max:100', new TextRule()],
-            'meta_keywords'               => ['nullable', 'max:300', new TextRule()],
-            'meta_description'            => ['nullable', 'max:300', new TextRule()],
+            'meta_title'                  => ['nullable', 'max:100', new TextRule(),new NoDangerousTags()],
+            'meta_keywords'               => ['nullable', 'max:300', new TextRule(),new NoDangerousTags()],
+            'meta_description'            => ['nullable', 'max:300', new TextRule(),new NoDangerousTags()],
 
-            'tablecontents.*.title'       => ['nullable', 'required_with:tablecontents.*.description', 'max:200', new TextRule()],
+            'tablecontents.*.title'       => ['nullable', 'required_with:tablecontents.*.description', 'max:200', new TextRule(),new NoDangerousTags()],
             'tablecontents.*.tag'         => ['nullable', 'required_with:tablecontents.*.title'],
             'tablecontents.*.publish'     => ['nullable', 'required_with:tablecontents.*.title'],
             'tablecontents.*.sequence'    => ['nullable', 'distinct', 'required_with:tablecontents.*.title', 'integer', 'max:100'],

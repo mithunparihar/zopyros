@@ -5,7 +5,9 @@ use App\Enums\AlertMessage;
 use App\Enums\AlertMessageType;
 use App\Models\Category;
 use App\Rules\EditorRule;
+use App\Rules\NoDangerousTags;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -41,15 +43,26 @@ class SaveForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
         return [
             'image'             => 'required|max:5000|mimes:jpg,png,jpeg,webp',
-            'title'             => ['required', 'unique:categories,title,NULL,id,deleted_at,NULL', 'max:50', new TextRule()],
-            'heading'           => ['nullable', 'unique:categories,heading,NULL,id,deleted_at,NULL', 'max:100', new TextRule()],
-            'short_description' => ['nullable', 'max:600', new TextRule()],
+            'title'             => [
+                'required',
+                'max:50',
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('categories')->where(function ($query) {
+                    $query->whereNULL('deleted_at');
+                    $query->where('parent_id', $this->parent);
+                    $query->whereRaw('LOWER(TRIM(title)) = ?', [strtolower($this->title)]);
+                }),
+            ],
+            'heading'           => ['nullable', 'unique:categories,heading,NULL,id,deleted_at,NULL', 'max:100', new TextRule(), new NoDangerousTags()],
+            'short_description' => ['nullable', 'max:600', new TextRule(), new NoDangerousTags()],
             'description'       => ['required', new EditorRule()],
-            'meta_title'        => ['nullable', 'max:100', new TextRule()],
-            'meta_keywords'     => ['nullable', 'max:500', new TextRule()],
-            'meta_description'  => ['nullable', 'max:500', new TextRule()],
+            'meta_title'        => ['nullable', 'max:100', new TextRule(), new NoDangerousTags()],
+            'meta_keywords'     => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
+            'meta_description'  => ['nullable', 'max:500', new TextRule(), new NoDangerousTags()],
         ];
     }
 

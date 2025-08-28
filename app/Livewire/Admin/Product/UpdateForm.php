@@ -8,6 +8,7 @@ use App\Models\ProductImage;
 use App\Rules\EditorRule;
 use App\Rules\NoDangerousTags;
 use App\Rules\TextRule;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -261,6 +262,7 @@ class UpdateForm extends Component
 
     public function updateEditorValue($modelId, $content)
     {
+        
         if ($modelId == 'description') {
             $this->description = $content;
         }
@@ -276,10 +278,34 @@ class UpdateForm extends Component
 
     public function rules()
     {
+        $this->title = \Illuminate\Support\Str::squish($this->title);
+        $this->alias = \Illuminate\Support\Str::squish($this->alias);
         $rules = [
 
-            'title'            => ['required', 'unique:products,title,' . $this->info->id . ',id,deleted_at,NULL', 'max:300', new TextRule(), new NoDangerousTags()],
-            'alias'            => ['required', 'unique:products,alias,' . $this->info->id . ',id,deleted_at,NULL', 'max:300', new TextRule(), new NoDangerousTags()],
+            'title'            => [
+                'required',
+                'max:300',
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('products')->where(function ($query) {
+                    $title = preg_replace('/\s+/', ' ', trim($this->title));
+                    $query->whereNULL('deleted_at');
+                    $query->where('id', '!=', $this->info->id);
+                    $query->whereRaw('LOWER(TRIM(title)) = ?', [strtolower($title)]);
+                }),
+            ],
+            'alias'            => [
+                'required',
+                'max:300',
+                new TextRule(),
+                new NoDangerousTags(),
+                Rule::unique('products')->where(function ($query) {
+                    $alias = preg_replace('/\s+/', ' ', trim($this->alias));
+                    $query->whereNULL('deleted_at');
+                    $query->where('id', '!=', $this->info->id);
+                    $query->whereRaw('LOWER(TRIM(alias)) = ?', [strtolower($alias)]);
+                }),
+            ],
             'description'      => ['required', new EditorRule()],
             'specifications'   => ['nullable', new EditorRule()],
             'categories'       => ['required', 'array'],
@@ -342,6 +368,7 @@ class UpdateForm extends Component
         $data->title            = $this->title;
         $data->alias            = $this->alias;
         $data->description      = $this->description;
+        $data->specification    = $this->specifications;
         $data->meta_title       = $this->meta_title;
         $data->meta_keywords    = $this->meta_keywords;
         $data->meta_description = $this->meta_description;

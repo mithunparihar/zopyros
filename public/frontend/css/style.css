@@ -619,12 +619,12 @@ select option:disabled {
   transition: all 0.2s;
 }
 .form-check:not(.form-switch) .form-check-input[type=radio] {
-  background-color: rgb(var(--white-rgb)/0.4);
-  border-color: rgb(var(--black-rgb)/0.4);
+  background-color: light-dark(var(--thm1), var(--thm));
+  border-color: var(--thm);
 }
 .form-check:not(.form-switch) .form-check-input:checked[type=radio] {
-  background-color: var(--white);
-  border-color: var(--thm1);
+  background-color: light-dark(var(--thm1), var(--thm));
+  border-color: var(--thm);
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="%23DDD0AB"><circle cx="5" cy="5" r="3"/></svg>');
 }
 

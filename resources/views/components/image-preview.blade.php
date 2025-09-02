@@ -19,5 +19,5 @@
         {{ $attributes->merge() }} loading="lazy" fetchpriority="low">
 
 @else
-    <img src="{{ asset('admin/img/no-img.jpg') }}" {{ $attributes->merge() }} loading="lazy" fetchpriority="low">
+    <img src="{{ asset('frontend/img/no-img.svg') }}" {{ $attributes->merge() }} loading="lazy" fetchpriority="low">
 @endif

@@ -55,10 +55,11 @@
             </div>
         @endforeach
 
-        <div class="dropdown FilterDrop DropdownS FilterSort">
-            <a class="dropdown-toggle d-none d-md-flex" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" title="Sort By"><i>Sort By</i></a>
-            <a href="#SortByDropb" class="dropdown-toggle d-md-none" data-bs-toggle="offcanvas"
+        <div class="FilterOp">
+            <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces" href="#SortByDropb" aria-expanded="false" aria-controls="Sort By">Sort By</a>
+            {{-- <a class="dropdown-toggle d-none d-md-flex" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" title="Sort By"><i>Sort By</i></a> --}}
+            {{-- <a href="#SortByDropb" class="dropdown-toggle d-md-none" data-bs-toggle="offcanvas"
                 aria-controls="SortByDropb"><svg viewBox="0 0 14 18">
                     <line x1="3" y1="1" x2="3" y2="3" />
                     <line x1="3" y1="9" x2="3" y2="17" />
@@ -66,22 +67,22 @@
                     <line x1="11" y1="15" x2="11" y2="17" />
                     <line x1="11" y1="9" x2="11" y2="1" />
                     <circle cx="11" cy="12" r="2" />
-                </svg> Sort By</a>
-            <div class="offcanvas offcanvas-bottom dropdown-menu Sort p-1 py-2" id="SortByDropb">
+                </svg> Sort By</a> --}}
+            <div id="SortByDropb" class="collapse" aria-labelledby="ProSpaces" data-bs-parent="#allFilter">
                 <div class="ullist">
-                    <label for="sort1" onclick="$('#FilterBar').submit();">
+                    <label for="sort1" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'a-z') value="a-z" name="sort" id="sort1">
                         A to Z
                     </label>
 
-                    <label for="sort2" onclick="$('#FilterBar').submit();">
+                    <label for="sort2" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'z-a') value="z-a" name="sort" id="sort2">
                         Z to A
                     </label>
 
-                    <label for="sort3" onclick="$('#FilterBar').submit();">
+                    <label for="sort3" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'newest') value="newest" name="sort" id="sort3">
                         Newest First

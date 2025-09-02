@@ -33,7 +33,7 @@
                 <a href="{{ route('faqs') }}">FAQs</a>
                 <a href="{{ route('privacy') }}">Privacy Policy</a>
                 <a href="{{ route('terms') }}">Terms & Conditions</a>
-                <a href="sitemap.php">Site Map</a>
+                <a href="#">Site Map</a>
             </div>
         </div>
         <div class="col-lg-3">

@@ -151,7 +151,7 @@ select option:disabled{display:none}
             // max-width:1rem;
             &:after{content:'';position:absolute;left:0;top:-2px;height:18px;width:18px;transform:scale(0);background-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="none" stroke="%23#{var.$svgthm1}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 9l4 4l11-12"/></svg>');transition:all .2s}
         }
-        &[type=radio]{background-color:light-dark(var(--thm1), var(--thm));border-color:var(--thm)}
+        &[type=radio]{background-color:light-dark(var(--thm1), var(--thm));border-color:var(--thm);height:18px;width:18px;}
         &:checked[type=radio]{background-color:light-dark(var(--thm1), var(--thm));border-color:var(--thm);background-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="%23#{var.$svgthm1}"><circle cx="5" cy="5" r="3"/></svg>')}
     }
     // >label{line-height:150%;width:calc(100% - 1rem);font-size:14px}

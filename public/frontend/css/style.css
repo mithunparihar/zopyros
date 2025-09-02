@@ -621,6 +621,8 @@ select option:disabled {
 .form-check:not(.form-switch) .form-check-input[type=radio] {
   background-color: light-dark(var(--thm1), var(--thm));
   border-color: var(--thm);
+  height: 18px;
+  width: 18px;
 }
 .form-check:not(.form-switch) .form-check-input:checked[type=radio] {
   background-color: light-dark(var(--thm1), var(--thm));

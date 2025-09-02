@@ -78,7 +78,7 @@
     <link rel="stylesheet" href="{{ \App\Enums\Url::CSS }}pages.min.css" fetchpriority="high">
 @endpush
 @push('js')
-    <div class="modal fade" id="ApplyPopup" tabindex="-1" aria-labelledby="ApplyPopupLabel" aria-hidden="true">
+    <div class="modal CallBack NoImgB fade" id="ApplyPopup" tabindex="-1" aria-labelledby="ApplyPopupLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             @livewire('carrer-form', ['data' => $list])
         </div>

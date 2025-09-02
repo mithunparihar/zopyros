@@ -5,12 +5,13 @@ $bodydark :"body.bg-dark";
     &-stage{margin:0 auto}
 }
 .card{transition:all .5s}
-.star{color:var(--white);font-size:18px;line-height:1.3;display:inline;margin:0 auto;position:relative;
-    &:before{content:'\2606\2606\2606\2606\2606';color:var(--black);opacity:.4}
-    #{$bodydark} &:before{color:var(--white)}
+.star{color:light-dark(var(--white), var(--black));font-size:18px;line-height:1.3;display:inline;margin:0 auto;position:relative;
+    &:before{content:'\2606\2606\2606\2606\2606';color:light-dark(var(--black), var(--white));opacity:.4}
+    #{$bodydark} &:before{color:light-dark(var(--white), var(--black))}
     @for $i from 0 through 50{
         $value:$i*.1;
         &[data-rating="#{$value}"]:after{width:#{($value*20%)}}
+        &[data-title="#{$value}"]:after{width:#{($value*20%)}}
     }
     &:after{color:var(--bs-warning);content:'\2605\2605\2605\2605\2605';position:absolute;z-index:0;height:100%;left:0;overflow:hidden}
     &.norat{
@@ -136,8 +137,9 @@ $bodydark :"body.bg-dark";
         }
     }
 }
-.form-select{background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="light-dark(%23#{var.$svgwhite}, %23#{var.$svgblack})" stroke-width=".8" d="m2 5 6 6 6-6"/></svg>') right .7rem center / 16px 16px no-repeat light-dark(var(--white), var(--black))!important;border-color:rgb(var(--white-rgb)/.1)!important;border-radius:0;color:light-dark(var(--black),var(--white));font-weight:400;
-    &:focus{background-color:light-dark(var(--white), var(--black))!important;border-color:light-dark(var(--thm), var(--thm1))!important;}
+.form-select{background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="light-dark(%23#{var.$svgwhite}, %23#{var.$svgblack})" stroke-width=".8" d="m2 5 6 6 6-6"/></svg>') right .7rem center / 16px 16px no-repeat light-dark(var(--white), transparent)!important;border-color:rgb(var(--white-rgb)/.1)!important;border-radius:0;color:light-dark(var(--black),var(--white));font-weight:400;
+    &:focus{background-color:light-dark(var(--white), var(--thm))!important;border-bottom-color:light-dark(var(--thm), var(--thm1))!important;}
+    // >*{color:light-dark(var(--white), var(--black)) !important;}
 }
 select option:disabled{display:none}
 

@@ -89,7 +89,7 @@ function getfilterData(queryString = '') {
             $('#items-list').html(response?.results);
             $('#totalRecords').html(response?.totalProducts);
             history.pushState(null, '', queryString);
-            livewireFilterLeftBar(queryString);
+            // livewireFilterLeftBar(queryString);
             $('#mobFilterBar').attr('href', '#FilterBar');
         }
     });

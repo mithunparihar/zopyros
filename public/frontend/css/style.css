@@ -1078,7 +1078,7 @@ select option:disabled {
   padding: 0 12px !important;
 }
 .form-control.is-invalid {
-  border-color: var(--bs-form-invalid-border-color) !important;
+  border-bottom-color: var(--bs-form-invalid-border-color) !important;
 }
 
 .flatpickr-time input:hover, .flatpickr-time .flatpickr-am-pm:hover, .flatpickr-time input:focus, .flatpickr-time .flatpickr-am-pm:focus {

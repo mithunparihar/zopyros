@@ -9,7 +9,7 @@
             wire:model="name" type="text" placeholder="Enter Your Name" onkeypress="return /[a-z ]/i.test(event.key)"
             maxlength="30">
         @error('name')
-            <span class="text-danger">{{ $message }}</span>
+            <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div>
@@ -19,7 +19,7 @@
             wire:model="contact" type="tel" placeholder="9898989898"
             onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10">
         @error('contact')
-            <span class="text-danger">{{ $message }}</span>
+            <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div>
@@ -29,14 +29,14 @@
             wire:model="email" type="email" placeholder="info@yourdomain.com"
             onkeypress="return /[a-zA-z0-9@_.-]/i.test(event.key)" maxlength="30">
         @error('email')
-            <span class="text-danger">{{ $message }}</span>
+            <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div>
         <label for="OMessage" class="form-label m-0 small">Message</label>
         <textarea class="form-control border-dark-subtle @error('message') is-invalid @enderror" id="OMessage" wire:model="message"></textarea>
         @error('message')
-            <span class="text-danger">{{ $message }}</span>
+            <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="text-center">

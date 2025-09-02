@@ -3,7 +3,10 @@
     <main>
         <section class="PageProD pt-4">
             <div class="container">
-                <x-breadcrumb :lists="$breadcrumb = [$product->title => url()->current()]" />
+                <x-breadcrumb :lists="$breadcrumb = [
+                    $categoryInfo->title => route('category', ['category' => $categoryInfo->alias]),
+                    $product->title => url()->current(),
+                ]" />
                 <div class="row row-gap-4">
                     <div class="col-xl-6 col-lg-5">
                         <div class="me-xl-4 me-xxl-5 SlideBox">
@@ -108,8 +111,9 @@
                                     <div class="Sizes ms-1 mt-2">
                                         @foreach ($sizes ?? [] as $size)
                                             <div class="sizebtn">
-                                                <input class="sizebtn-check btn-check" type="radio" name="sizes" value="{{ $size->id }}"
-                                                    @checked($loop->index == 0)  id="sizes{{ $size->id }}">
+                                                <input class="sizebtn-check btn-check" type="radio" name="sizes"
+                                                    value="{{ $size->id }}" @checked($loop->index == 0)
+                                                    id="sizes{{ $size->id }}">
                                                 <label class="sizebtn-label" for="sizes{{ $size->id }}"
                                                     role="button">{{ $size->variantTypeInfo->title ?? '' }}</label>
                                             </div>
@@ -125,7 +129,8 @@
                                     </lable>
                                     <select name="finish" id="finish" class="form-select">
                                         @foreach ($metals as $metal)
-                                            <option value="{{ $metal->id }}" @selected($loop->index==0) >{{ $metal->variantTypeInfo->title ?? '' }}
+                                            <option value="{{ $metal->id }}" @selected($loop->index == 0)>
+                                                {{ $metal->variantTypeInfo->title ?? '' }}
                                             </option>
                                         @endforeach
                                     </select>

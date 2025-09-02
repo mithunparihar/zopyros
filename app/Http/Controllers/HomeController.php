@@ -5,13 +5,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders      = \App\Models\Banner::active()->whereNotIn('id', [3, 4])->latest()->get();
-        $banner       = \App\Models\Banner::active()->find(3);
-        $videoBanner  = \App\Models\Banner::active()->find(4);
-        $categories   = \App\Models\Category::active()->latest()->home()->take(10)->get();
-        $counters     = \App\Models\Counter::active()->latest()->get();
-        $blogs        = \App\Models\Blog::active()->latest('post_date')->take(10)->get();
-        $products     = \App\Models\Product::active()->latest()->take(10)->get();
+        $sliders     = \App\Models\Banner::active()->whereNotIn('id', [3, 4])->latest()->get();
+        $banner      = \App\Models\Banner::active()->find(3);
+        $videoBanner = \App\Models\Banner::active()->find(4);
+        $categories  = \App\Models\Category::active()->latest()->home()->take(10)->get();
+        $counters    = \App\Models\Counter::active()->latest()->get();
+        $blogs       = \App\Models\Blog::whereHas('categoryInfo', function ($qwert) {
+            $qwert->active();
+        })->active()->latest('post_date')->take(10)->get();
+        $products = \App\Models\Product::whereHas('categories', function ($qry) {
+            $qry->whereHas('categoryInfo', function ($qr) {
+                $qr->active();
+            });
+        })->active()->latest()->take(10)->get();
         $testimonials = \App\Models\Testimonial::active()->latest()->home()->take(10)->get();
         return view('home', compact('sliders', 'categories', 'banner', 'videoBanner', 'counters', 'blogs', 'products', 'testimonials'));
     }
@@ -88,7 +94,7 @@ class HomeController extends Controller
     public function blog($alias = null)
     {
         if ($alias) {
-            $blog            = \App\Models\Blog::whereHas('categoryInfo',function($qwert){
+            $blog = \App\Models\Blog::whereHas('categoryInfo', function ($qwert) {
                 $qwert->active();
             })->active()->whereSlug($alias)->firstOrFail();
             $categories      = \App\Models\BlogCategory::whereHas('blogs')->active()->get();
@@ -99,9 +105,9 @@ class HomeController extends Controller
 
             return view('blog.info', compact('blog', 'previous', 'next', 'latest', 'tableofcontents', 'categories'));
         }
-        $blogs = \App\Models\Blog::whereHas('categoryInfo',function($qwert){
-                $qwert->active();
-            })->active()->latest()->paginate(80);
+        $blogs = \App\Models\Blog::whereHas('categoryInfo', function ($qwert) {
+            $qwert->active();
+        })->active()->latest()->paginate(80);
         return view('blog.lists', compact('blogs'));
     }
 

@@ -1,4 +1,10 @@
-<a href="{{ route('category', ['category' => $product->alias]) }}" class="shadow-none {{ $className }} card ProBlock">
+@php 
+$Arr = ['category' => $product->alias];
+if($categoryInfo){
+    $Arr = array_merge($Arr,['cat'=>$categoryInfo->alias]);
+}
+@endphp
+<a href="{{ route('category', $Arr) }}" class="shadow-none {{ $className }} card ProBlock">
     <div class="card-header">
         <div class="proimg">
             <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="product" width="500"

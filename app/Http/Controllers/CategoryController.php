@@ -26,28 +26,38 @@ class CategoryController extends Controller
             $category = \App\Models\Category::whereAlias($exp)->active()->firstOrFail();
             $parentid = $category->parent_id;
         }
-         $faqs     = $category->faqs()->active()->get();
+        $faqs = $category->faqs()->active()->get();
         if ($category->products()->count() > 0) {
-           
+
             $products = \App\Models\Product::whereHas('categories', function ($query) use ($category) {
                 return $query->category($category['id']);
             })->search()->active()->paginate(60);
             if (request()->ajax()) {
                 return response()->json([
-                    'results' => view('category.filter', compact('products'))->render(),
+                    'results' => view('category.filter', compact('products','category'))->render(),
                 ]);
             }
             return view('category.product-lists', compact('category', 'parentid', 'faqs', 'explode'));
         }
-        return view('category.lists', compact('category', 'parentid', 'explode','faqs'));
+        return view('category.lists', compact('category', 'parentid', 'explode', 'faqs'));
     }
 
     public function productInfo($product)
     {
         $explode = explode('/', $product);
         $Alias   = $explode[0] ?? '';
-        $product = \App\Models\Product::active()->whereAlias($Alias)->firstOrFail();
-        $colors  = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
+        $product = \App\Models\Product::whereHas('categories', function ($qry) {
+            $qry->whereHas('categoryInfo', function ($qr) {
+                $qr->active();
+            });
+        })->active()->whereAlias($Alias)->firstOrFail();
+
+        $categoryInfo = $product->categories[0]->categoryInfo;
+        if (request('cat')) {
+            $categoryInfo =  \App\Models\Category::whereAlias(request('cat'))->active()->firstOrFail();
+        }
+
+        $colors = \App\Models\ProductVariant::whereHas('variantInfo', function ($qwer) {
             $qwer->active();
         })->whereVariantId(7)->whereProductId($product->id)->get();
 
@@ -74,7 +84,7 @@ class CategoryController extends Controller
         RecentlyViewed::add($product);
 
         $galleries = \App\Models\Gallery::type(1)->active()->latest()->get();
-        $videos = \App\Models\Gallery::type(2)->active()->latest()->get();
-        return view('category.product', compact('product','galleries','videos', 'facilities', 'related', 'images','highlights', 'colors', 'metals', 'sizes'));
+        $videos    = \App\Models\Gallery::type(2)->active()->latest()->get();
+        return view('category.product', compact('product', 'categoryInfo', 'galleries', 'videos', 'facilities', 'related', 'images', 'highlights', 'colors', 'metals', 'sizes'));
     }
 }

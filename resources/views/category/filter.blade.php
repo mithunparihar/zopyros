@@ -1,7 +1,7 @@
 @if ($products->isNotEmpty())
     @foreach ($products as $product)
         <div class="ProList-item col-lg-4 col-sm-6">
-            @livewire('product-box', ['product' => $product], key('PRD-'.$product->id))
+            @livewire('product-box', ['product' => $product,'category'=>$category ?? ''], key('PRD-'.$product->id))
         </div>
     @endforeach
     <div class="pagination d-flex justify-content-center">

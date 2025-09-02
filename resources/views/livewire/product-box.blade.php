@@ -7,7 +7,7 @@ if($categoryInfo){
 <a href="{{ route('category', $Arr) }}" class="shadow-none {{ $className }} card ProBlock">
     <div class="card-header">
         <div class="proimg">
-            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="product" width="500"
+            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="product" width="500" alt="{{ str_replace(' ', '-', $product->title) }}"
                 height="300" :image="$images[0]->image ?? ''" />
         </div>
     </div>

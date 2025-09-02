@@ -11,7 +11,7 @@
                             <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
                                 <div class="img">
                                     <x-image-preview id="blah2" fetchpriority="{{ $loop->index == 0 ? 'high' : 'low' }}"
-                                        loading="{{ $loop->index == 0 ? 'eager' : 'lazy' }}" class="defaultimg"
+                                        loading="{{ $loop->index == 0 ? 'eager' : 'lazy' }}" class="defaultimg" alt="{{$slider->image}}"
                                         imagepath="banner" width="1000" height="800" :image="$slider->image" />
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                 id="myVideo">
                             </video>
                         @else
-                            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner"
+                            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner" alt="{{$videoBanner->image}}"
                                 width="1600" height="500" :image="$videoBanner->image" />
                         @endif
 
@@ -176,7 +176,7 @@
                 <div class="EndTuch Video">
                     <div class="VideoImg">
                         <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner"
-                            width="1600" height="900" :image="$banner->image" />
+                            width="1600" height="900" :image="$banner->image" alt="{{$banner->image}}" />
                     </div>
                     <div class="VideoText StartTuch text-end">
                         <div class="row align-items-center justify-content-end h-100">
@@ -212,7 +212,7 @@
                                         <div class="imgbx">
                                             <div class="img">
                                                 <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg"
-                                                    imagepath="testimonial" width="300" height="300"
+                                                    imagepath="testimonial" width="300" height="300" alt="{{$testimonial->image ?? ''}}"
                                                     :image="$testimonial->image ?? ''" />
                                             </div>
                                         </div>

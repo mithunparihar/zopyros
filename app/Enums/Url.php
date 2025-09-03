@@ -8,6 +8,6 @@ enum Url : string
     case CSS = "/frontend/css/";
     case JS = "/frontend/js/";
     case IMG = "/frontend/img/";
-    case THEMECOLOR = "#606C38";
+    case THEMECOLOR = "#302A28";
     case DEFAULTCURRENCY = '231';
 }

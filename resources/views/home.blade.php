@@ -195,7 +195,7 @@
 
         @if ($testimonials->isNotEmpty())
             <section class="overflow-hidden">
-                <img loading="lazy" fetchpriority="low" src="img/bgsvg.svg" alt="bgsvg" width="1600"
+                <img loading="lazy" fetchpriority="low" src="{{ \App\Enums\Url::IMG }}bgsvg.svg" alt="bgsvg" width="1600"
                     height="800" class="bgimg opacity-10">
                 <div class="container row justify-content-between align-items-center row-gap-4">
                     <div class="col-lg-5 text-lg-start">

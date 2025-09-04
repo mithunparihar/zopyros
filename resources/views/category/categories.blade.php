@@ -7,7 +7,7 @@
                     'Categories' => url()->current(),
                 ]" />
                 <h1 class="Heading h2">{{ \Content::cmsData(16)->title }}</h1>
-                <div class="row mt-4 row-gap-4">
+                <div class="row mt-4 mb-5 row-gap-4">
                     @foreach ($categories as $categor)
                         <div class="col-lg-4 col-md-6">
                             @livewire('category-box', ['category' => $categor], key('CAT-' . $categor->id))

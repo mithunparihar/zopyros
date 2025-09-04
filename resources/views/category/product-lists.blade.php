@@ -27,10 +27,10 @@
                     </div>
                     <div class="d-flex gap-2"> </div>
                 </div> --}}
-                <div class="row mt-4 row-gap-4" id="items-list">
+                <div class="row mt-4 mb-5 row-gap-4" id="items-list">
                     {{-- items Lists Here --}}
                 </div>
-                <div class="CmsPage mt-5">{!! $category->description !!}</div>
+                <div class="CmsPage">{!! $category->description !!}</div>
 
                 @if ($faqs->isNotEmpty())
                     <div class="FAQsD mt-4">

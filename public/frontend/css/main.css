@@ -953,15 +953,15 @@ aside {
 
 ::-moz-selection {
   text-shadow: none;
-  color: light-dark(var(--white), var(--black));
+  color: light-dark(var(--black), var(--white));
   background: var(--thm);
 }
 
 ::selection {
   text-shadow: none;
-  color: light-dark(var(--white), var(--black));
+  color: light-dark(var(--black), var(--white));
   background: var(--thm);
-  -webkit-text-fill-color: light-dark(var(--white), var(--black));
+  -webkit-text-fill-color: light-dark(var(--black), var(--white));
 }
 
 .text-primary, a.text-primary {
@@ -3257,7 +3257,7 @@ nav.menu.is-fixed.down .st {
   content: "";
   background: -webkit-gradient(linear, left bottom, left top, from(rgb(var(--black-rgb)/0.9)), to(transparent));
   background: linear-gradient(0deg, rgb(var(--black-rgb)/0.9), transparent);
-  opacity: 0;
+  opacity: 0.5;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }

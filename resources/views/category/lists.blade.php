@@ -16,14 +16,14 @@
             <div class="container">
                 <x-breadcrumb :lists="$breadcrumb" />
                 <h1 class="Heading h2">{{ $category->title }}</h1>
-                <div class="row mt-4 row-gap-4">
+                <div class="row mt-4 mb-5 row-gap-4">
                     @foreach ($category->childs()->active()->get() as $categor)
                         <div class="col-lg-4 col-md-6">
                             @livewire('category-box', ['category' => $categor], key('CAT-' . $categor->id))
                         </div>
                     @endforeach
                 </div>
-                <div class="CmsPage mt-4">{!! $category->description !!}</div>
+                <div class="CmsPage">{!! $category->description !!}</div>
                 @if ($faqs->isNotEmpty())
                     <div class="FAQsD mt-4">
                         <h2 class="">{{ $category->title }} FAQs</h2>

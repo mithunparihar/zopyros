@@ -658,6 +658,12 @@ body.bg-light {
     margin-left: calc((100% + 1.5rem - 98%) / 2) !important;
   }
 }
+@media (max-width: 767px) {
+  .EndTuch {
+    margin-left: calc((100% + 1.5rem - 100%) / 2) !important;
+    margin-right: calc((100% + 1.5rem - 100%) / 2) !important;
+  }
+}
 
 @media (min-width: 992px) {
   .StartTuch {
@@ -682,6 +688,12 @@ body.bg-light {
 @media (max-width: 991px) {
   .StartTuch {
     margin-right: calc((100% + 1.5rem - 98%) / 2) !important;
+  }
+}
+@media (max-width: 767px) {
+  .StartTuch {
+    margin-left: calc((100% + 1.5rem - 100%) / 2) !important;
+    margin-right: calc((100% + 1.5rem - 100%) / 2) !important;
   }
 }
 
@@ -1270,6 +1282,11 @@ nav.menu .st .container .col.logom, nav.menu .st .container-fluid .col.logom {
 @media (max-width: 575px) {
   nav.menu .st .container .col.logom, nav.menu .st .container-fluid .col.logom {
     max-width: 90px;
+  }
+}
+@media (max-width: 350px) {
+  nav.menu .st .container .col.logom, nav.menu .st .container-fluid .col.logom {
+    max-width: 80px;
   }
 }
 nav.menu .st .container .col.logom .navbar-brand, nav.menu .st .container-fluid .col.logom .navbar-brand {
@@ -1955,6 +1972,7 @@ nav.menu .st .container .col.NavMenu .navbar-toggler, nav.menu .st .container-fl
   border: none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  z-index: 9;
 }
 nav.menu .st .container .col.NavMenu .navbar-toggler svg, nav.menu .st .container-fluid .col.NavMenu .navbar-toggler svg {
   fill: none;
@@ -1972,7 +1990,7 @@ nav.menu .st .container .col.NavMenu .navbar-toggler svg, nav.menu .st .containe
 }
 nav.menu .st .container .col.NavMenu .navbar-toggler ~ .MenuBg, nav.menu .st .container-fluid .col.NavMenu .navbar-toggler ~ .MenuBg {
   position: absolute;
-  z-index: 0;
+  z-index: 2;
   left: 0;
   top: 0;
 }
@@ -2367,11 +2385,15 @@ nav.menu .st .container .col.LastNav .SearchBoxs, nav.menu .st .container-fluid 
 nav.menu .st .container .col.LastNav .SearchBoxs form, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form {
   position: absolute !important;
   right: 0;
-  width: calc(100% + 95px);
+  width: calc(100% + 122px);
   top: 0;
   z-index: 99;
 }
 @media (min-width: 992px) {
+  nav.menu .st .container .col.LastNav .SearchBoxs form, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form {
+    width: calc(100% + 350px);
+    top: 100%;
+  }
   nav.menu .st .container .col.LastNav .SearchBoxs form > div, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form > div {
     border: 1px solid light-dark(rgb(var(--white-rgb)/0.3), rgb(var(--black-rgb)/0.3));
     border-top: none;
@@ -2384,10 +2406,9 @@ nav.menu .st .container .col.LastNav .SearchBoxs form, nav.menu .st .container-f
             box-shadow: 0 0 12px rgb(var(--black-rgb)/0.3);
   }
 }
-@media (min-width: 992px) {
+@media (max-width: 767px) {
   nav.menu .st .container .col.LastNav .SearchBoxs form, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form {
-    width: calc(100% + 350px);
-    top: 100%;
+    background: var(--black);
   }
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .Dsearch, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .Dsearch {
@@ -2411,7 +2432,7 @@ nav.menu .st .container .col.LastNav .SearchBoxs form .Dsearch svg, nav.menu .st
 }
 @media (max-width: 991px) {
   nav.menu .st .container .col.LastNav .SearchBoxs form .Dsearch, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .Dsearch {
-    top: 4px;
+    top: 21px;
   }
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form.show .Dsearch, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form.show .Dsearch {
@@ -2429,10 +2450,15 @@ nav.menu .st .container .col.LastNav .SearchBoxs form .form-control, nav.menu .s
     z-index: 2;
   }
 }
-@media (max-width: 575px) {
+@media (max-width: 767px) {
   nav.menu .st .container .col.LastNav .SearchBoxs form .form-control, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control {
-    height: 45px !important;
+    height: 76px !important;
     padding-left: 45px !important;
+  }
+}
+@media (max-width: 350px) {
+  nav.menu .st .container .col.LastNav .SearchBoxs form .form-control, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control {
+    height: 66px !important;
   }
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList {
@@ -2450,10 +2476,9 @@ nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchLis
     border: 1px solid light-dark(rgb(var(--white-rgb)/0.3), rgb(var(--black-rgb)/0.3));
     border-top: none;
     border-radius: 0;
-    background: light-dark(rgb(var(--black-rgb)/0.6), rgb(var(--white-rgb)/0.6));
+    background: light-dark(rgb(var(--white-rgb)/0.6), rgb(var(--black-rgb)/0.6));
     backdrop-filter: blur(20px);
     padding: 9px;
-    overflow: hidden;
     width: 100%;
     margin-top: -7px;
     -webkit-box-shadow: 0 5px 9px rgb(var(--black-rgb)/0.2);
@@ -2473,6 +2498,12 @@ nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchLis
   overflow: auto;
   margin: 0;
 }
+nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * > li, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * > li {
+  border-bottom: 1px solid rgb(var(--white-rgb)/0.1);
+}
+nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * > li:last-child, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * > li:last-child {
+  border: none !important;
+}
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * *, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * {
   font-size: 16px;
 }
@@ -2483,27 +2514,26 @@ nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchLis
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span {
   padding: 0 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span:after, nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span:before, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span:after, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * span:before {
   display: none;
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * small, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * * small {
   font-size: 12px;
-  color: rgb(var(--black-rgb)/0.7) !important;
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * a, nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * button, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * a, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * button {
-  padding: 7px 12px;
+  padding: 2px 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * a:hover, nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * button:hover, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * a:hover, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * button:hover {
   background: rgb(var(--thm-rgb)/0.1);
-}
-nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * img, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList > * img {
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
-  opacity: 0.5;
 }
 nav.menu .st .container .col.LastNav .SearchBoxs form .form-control ~ .SearchList::-webkit-scrollbar, nav.menu .st .container-fluid .col.LastNav .SearchBoxs form .form-control ~ .SearchList::-webkit-scrollbar {
   width: 2px;
@@ -2720,18 +2750,25 @@ nav.menu.is-fixed.down .st {
 @media (max-width: 991px) {
   nav.menu {
     margin: 0;
-    min-height: 65px;
+    min-height: 88px;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
+}
+@media (max-width: 991px) and (max-width: 350px) {
+  nav.menu {
+    min-height: 78px;
+  }
+}
+@media (max-width: 991px) {
   nav.menu .st .container, nav.menu .st .container-fluid {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-align: inherit;
+        -ms-flex-align: inherit;
+            align-items: inherit;
     gap: 5px;
   }
   nav.menu .st .container .logom .navbar-brand, nav.menu .st .container-fluid .logom .navbar-brand {
@@ -2900,7 +2937,17 @@ nav.menu.is-fixed.down .st {
   width: 100%;
 }
 .card.ProBlock.swiper-slide {
-  max-width: calc(50% - 6px);
+  max-width: 100%;
+}
+@media (min-width: 350px) {
+  .card.ProBlock.swiper-slide {
+    max-width: calc(68% - 8px);
+  }
+}
+@media (min-width: 450px) {
+  .card.ProBlock.swiper-slide {
+    max-width: calc(50% - 6px);
+  }
 }
 @media (min-width: 575px) {
   .card.ProBlock.swiper-slide {
@@ -2909,17 +2956,17 @@ nav.menu.is-fixed.down .st {
 }
 @media (min-width: 768px) {
   .card.ProBlock.swiper-slide {
-    max-width: calc(33.333% - 13px);
+    max-width: calc(33.333% - 9px);
   }
 }
 @media (min-width: 992px) {
   .card.ProBlock.swiper-slide {
-    max-width: calc(28% - 8px);
+    max-width: calc(29% - 15px);
   }
 }
 @media (min-width: 1200px) {
   .card.ProBlock.swiper-slide {
-    max-width: calc(25% - 15px);
+    max-width: calc(25% - 11px);
   }
 }
 .card.ProBlock.swiper-slide:not(.Ser, .SerB, .Venues, .ProBlog) {
@@ -3052,13 +3099,13 @@ nav.menu.is-fixed.down .st {
 }
 @media (max-width: 575px) {
   .card.ProBlock .card-body h3 {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.2;
   }
 }
 @media (max-width: 420px) {
   .card.ProBlock .card-body h3 {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 .card.ProBlock .card-body p, .card.ProBlock .card-body .text {
@@ -3237,9 +3284,34 @@ nav.menu.is-fixed.down .st {
 .card.ProBlock.ProCatS.swiper-slide {
   max-width: 100%;
 }
-@media (min-width: 767px) {
+@media (min-width: 360px) {
   .card.ProBlock.ProCatS.swiper-slide {
-    max-width: calc(50% - 9px);
+    max-width: calc(86% - 12px);
+  }
+}
+@media (min-width: 450px) {
+  .card.ProBlock.ProCatS.swiper-slide {
+    max-width: calc(73% - 12px);
+  }
+}
+@media (min-width: 575px) {
+  .card.ProBlock.ProCatS.swiper-slide {
+    max-width: calc(63% - 9px);
+  }
+}
+@media (min-width: 768px) {
+  .card.ProBlock.ProCatS.swiper-slide {
+    max-width: calc(53% - 13px);
+  }
+}
+@media (min-width: 992px) {
+  .card.ProBlock.ProCatS.swiper-slide {
+    max-width: calc(44% - 16px);
+  }
+}
+@media (min-width: 1200px) {
+  .card.ProBlock.ProCatS.swiper-slide {
+    max-width: calc(36% - 17px);
   }
 }
 .card.ProBlock.ProCatS .card-header {
@@ -3775,6 +3847,12 @@ nav.menu.is-fixed.down .st {
   width: 42px;
   stroke: light-dark(var(--black), var(--white));
 }
+@media (max-width: 575px) {
+  .ConInfos.Boxs > * .icon svg {
+    height: 30px;
+    width: 30px;
+  }
+}
 .ConInfos.Boxs > *:hover {
   background: light-dark(rgb(var(--thm-rgb)/0.1), rgb(var(--thm-rgb)/0.1));
 }
@@ -3830,10 +3908,11 @@ footer ul.links, footer .links {
             flex-direction: inherit;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 }
 footer ul.links a, footer .links a {
-  line-height: normal;
   padding: 0;
   font-size: 15px;
   display: -webkit-inline-box;
@@ -3850,6 +3929,7 @@ footer ul.links a, footer .links a {
 @media (min-width: 1600px) {
   footer ul.links a, footer .links a {
     font-size: 16px;
+    line-height: normal;
   }
 }
 footer ul.links a:hover, footer .links a:hover {
@@ -3857,7 +3937,7 @@ footer ul.links a:hover, footer .links a:hover {
 }
 @media (max-width: 991px) {
   footer ul.links a, footer .links a {
-    width: calc(50% - 10px);
+    width: calc(50% - 11px);
   }
 }
 footer .input-group {

@@ -60,6 +60,7 @@ body{font-family:var(--font);font-size:1.05rem;color:light-dark(var(--black), va
     @media (min-width:1400px){&{margin-left:calc((100% + calc(1.5rem * 1) - 85%)/ 2)!important}}
     @media (min-width:1600px){&{margin-left:calc((100% + calc(1.5rem * 1) - 1440px)/ 2)!important}}
     @media (max-width:991px){&{margin-left:calc((100% + calc(1.5rem * 1) - 98%)/ 2)!important}}
+    @media (max-width:767px){&{margin-left:calc((100% + calc(1.5rem * 1) - 100%)/ 2)!important;margin-right:calc((100% + calc(1.5rem * 1) - 100%)/ 2)!important}}
 }
 .StartTuch{
     @media (min-width:992px){&{margin-right:calc((100% + calc(1.5rem * 1) - 95%)/ 2)!important}}
@@ -67,6 +68,7 @@ body{font-family:var(--font);font-size:1.05rem;color:light-dark(var(--black), va
     @media (min-width:1400px){&{margin-right:calc((100% + calc(1.5rem * 1) - 85%)/ 2)!important}}
     @media (min-width:1600px){&{margin-right:calc((100% + calc(1.5rem * 1) - 1440px)/ 2)!important}}
     @media (max-width:991px){&{margin-right:calc((100% + calc(1.5rem * 1) - 98%)/ 2)!important}}
+    @media (max-width:767px){&{margin-left:calc((100% + calc(1.5rem * 1) - 100%)/ 2)!important;margin-right:calc((100% + calc(1.5rem * 1) - 100%)/ 2)!important}}
 }
 input,textarea{
     &::-webkit{

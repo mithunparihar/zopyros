@@ -3,23 +3,41 @@ const ProCatSlider = () => {
     let ProCat = document.querySelectorAll('.ProCat')
     let prevcat = document.querySelectorAll('.cat-prev')
     let nextcat = document.querySelectorAll('.cat-next')
+    let prevcatm = document.querySelectorAll('.cat-prevm')
+    let nextcatm = document.querySelectorAll('.cat-nextm')
     let BlogS = document.querySelectorAll('.BlogS')
     let prevBlog = document.querySelectorAll('.Blog-prev')
     let nextBlog = document.querySelectorAll('.Blog-next')
+    let prevBlogm = document.querySelectorAll('.Blog-prevm')
+    let nextBlogm = document.querySelectorAll('.Blog-nextm')
     ProCat.forEach((slider, index) => {
         let result = (slider.children[0].children.length > 1) ? true : false
+        let nextEl, prevEl;
+        if (window.innerWidth < 768) {
+            nextEl = nextcatm[index];
+            prevEl = prevcatm[index];
+        } else {
+            nextEl = nextcat[index];
+            prevEl = prevcat[index];
+        }
         const swiper = new Swiper(slider, {
-            spaceBetween: 20, slidesPerView: 1,
-            navigation: { nextEl: nextcat[index], prevEl: prevcat[index] },
-            breakpoints: { '280': { slidesPerView: 1, spaceBetween: 6 }, '360': { slidesPerView: 1.2, spaceBetween: 8 }, '450': { slidesPerView: 1.4, spaceBetween: 12 }, '575': { slidesPerView: 1.6, spaceBetween: 15 }, '768': { slidesPerView: 1.9 }, '992': { slidesPerView: 2.3 }, '1200': { slidesPerView: 2.8 } }
+            spaceBetween:20, slidesPerView:1,navigation:{nextEl:nextEl,prevEl:prevEl},
+            breakpoints:{'280':{slidesPerView:1,spaceBetween:6},'360':{slidesPerView:1.2,spaceBetween:8},'450':{slidesPerView:1.4,spaceBetween:12},'575':{slidesPerView:1.6,spaceBetween:15},'768':{slidesPerView:1.9},'992':{slidesPerView:2.3},'1200':{slidesPerView:2.8}}
         });
     })
     BlogS.forEach((slider, index) => {
         let result = (slider.children[0].children.length > 1) ? true : false
+        let nextEl, prevEl;
+        if (window.innerWidth < 768) {
+            nextEl = nextBlogm[index];
+            prevEl = prevBlogm[index];
+        } else {
+            nextEl = nextBlog[index];
+            prevEl = prevBlog[index];
+        }
         const swiper = new Swiper(slider, {
-            spaceBetween: 20, slidesPerView: 1,
-            navigation: { nextEl: nextBlog[index], prevEl: prevBlog[index] },
-            breakpoints: { '280': { slidesPerView: 1.8, spaceBetween: 6 }, '350': { slidesPerView: 2, spaceBetween: 8 }, '450': { slidesPerView: 2, spaceBetween: 12 }, '575': { slidesPerView: 2.5, spaceBetween: 15 }, '768': { slidesPerView: 3 }, '992': { slidesPerView: 3.5 }, '1200': { slidesPerView: 4 } }
+            spaceBetween:20, slidesPerView:1,navigation:{nextEl:nextEl,prevEl:prevEl},
+            breakpoints:{'280':{slidesPerView:1,spaceBetween:6},'350':{slidesPerView:1.5,spaceBetween:8},'450':{slidesPerView:2,spaceBetween:12},'575':{slidesPerView:2.5,spaceBetween:15},'768':{slidesPerView:3},'992':{slidesPerView:3.5},'1200':{slidesPerView:4}}
         });
     })
 }
@@ -30,20 +48,22 @@ const Testis = new Swiper(".Testis", {
     pagination: { el: ".swiper-pagination", dynamicBullets: true, clickable: true, },
     // navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},
 });
-window.addEventListener('load', function () {
-    new Masonry('.ProList', {
-        itemSelector: '.ProList-item',
-        gutter: 0,
-        percentPosition: true
+if (window.innerWidth > 768) {
+    window.addEventListener('load', function () {
+        new Masonry('.ProList', {
+            itemSelector: '.ProList-item',
+            gutter: 0,
+            percentPosition: true
+        });
     });
-});
+}
 // const myVideo = document.getElementById('myVideo');
 // const videoP = document.getElementById('videoP');
 // function togglePlay() {
 //   if (myVideo.paused) {
 //     myVideo.play();
 //     videoP.classList.add('play');
-//   } else {
+// else {
 //     myVideo.pause();
 //     videoP.classList.remove('play');
 //   }

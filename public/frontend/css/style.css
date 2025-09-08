@@ -1934,6 +1934,12 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   right: 0;
   top: 50px;
 }
+@media (max-width: 767px) {
+  .navbar-collapse .NavAni .navbar-toggler {
+    top: 20px;
+    right: 20px;
+  }
+}
 .navbar-collapse .NavAni .navbar-toggler svg {
   fill: none;
   stroke: light-dark(var(--black), var(--white));
@@ -1941,6 +1947,12 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   stroke-width: 2px;
   height: 26px;
   width: 26px;
+}
+@media (max-width: 767px) {
+  .navbar-collapse .NavAni .navbar-toggler svg {
+    height: 20px;
+    width: 20px;
+  }
 }
 .navbar-collapse .NavAni > * {
   display: -webkit-box;
@@ -1953,26 +1965,6 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
 .navbar-collapse .NavAni > div {
   position: sticky;
   top: 0;
-}
-@media (max-width: 767px) {
-  .navbar-collapse .NavAni > div {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .navbar-collapse .NavAni > div svg {
-    display: none;
-  }
-  .navbar-collapse .NavAni > div .icons {
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-        -ms-flex-direction: row !important;
-            flex-direction: row !important;
-    padding: 9px 0;
-    position: sticky;
-    bottom: 0;
-  }
 }
 .navbar-collapse .NavAni .LogoAni {
   opacity: 0;
@@ -1994,7 +1986,7 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   padding: 0;
 }
 .navbar-collapse ul:has(.CatMegamenu) {
-  width: 280px;
+  width: auto;
 }
 .navbar-collapse ul:has(.CatMegamenu) .CatMegamenu {
   position: static !important;
@@ -2026,6 +2018,11 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   display: block;
   top: -5px;
   position: relative;
+}
+@media (max-width: 767px) {
+  .navbar-collapse ul:has(.CatMegamenu) .CatMegamenu > a:after {
+    display: none;
+  }
 }
 .navbar-collapse ul:has(.CatMegamenu) .CatMegamenu:has(.Megamenu:hover) > a {
   color: var(--thm1) !important;
@@ -2066,6 +2063,11 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
 @media (min-width: 1600px) {
   .navbar-collapse ul:has(.CatMegamenu) .Megamenu {
     width: calc((100vw - 0px) / 2);
+  }
+}
+@media (max-width: 767px) {
+  .navbar-collapse ul:has(.CatMegamenu) .Megamenu {
+    display: none !important;
   }
 }
 .navbar-collapse ul:has(.CatMegamenu) ul {
@@ -2188,11 +2190,6 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   color: light-dark(var(--thm), var(--thm1)) !important;
   margin-top: 9px;
 }
-@media (max-width: 767px) {
-  .navbar-collapse ul {
-    height: calc(100% - 30px);
-  }
-}
 .navbar-collapse ul li {
   opacity: 0;
   -webkit-transition: all 0.3s;
@@ -2244,7 +2241,7 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
 }
 @media (max-width: 767px) {
   .navbar-collapse.show ul li > a {
-    font-size: 2.7em;
+    font-size: 2em;
   }
 }
 .navbar-collapse.show ul li > a:after {
@@ -2570,7 +2567,7 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   }
 }
 
-.CallBack * {
+.CallBack *:not(.text-danger) {
   color: light-dark(var(--black), var(--white)) !important;
 }
 .CallBack:not(.modal) {
@@ -3010,6 +3007,8 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
   opacity: 1;
   z-index: 2;
   background-size: 14px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
 }
 @media (max-width: 767px) {
   .CallBack .btn-close {

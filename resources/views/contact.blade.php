@@ -30,7 +30,7 @@
                                     </svg></span>
                                 <div>
                                     @foreach (explode(',', $contact->phone) as $k => $contactNos)
-                                        <a href="tel:<?= $contactNos ?>"><?= $contactNos ?></a>{{ $loop->last ? '' : ', ' }}
+                                        <a href="tel:91<?= $contactNos ?>">(+91)-<?= $contactNos ?></a>{{ $loop->last ? '' : ', ' }}
                                     @endforeach
                                 </div>
                             </div>

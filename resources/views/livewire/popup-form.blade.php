@@ -1,4 +1,5 @@
-<form wire:submit="saveContact" class="modal-body bgthm justify-content-center shadow-lg p-4 d-flex flex-column gap-3"  enctype="multipart/form-data">
+<form wire:submit="saveContact" class="modal-body bgthm justify-content-center shadow-lg p-4 d-flex flex-column gap-3"
+    enctype="multipart/form-data">
     <input type="hidden" name="contact" value="yes">
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     <h2 class="text-center fw-bold text-u m-0 lh-1 fs-4">Get In Touch</h2>
@@ -34,7 +35,10 @@
     </div>
     <div>
         <label for="OMessage" class="form-label m-0 small">Message <span class="text-danger">*</span> </label>
-        <textarea class="form-control border-dark-subtle @error('message') is-invalid @enderror" id="OMessage" wire:model="message"></textarea>
+        <textarea 
+            class="form-control border-dark-subtle @error('message') is-invalid @enderror" 
+            id="OMessage" placeholder="Write Your Message Here..."
+            wire:model="message"></textarea>
         @error('message')
             <span class="text-danger">{{ $message }}</span>
         @enderror

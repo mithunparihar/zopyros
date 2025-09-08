@@ -171,10 +171,15 @@
                                 </div>
                             @endif
 
+                            @php 
+                                $contact = \App\Models\Contact::find(1);
+                            @endphp
                             <div class="btnn position-sticky py-2">
                                 <span class="lh-sm">
+                                    @if(!empty($contact->enquiry_contact))
                                     <small class="d-block">Connect Now for This Product!</small>
-                                    <a href="tel:+919898989898" class="fw-medium fs-4">(+91)-989 898 9898</a>
+                                    <a href="tel:+91{{$contact->enquiry_contact}}" class="fw-medium fs-4">(+91)-{{$contact->enquiry_contact}}</a>
+                                    @endif
                                 </span>
                                 <span class="d-flex gap-3">
                                     <a href="#RequestAQuote" data-bs-toggle="modal" aria-expanded="false"

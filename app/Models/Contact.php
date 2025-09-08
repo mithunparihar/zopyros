@@ -28,4 +28,6 @@ class Contact extends Model
     public function scopeActive($query){
         return $query->whereIsPublish(1);
     }
+
+
 }

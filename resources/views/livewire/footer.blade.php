@@ -41,7 +41,7 @@
                 <h3 class="mb-md-3 mb-2">Subscribe</h3>
                 <p>Get all the latest offers & info</p>
                 <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror "
-                    wire:model="subscribe_email" placeholder="Enter your Email ID">
+                    wire:model="subscribe_email" placeholder="Enter Your Email ID">
                 @error('subscribe_email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

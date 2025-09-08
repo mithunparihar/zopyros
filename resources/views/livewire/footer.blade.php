@@ -14,7 +14,6 @@
                 <a href="{{ route('awards') }}">Awards & Recognitions</a>
                 <a href="{{ route('testimonials') }}">Testimonials</a>
                 <a href="{{ route('team') }}">Our Team</a>
-                <a href="{{ route('blog') }}">Blog</a>
             </div>
         </div>
         <div class="col-lg-2">
@@ -33,7 +32,8 @@
                 <a href="{{ route('faqs') }}">FAQs</a>
                 <a href="{{ route('privacy') }}">Privacy Policy</a>
                 <a href="{{ route('terms') }}">Terms & Conditions</a>
-                <a href="#">Site Map</a>
+                <a href="{{ route('blog') }}">Blog</a>
+                {{-- <a href="#">Site Map</a> --}}
             </div>
         </div>
         <div class="col-lg-3">

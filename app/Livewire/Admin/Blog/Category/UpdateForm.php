@@ -63,10 +63,10 @@ class UpdateForm extends Component
                 'regex:/^[- a-z0-9A-Z]+$/u',
                 'max:100',
                 new TextRule(),
-                Rule::unique('blog_categories')->where(function ($query) {
+                Rule::unique('blog_categories', 'slug')->where(function ($query) {
                     $query->whereNULL('deleted_at');
                     $query->whereNot('id', $this->info->id);
-                    $query->whereRaw('LOWER(TRIM(alias)) = ?', [strtolower($this->alias)]);
+                    $query->whereRaw('LOWER(TRIM(slug)) = ?', [strtolower($this->alias)]);
                 }),
             ],
             'description'      => ['required', new EditorRule()],

@@ -33,7 +33,7 @@
         @enderror
     </div>
     <div>
-        <label for="OMessage" class="form-label m-0 small">Message</label>
+        <label for="OMessage" class="form-label m-0 small">Message <span class="text-danger">*</span> </label>
         <textarea class="form-control border-dark-subtle @error('message') is-invalid @enderror" id="OMessage" wire:model="message"></textarea>
         @error('message')
             <span class="text-danger">{{ $message }}</span>

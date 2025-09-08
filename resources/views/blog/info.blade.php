@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <main>
-        <section class="pt-4">
+        <section class="BlogInner pt-4">
             <div class="container">
                 <x-breadcrumb :lists="$breadcrumb = [
                     'Blog' => route('blog'),

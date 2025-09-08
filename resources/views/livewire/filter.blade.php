@@ -31,9 +31,9 @@
         </div> --}}
         @foreach ($variants as $variant)
             <div class="FilterOp">
-                <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces" href="#variant{{ $variant->id }}"
+                <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces{{ $variant->id }}" href="#variant{{ $variant->id }}"
                     aria-expanded="false" aria-controls="{{ $variant->title }}">{{ $variant->title }}</a>
-                <div id="variant{{ $variant->id }}" class="collapse" aria-labelledby="ProSpaces"
+                <div id="variant{{ $variant->id }}" class="collapse" aria-labelledby="ProSpaces{{ $variant->id }}"
                     data-bs-parent="#allFilter">
                     <div class="ullist">
                         @foreach ($variant->childs as $g => $label)
@@ -56,7 +56,7 @@
         @endforeach
 
         <div class="FilterOp">
-            <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces" href="#SortByDropb" aria-expanded="false" aria-controls="Sort By">Sort By</a>
+            <a data-bs-toggle="collapse" class="collapsed" id="SortBy" href="#SortByDropb" aria-expanded="false" aria-controls="Sort By">Sort By</a>
             {{-- <a class="dropdown-toggle d-none d-md-flex" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" title="Sort By"><i>Sort By</i></a> --}}
             {{-- <a href="#SortByDropb" class="dropdown-toggle d-md-none" data-bs-toggle="offcanvas"
@@ -68,21 +68,21 @@
                     <line x1="11" y1="9" x2="11" y2="1" />
                     <circle cx="11" cy="12" r="2" />
                 </svg> Sort By</a> --}}
-            <div id="SortByDropb" class="collapse" aria-labelledby="ProSpaces" data-bs-parent="#allFilter">
+            <div id="SortByDropb" class="collapse" aria-labelledby="SortBy" data-bs-parent="#allFilter">
                 <div class="ullist">
-                    <label for="sort1" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
+                    <label for="sort1" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="A to Z">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'a-z') value="a-z" name="sort" id="sort1">
                         A to Z
                     </label>
 
-                    <label for="sort2" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
+                    <label for="sort2" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="Z to A">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'z-a') value="z-a" name="sort" id="sort2">
                         Z to A
                     </label>
 
-                    <label for="sort3" onclick="$('#FilterBar').submit();" class="form-check form-check-label">
+                    <label for="sort3" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="Newest First">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'newest') value="newest" name="sort" id="sort3">
                         Newest First

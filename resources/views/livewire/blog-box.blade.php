@@ -2,7 +2,7 @@
     class="{{ $className }} shadow-none card ProBlock border-0 ProBlog">
     <div class="card-header">
         <div class="proimg">
-            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="blog" width="500"
+            <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="blog" width="500" alt="{{ str_replace(' ', '-', $blog->name) }}"
                 height="300" :image="$blog->image" />
         </div>
     </div>

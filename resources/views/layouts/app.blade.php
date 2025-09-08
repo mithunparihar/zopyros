@@ -68,7 +68,7 @@
                 try {
                     await navigator
                         .serviceWorker
-                        .register('js/sw.js');
+                        .register('{{ \App\Enums\Url::JS }}/sw.js');
                 } catch (e) {
                     console.log('SW registration failed');
                 }

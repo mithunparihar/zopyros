@@ -107,7 +107,7 @@
         .card{
             &-header{min-width:30%;order:1;
                 .proimg{
-                    &:after{position:absolute;height:100%;width:100%;left:0;top:0;content:'';background:linear-gradient(0deg, rgb(var(--black-rgb)/.9), transparent);opacity:0;transition:all .5s}
+                    &:after{position:absolute;height:100%;width:100%;left:0;top:0;content:'';background:linear-gradient(0deg, rgb(var(--black-rgb)/.9), transparent);opacity:.5;transition:all .5s}
                 }
                 &:after{padding-bottom:110%}
                 img{object-fit:cover}

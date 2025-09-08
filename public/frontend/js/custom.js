@@ -272,6 +272,30 @@ $(document).ready(function () {
         }, 0);
     }
 });
+document.addEventListener("click", function (e) {
+    const openCollapse = document.querySelector(".FilterOp .collapse.show");
+    if (openCollapse) {
+        const clickedOutside = !openCollapse.contains(e.target);
+        if (clickedOutside) {
+            const collapseInstance = bootstrap.Collapse.getInstance(openCollapse);
+            if (collapseInstance) collapseInstance.hide();
+        }
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const radios = document.querySelectorAll('#SortByDropb input[type="radio"]');
+    const toggleLink = document.getElementById("SortBy");
+
+    radios.forEach(radio => {
+        radio.addEventListener("change", function () {
+            const label = this.closest("label");
+            const selectedText = label?.dataset.name;
+            if (selectedText) {
+                toggleLink.textContent = selectedText;
+            }
+        });
+    });
+});
 jQuery.event.special.touchstart = {
     setup: function (_, ns, handle) {
         this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });

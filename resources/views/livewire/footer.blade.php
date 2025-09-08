@@ -14,7 +14,6 @@
                 <a href="{{ route('awards') }}">Awards & Recognitions</a>
                 <a href="{{ route('testimonials') }}">Testimonials</a>
                 <a href="{{ route('team') }}">Our Team</a>
-                <a href="{{ route('blog') }}">Blog</a>
             </div>
         </div>
         <div class="col-lg-2">
@@ -33,7 +32,8 @@
                 <a href="{{ route('faqs') }}">FAQs</a>
                 <a href="{{ route('privacy') }}">Privacy Policy</a>
                 <a href="{{ route('terms') }}">Terms & Conditions</a>
-                <a href="#">Site Map</a>
+                <a href="{{ route('blog') }}">Blog</a>
+                {{-- <a href="#">Site Map</a> --}}
             </div>
         </div>
         <div class="col-lg-3">
@@ -41,7 +41,7 @@
                 <h3 class="mb-md-3 mb-2">Subscribe</h3>
                 <p>Get all the latest offers & info</p>
                 <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror "
-                    wire:model="subscribe_email" placeholder="Enter your Email ID">
+                    wire:model="subscribe_email" placeholder="Enter Your Email ID">
                 @error('subscribe_email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

@@ -55,15 +55,15 @@
                                     </tr>
                                     <tr>
                                         <th>Color</th>
-                                        <td>{{ $info->color_variant }}</td>
+                                        <td>{{ $info->color_variant ? $info->color_variant : 'N/A' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Size</th>
-                                        <td>{{ $info->size_variant }}</td>
+                                        <td>{{ $info->size_variant ? $info->size_variant : 'N/A' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Material</th>
-                                        <td>{{ $info->material_variant }}</td>
+                                        <td>{{ $info->material_variant ? $info->material_variant : 'N/A' }}</td>
                                     </tr>
                                 </thead>
                             </table>

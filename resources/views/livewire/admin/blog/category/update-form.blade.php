@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-12 my-2">
                 <x-admin.form.label for="description" class="form-label"
-                    :asterisk="false">Description</x-admin.form.label>
+                    :asterisk="true">Description</x-admin.form.label>
                 <x-admin.form.text-editor wire:model="description" ignore="true" class="summernote"
                     id='description'>{{ $description }}</x-admin.form.text-editor>
                 @error('description')

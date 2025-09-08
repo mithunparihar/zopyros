@@ -51,7 +51,7 @@ class FacilityController extends Controller
                 $imageComponent->pathName  = 'facilities';
                 $imageComponent->imageName = $row->image;
 
-                $attributes = new ComponentAttributeBag(['class' => 'me-2 rounded-2', 'width' => '200', 'style' => 'width:50px!important']);
+                $attributes = new ComponentAttributeBag(['class' => 'me-2 rounded-2 border bg-secondary p-1', 'width' => '200', 'style' => 'width:50px!important']);
                 $imageComponent->withAttributes($attributes->getAttributes());
 
                 $html = '';

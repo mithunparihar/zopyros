@@ -55,7 +55,7 @@
                                         class="icon-base bx bxs-calendar-event icon-lg"></i></span>
                             </div>
                             <h4 class="mb-0">
-                                {{ \App\Models\QuoteEnquiry::where('created_at', \Carbon\Carbon::today())->count() }}
+                                {{ \App\Models\QuoteEnquiry::whereDate('created_at', \Carbon\Carbon::today())->count() }}
                             </h4>
                         </div>
                         <p class="mb-0">Today Quotes</p>

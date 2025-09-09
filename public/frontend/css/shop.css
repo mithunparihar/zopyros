@@ -1389,6 +1389,8 @@
 }
 .price-filter .slider-container input[type=range] {
   -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   position: absolute;
   width: 100%;
   left: 0;
@@ -1398,6 +1400,7 @@
 }
 .price-filter .slider-container input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
+          appearance: none;
   height: 16px;
   width: 16px;
   background: light-dark(var(--thm), var(--thm1));

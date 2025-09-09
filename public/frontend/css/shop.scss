@@ -437,8 +437,8 @@
 }
 .price-filter{width:320px;margin:15px auto;text-align:center;
     .slider-container{position:relative;height:15px;
-        input[type="range"]{-webkit-appearance:none;position:absolute;width:100%;left:0;top:0;background:transparent;pointer-events:none;
-            &::-webkit-slider-thumb{-webkit-appearance:none;height:16px;width:16px;background:light-dark(var(--thm), var(--thm1));border-radius:50%;pointer-events:all;position:relative;z-index:3;transform:translateY(calc(-50% + 1px))}
+        input[type="range"]{appearance:none;position:absolute;width:100%;left:0;top:0;background:transparent;pointer-events:none;
+            &::-webkit-slider-thumb{appearance:none;height:16px;width:16px;background:light-dark(var(--thm), var(--thm1));border-radius:50%;pointer-events:all;position:relative;z-index:3;transform:translateY(calc(-50% + 1px))}
             &::-webkit-slider-runnable-track{height:2px;background:transparent}
         }
     }

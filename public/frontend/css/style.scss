@@ -226,9 +226,9 @@
     }
     &:hover{color:var(--white)}
 }
-@keyframes pulse{0%{-webkit-transform:scale(1);will-change:transform;transform:scale(1)}
-50%{-webkit-transform:scale(1.08);will-change:transform;transform:scale(1.08)}
-100%{-webkit-transform:scale(1);will-change:transform;transform:scale(1)}}
+@keyframes pulse{0%{will-change:transform;transform:scale(1)}
+50%{will-change:transform;transform:scale(1.08)}
+100%{will-change:transform;transform:scale(1)}}
 .whatsappIcon{bottom:70px;right:12px;position:fixed!important;z-index:999!important;width:50px;height:50px;order:1;padding:5px;box-sizing:border-box;border-radius:50%;cursor:pointer;overflow:hidden;box-shadow:rgb(var(--black-rgb)/.4) 2px 2px 6px;transition:all .5s ease 0s;position:relative;z-index:200;display:flex;border:0px;background:rgb(77 194 71)!important;align-items:center;justify-content:center;
     svg{width:65%;height:65%;fill:none;stroke:var(--white);stroke-linejoin:round}
 }

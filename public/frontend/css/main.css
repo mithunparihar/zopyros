@@ -3716,6 +3716,8 @@ nav.menu.is-fixed.down .st {
   line-height: 1.2;
   list-style: none;
   -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 @media (max-width: 991px) {
   .FAQsD details summary {

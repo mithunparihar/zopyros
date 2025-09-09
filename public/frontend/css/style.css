@@ -2627,37 +2627,37 @@ nav[role=navigation] > div:last-child > div:last-child > span > span[aria-curren
 
 @-webkit-keyframes pulse {
   0% {
-    -webkit-transform: scale(1);
     will-change: transform;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.08);
     will-change: transform;
-    transform: scale(1.08);
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
   }
   100% {
-    -webkit-transform: scale(1);
     will-change: transform;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 
 @keyframes pulse {
   0% {
-    -webkit-transform: scale(1);
     will-change: transform;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.08);
     will-change: transform;
-    transform: scale(1.08);
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
   }
   100% {
-    -webkit-transform: scale(1);
     will-change: transform;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 .whatsappIcon {

@@ -4213,9 +4213,10 @@ footer .fbottom .text-end p {
 }
 .photo.video ~ .title {
   display: -webkit-box;
-  overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-clamp: 2;
   text-align: center;
 }
 

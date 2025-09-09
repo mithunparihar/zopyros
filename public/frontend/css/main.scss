@@ -186,7 +186,7 @@ footer{position:relative;padding-top:0px;background:linear-gradient(0deg, transp
             }
         }
     }
-    p{font-weight:350;font-size:16px;line-height:1.4; @include var.line-clamp(3);
+    p{font-weight:350;font-size:16px;line-height:1.4;@include var.line-clamp(3);
         strong{font-weight:600!important}
     }
     h3{font-size:20px!important;text-transform:uppercase;color:light-dark(var(--black), var(--white));font-weight:400;
@@ -242,7 +242,7 @@ footer{position:relative;padding-top:0px;background:linear-gradient(0deg, transp
         .card-body{
             &:after{content:'';position:absolute;left:0;top:0;bottom:0;right:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 99 69" fill="%23cd201f"><path d="M97,13C96,6,92,3,85,2A365,365,0,0,0,15,1c-9,1-13,4-14,13-3,18-0,37,1,43C3,63,7,66,12,67c11,2,59,2,73,0,6-0,10-4,11-10C98,52,101,32,97,13"/><polygon fill="%23fff" points="40 49 40 20 65 35 40 49"/></svg>') center/4rem auto no-repeat;z-index:2}
         }
-        ~.title{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;text-align:center}
+        ~.title{@include var.line-clamp(2);text-align:center}
     }
 }
 .CmsPage{

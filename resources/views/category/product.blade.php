@@ -138,7 +138,7 @@
                             @endif
 
                             <div
-                                class="btnn border-top border-bottom border-secondary border-opacity-10 Usp d-flex gap-4 py-3 justify-content-between align-items-center">
+                                class="btnn border-top border-bottom border-secondary border-opacity-10 Usp d-flex gap-md-4 gap-3 flex-wrap py-3 justify-content-between align-items-center">
                                 @foreach ($facilities as $facilit)
                                     <div>
                                         <x-image-preview fetchpriority="low" loading="lazy" alt="{{ $facilit->title }}"
@@ -175,12 +175,12 @@
                                 $contact = \App\Models\Contact::find(1);
                             @endphp
                             <div class="btnn position-sticky py-2">
-                                <span class="lh-sm">
+                                <small class="lh-sm">
                                     @if(!empty($contact->enquiry_contact))
                                     <small class="d-block">Connect Now for This Product!</small>
-                                    <a href="tel:+91{{$contact->enquiry_contact}}" class="fw-medium fs-4">(+91)-{{$contact->enquiry_contact}}</a>
+                                    <a href="tel:+91{{$contact->enquiry_contact}}" class="fw-medium fs-5">(+91)-{{$contact->enquiry_contact}}</a>
                                     @endif
-                                </span>
+                                </small>
                                 <span class="d-flex gap-3">
                                     <a href="#RequestAQuote" data-bs-toggle="modal" aria-expanded="false"
                                         aria-controls="SendM" class="btn btn-thm m-0 Buy fw-medium gap-1 px-3"><svg
@@ -218,7 +218,7 @@
 
                             <div class="Des d-flex flex-column gap-2">
                                 <span class="fw-semibold text-secondary">Description</span>
-                                <div class="text">{!! $product->description !!}</div>
+                                <div class="CmsPage text">{!! $product->description !!}</div>
                             </div>
 
                         </div>

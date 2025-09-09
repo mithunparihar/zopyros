@@ -89,9 +89,9 @@ class UpdateForm extends Component
     public function removeImage(ProductImage $imageId)
     {
         $checkProductImages = ProductImage::product($this->info->id)->count();
-        if ($checkProductImages < 2) {
-            $this->dispatch('errortoaster', ['title' => AlertMessageType::SORRY, 'message' => 'Deletion not allowed: This image is required and cannot be removed.']);
-        } else {
+        // if ($checkProductImages < 2) {
+        //     $this->dispatch('errortoaster', ['title' => AlertMessageType::SORRY, 'message' => 'Deletion not allowed: This image is required and cannot be removed.']);
+        // } else {
             if ($imageId->is_primary == 1) {
                 $findImage = ProductImage::product($this->info->id)->whereNot('id', $imageId->id)->first();
                 ProductImage::whereId($findImage->id)->update(['is_primary' => 1]);
@@ -99,7 +99,7 @@ class UpdateForm extends Component
             \Image::removeFile('product/', $imageId->image);
             $imageId->delete();
             $this->getImages();
-        }
+        // }
 
     }
     public function updated()

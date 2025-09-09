@@ -395,15 +395,14 @@ nav.menu{padding:6px 0!important;min-height:164px;position:relative;z-index:6;di
                             @media (min-width:992px){width:calc(100% + 350px);top:100%;
                                 >div{border:1px solid light-dark(rgb(var(--white-rgb)/.3), rgb(var(--black-rgb)/.3));border-top:none;border-radius:0;background:light-dark(rgb(var(--white-rgb)/.3), rgb(var(--white-rgb)/.1));backdrop-filter:blur(20px);padding:9px;overflow:hidden;box-shadow:0 0 12px rgb(var(--black-rgb)/.3)}
                             }
-                            @media (max-width:767px){background:var(--black);}
+                            @media (max-width:991px){background:var(--black);}
                             .Dsearch{position:absolute;right:25px;top:17px;display:grid;place-content:center;opacity:0;transition:all .5s;z-index:3;
                                 svg,img{height:14px!important;width:14px!important;filter:none!important;stroke:red;stroke-linecap:round}
                                 @media (max-width:991px){top:21px}
                             }
                             &.show .Dsearch{opacity:1}
                             .form-control{height:45px!important;padding-left:32px!important;padding-right:30px!important;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" fill="none" stroke="%23#{var.$svgwhite}" stroke-width=".7px" stroke-linecap="round"><path d="M13,13l-3-3M6,1A5,5,0,1,1,1,6,5,5,0,0,1,6,1Z"/></svg>') no-repeat left center/22px;
-                                @media (max-width:991px){position:relative;z-index:2}
-                                @media (max-width:767px){height:76px!important;padding-left:45px!important}
+                                @media (max-width:991px){position:relative;z-index:2;height:76px!important;padding-left:45px!important}
                                 @media (max-width:350px){height:66px!important}
                                 ~.SearchList{opacity:0;visibility:hidden;transition:all .1s;width:calc(100% + 2px);max-height:0;z-index:2;overflow:auto;
                                     @media (max-width:991px){border:1px solid light-dark(rgb(var(--white-rgb)/.3), rgb(var(--black-rgb)/.3));border-top:none;border-radius:0;background:light-dark(rgb(var(--white-rgb)/.6), rgb(var(--black-rgb)/.6));backdrop-filter:blur(20px);padding:9px;width:100%;margin-top:-7px;box-shadow:0 5px 9px rgb(var(--black-rgb)/.2)}

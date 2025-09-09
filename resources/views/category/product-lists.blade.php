@@ -20,6 +20,7 @@
                 <div class="grey TopFilter shadow-sm my-4 px-2">
                     @livewire('filter', ['category' => $category])
                 </div>
+                <button class="dropdown-toggle d-lg-none d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#FilterBar" aria-label="MenuBar"><svg viewBox="0 0 17 17"><polygon points="10 16 10 9 16 1 1 1 7 9 7 14 10 16"/></svg> Filter</button>
                 {{-- <div class="SearchS py-2">
                     <div class="d-flex SearchL gap-3">
                         <input type="search" name="hsearch" class="form-control SearchBox" auto

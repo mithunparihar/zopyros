@@ -27,7 +27,7 @@
                         </h1>
                     </div>
                 </div>
-                <div class="row justify-content-center mt-4">
+                <div class="row justify-content-center mt-4 row-gap-4">
                     <div class="col-xl-9 col-lg-8 FAQsD">
                         @foreach ($lists as $list)
                             <details name="accordion" {{ $loop->index == 0 ? 'open' : '' }}>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="CmsPage">
+                <div class="CmsPage mt-5">
                     @if ($category)
                         {!! $category->description !!}
                     @else

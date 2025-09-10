@@ -92,7 +92,7 @@ class UpdateForm extends Component
         $tableRow = $this->tablecontents->get($index);
         $this->tablecontents->pull($index);
         if (! empty($tableRow['pre_id'] ?? '')) {
-            BlogTableContent::find()->delete($tableRow['pre_id']);
+            BlogTableContent::find($tableRow['pre_id'])->delete();
         }
     }
 

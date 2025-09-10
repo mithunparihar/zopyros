@@ -1,7 +1,7 @@
 <form id="FilterBar" class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1">
     <button type="submit" id="FilterBarBtn" style="display: none">submit</button>
-    <div class="d-flex justify-content-between d-lg-none py-2 mb-2 fw-bold text-u position-sticky top-0 fs-5 z-3"><span
-            class="d-flex align-items-center gap-2">Filter <button class="Refresh" title="Refresh"><svg
+    <div class="d-flex justify-content-between d-lg-none p-3 fw-bold text-u position-sticky top-0 fs-5 z-3"><span
+            class="d-flex align-items-center align-items-center text-white gap-2 w-100">Filter <button class="Refresh" title="Refresh"><svg
                     viewBox="0 0 38 29">
                     <polyline points="13 9 5 13 1 5" />
                     <polyline points="25 22 33 18 37 26" />

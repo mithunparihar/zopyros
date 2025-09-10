@@ -68,8 +68,8 @@
                 </div>
                 <div class="text-center">
                     <div class="swiper-button d-flex justify-content-center d-md-none">
-                        <div class="swiper-button-prev cat-prev"></div>
-                        <div class="swiper-button-next cat-next"></div>
+                        <div class="swiper-button-prev cat-prevm"></div>
+                        <div class="swiper-button-next cat-nextm"></div>
                     </div>
                     <a href="{{ route('categories') }}" class="btn btn-o-thm1 m-lg-0">Explore All Categories</a>
                 </div>
@@ -161,8 +161,8 @@
                 </div>
                 <div class="text-center">
                     <div class="swiper-button d-flex justify-content-center d-md-none">
-                        <div class="swiper-button-prev blog-prev"></div>
-                        <div class="swiper-button-next blog-next"></div>
+                        <div class="swiper-button-prev blog-prevm"></div>
+                        <div class="swiper-button-next blog-nextm"></div>
                     </div>
                     <a href="{{ route('blog') }}" class="btn btn-o-thm1 m-lg-0">Explore All Blog</a>
                 </div>
@@ -202,7 +202,8 @@
                         @if (!empty(\Content::cmsData(6)->heading))
                             <span class="SubTitle">{{ \Content::cmsData(6)->heading }}</span>
                         @endif
-                        <h2 class="Heading h1">{{ \Content::cmsData(6)->title }}</h2>
+                        <h2 class="Heading h1 mb-lg-4">{{ \Content::cmsData(6)->title }}</h2>
+                        <a href="{{route('testimonials')}}" class="btn btn-o-thm1 d-none d-lg-inline-flex">View More</a>
                     </div>
                     <div class="col-lg-7">
                         <div class="TestiMonial Testis swiper">
@@ -229,7 +230,7 @@
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
-                        <a href="{{route('testimonials')}}" class="btn btn-thm1 btn-sm">View More</a>
+                        <div class="text-center d-lg-none"><a href="{{route('testimonials')}}" class="btn btn-o-thm1">View More</a></div>
                     </div>
                 </div>
             </section>

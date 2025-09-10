@@ -106,25 +106,33 @@
     }
 }
 .Sec{
-    &Cat{overflow:hidden;}
+    &Cat{overflow:hidden}
     &ProDucts{
         .ProList{
-            >*{margin-bottom:1.5rem;
+            >*{
                 @media (min-width:992px){
                     &:nth-child(1),&:nth-child(3){margin-top:9rem}
                     &:nth-child(2){margin-top:0}
                 }
+                @media (min-width:768px){margin-bottom:1.5rem}
             }
         }
     }
     &Counter{background:var(--thm);
         h{
-            &3{font-size:3.3rem;line-height:0;margin:0}
-            &4{font-size:2.2rem;line-height:0;margin:0}
+            &3{font-size:3.3rem;line-height:0;margin:0;
+                @media (max-width:575px){font-size:2.2rem}
+            }
+            &4{font-size:2.2rem;line-height:0;margin:0;
+                @media (max-width:575px){font-size:1.4rem}
+            }
         }
     }
     &Video{
         .Video{position:relative;
+            &.EndTuch{
+                @media (max-width:767px){margin-left:calc((100% + 0px - 100%) / 2)!important;margin-right:calc((100% + 0px - 100%) / 2)!important}
+            }
             &:after{content:"";display:block;padding-bottom:50%}
             &Img{position:absolute;width:100%;height:100%;overflow:hidden;border-radius:0;
                 img,video{transition:all .5s;height:100%;width:100%;object-fit:cover}
@@ -156,8 +164,12 @@
                     @media (min-width:1200px){&{margin-right:calc((100% + calc(1.5rem * 1) - 90%))!important}}
                     @media (min-width:1400px){&{margin-right:calc((100% + calc(1.5rem * 1) - 85%))!important}}
                     @media (min-width:1600px){&{margin-right:calc((100% + calc(1.5rem * 1) - 1440px))!important}}
-                    @media (max-width:991px){&{margin-right:calc((100% + calc(1.5rem * 1) - 98%))!important}}
+                    @media (max-width:991px) and (min-width:768px){&{margin-right:calc((100% + calc(1.5rem * 1) - 98%))!important}}
                 }
+            }
+            &:has(.VideoText){
+                @media (max-width:767px){&:after{padding-bottom:80%}}
+                @media (max-width:575px){&:after{padding-bottom:100%}}
             }
         }
     }

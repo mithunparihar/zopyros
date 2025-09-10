@@ -15,35 +15,35 @@
                         <input type="text" placeholder="Full Name *" wire:model="name"
                             class="@error('name') is-invalid @enderror form-control">
                         @error('name')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger d-block mt-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-lg-6">
                         <input type="email" placeholder="Email Address *" wire:model="email"
                             class="@error('email') is-invalid @enderror form-control">
                         @error('email')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger d-block mt-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-lg-6">
                         <input type="number" placeholder="Contact No. *" wire:model="contact" maxlength="10"
                             class="@error('contact') is-invalid @enderror form-control">
                         @error('contact')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger d-block mt-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-lg-6">
                         <input type="text" placeholder="Subject *" wire:model="subject"
                             class="@error('subject') is-invalid @enderror form-control">
                         @error('subject')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger d-block mt-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-12">
                         <div>
                             <textarea placeholder="Message *" wire:model="message" class="@error('message') is-invalid @enderror form-control"></textarea>
                             @error('message')
-                                <span class="text-danger">{{ $message }}</span>
+                                <span class="text-danger d-block mt-1">{{ $message }}</span>
                             @enderror
                         </div>
                         <button wire:target="saveContact" wire:loading.remove class="btn btn-o-thm1">Submit Now</button>

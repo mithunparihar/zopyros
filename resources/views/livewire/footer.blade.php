@@ -1,11 +1,11 @@
 <footer>
-    <div class="container row justify-content-sm-between justify-content-center row-gap-4">
-        <div class="col-lg-3 text-center d-flex flex-column align-items-center justify-content-center gap-2 pe-lg-4">
+    <div class="container row justify-content-sm-between justify-content-center row-gap-5">
+        <div class="col-xl-3 text-center d-flex flex-column align-items-center justify-content-center gap-2 pe-xl-4">
             <a href="" class="d-inline-block mb-2"><img loading="lazy" fetchpriority="low"
                     src="{{ \App\Enums\Url::IMG }}logo.svg" alt="{{ \Content::ProjectName() }}" width="200"
                     height="168" class="flogo"></a>
         </div>
-        <div class="col-lg-2">
+        <div class="col-xl-2 col-lg-6">
             <h3 class="mb-md-3 mb-2">Quick Link</h3>
             <div class="links">
                 <a href="{{ route('home') }}">Home</a>
@@ -16,7 +16,7 @@
                 <a href="{{ route('team') }}">Our Team</a>
             </div>
         </div>
-        <div class="col-lg-2">
+        <div class="col-xl-2 col-lg-6">
             <h3 class="mb-md-3 mb-2">Category</h3>
             <div class="links">
                 @foreach ($categories as $category)
@@ -24,7 +24,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-lg-2">
+        <div class="col-xl-2 col-lg-6">
             <h3 class="mb-md-3 mb-2">Information</h3>
             <div class="links">
                 <a href="{{ route('contact') }}">Contact Us</a>
@@ -36,14 +36,14 @@
                 {{-- <a href="#">Site Map</a> --}}
             </div>
         </div>
-        <div class="col-lg-3">
-            <form wire:submit="saveSubscribe" class="ps-lg-4">
+        <div class="col-xl-3 col-lg-6">
+            <form wire:submit="saveSubscribe" class="ps-xl-4">
                 <h3 class="mb-md-3 mb-2">Subscribe</h3>
                 <p>Get all the latest offers & info</p>
                 <input type="text" class="form-control @error('subscribe_email') is-invalid @enderror "
                     wire:model="subscribe_email" placeholder="Enter Your Email ID">
                 @error('subscribe_email')
-                    <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger d-block">{{ $message }}</span>
                 @enderror
                 <button wire:loading.remove wire:target="saveSubscribe" class="btn btn-o-thm1">Submit</button>
                 <button wire:loading wire:target="saveSubscribe" type="button" disabled class="btn btn-o-thm1 Noar">
@@ -54,11 +54,10 @@
         </div>
     </div>
     <div class="fbottom">
-        <div class="container row align-items-center small">
-            <div class="col-lg-4 text-md-start text-center">&copy; Copyright <?= $year = date('Y') ?> <strong
-                    class="text-u fw-semibold">{{ \Content::ProjectName() }}</strong>. All Rights Reserved.</div>
+        <div class="container row align-items-center small row-gap-2">
+            <div class="col-lg-4 text-md-start text-center">&copy; Copyright <?= $year = date('Y') ?> <strong class="text-u fw-semibold">{{ \Content::ProjectName() }}</strong>. All Rights Reserved.</div>
             <div class="col-lg-4 text-center">
-                <div class="icons justify-content-center mt-3">
+                <div class="icons justify-content-center">
                     @foreach ($icons as $icon)
                         @if ($icon->social_media_icon == 'whatsapp')
                             <a href="https://wa.me/<?= $icon->link ?>?text=Hi,&nbsp;I&nbsp;would&nbsp;like&nbsp;to&nbsp;get&nbsp;more&nbsp;information..!"

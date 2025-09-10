@@ -460,15 +460,17 @@
 .SecCat {
   overflow: hidden;
 }
-.SecProDucts .ProList > * {
-  margin-bottom: 1.5rem;
-}
 @media (min-width: 992px) {
   .SecProDucts .ProList > *:nth-child(1), .SecProDucts .ProList > *:nth-child(3) {
     margin-top: 9rem;
   }
   .SecProDucts .ProList > *:nth-child(2) {
     margin-top: 0;
+  }
+}
+@media (min-width: 768px) {
+  .SecProDucts .ProList > * {
+    margin-bottom: 1.5rem;
   }
 }
 .SecCounter {
@@ -479,13 +481,29 @@
   line-height: 0;
   margin: 0;
 }
+@media (max-width: 575px) {
+  .SecCounter h3 {
+    font-size: 2.2rem;
+  }
+}
 .SecCounter h4 {
   font-size: 2.2rem;
   line-height: 0;
   margin: 0;
 }
+@media (max-width: 575px) {
+  .SecCounter h4 {
+    font-size: 1.4rem;
+  }
+}
 .SecVideo .Video {
   position: relative;
+}
+@media (max-width: 767px) {
+  .SecVideo .Video.EndTuch {
+    margin-left: calc((100% + 0px - 100%) / 2) !important;
+    margin-right: calc((100% + 0px - 100%) / 2) !important;
+  }
 }
 .SecVideo .Video:after {
   content: "";
@@ -573,9 +591,19 @@
     margin-right: calc(100% + 1.5rem - 1440px) !important;
   }
 }
-@media (max-width: 991px) {
+@media (max-width: 991px) and (min-width: 768px) {
   .SecVideo .VideoText.StartTuch {
     margin-right: calc(100% + 1.5rem - 98%) !important;
+  }
+}
+@media (max-width: 767px) {
+  .SecVideo .Video:has(.VideoText):after {
+    padding-bottom: 80%;
+  }
+}
+@media (max-width: 575px) {
+  .SecVideo .Video:has(.VideoText):after {
+    padding-bottom: 100%;
   }
 }
 .SecCon .map {

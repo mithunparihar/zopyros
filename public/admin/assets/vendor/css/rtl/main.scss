@@ -11,7 +11,7 @@ $colors:(
         --#{$color}-rgb:#{color.channel($value, "red", $space: rgb)} #{color.channel($value, "green", $space: rgb)} #{color.channel($value, "blue", $space: rgb)};
     }
 }
-// a {color:var(--thm1)!important;}
+// a {color:var(--thm1)!important}
 .fl-wrapper{z-index:9999!important}
 .defaultimg{ height:120px;width:120px;object-fit:contain;border:1px solid #ddd;border-radius:4px;padding:5px;width:120px}
 .app-brand-logo img,.app-brand-logo svg{height:64px;transition:all .5s}
@@ -69,18 +69,19 @@ div:where(.swal2-icon){margin:1em auto!important}
 .SearchCat{
     &:focus~#searchcategoryBox,#searchcategoryBox:focus{opacity:1;visibility:visible}
 }
-#searchcategoryBox{display:flex;flex-direction:column;gap:0;opacity:0;visibility:hidden;transition:all .1s;width:calc(100% + 0px);max-height:calc(100vh - 350px);position:absolute;left:0;top:calc(100% - 8px);z-index:2;background:var(--white);border:1px solid var(--black);border-top:none;padding:6px 0 9px;border-radius:0 0 9px 9px;overflow:auto;margin:0;
+#searchcategoryBox{display:flex;flex-direction:column;gap:0;opacity:0;visibility:hidden;transition:all .1s;width:100%;max-height:calc(100vh - 350px);position:absolute;left:0;top:calc(100% - 8px);z-index:2;background:var(--white);border:1px solid var(--black);border-top:none;padding:6px 0 9px;border-radius:0 0 9px 9px;overflow:auto;margin:0;
     .catfilter{display:block;margin-bottom:0;padding:4px 5px;border-radius:5px;
         &{margin-left:9px;
-            &:not(.catlist){cursor:pointer;}
-            // &:before{content:'-';}
+            &:not(.catlist){cursor:pointer}
+            // &:before{content:'-'}
         }
-        &:hover:not(.catlist){background:rgb(var(--black-rgb)/.1);}
+        &:hover:not(.catlist){background:rgb(var(--black-rgb)/.1)}
         &.catlist{padding:0;
-            // &:before{display:none;}
-            >span.disableds{display:block;opacity:.6;pointer-events:none;}
+            // &:before{display:none}
+            >span.disableds{display:block;opacity:.6;pointer-events:none}
         }
     }
 
 }
-.span-disabled{ display:none;cursor: no-drop; }
+.span-disabled{display:none;cursor:no-drop}
+.note-editor.note-airframe.fullscreen,.note-editor.note-frame.fullscreen{z-index:1999!important;background:var(--white)}

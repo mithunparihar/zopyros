@@ -200,7 +200,7 @@ div:where(.swal2-icon) {
   visibility: hidden;
   -webkit-transition: all 0.1s;
   transition: all 0.1s;
-  width: calc(100% + 0px);
+  width: 100%;
   max-height: calc(100vh - 350px);
   position: absolute;
   left: 0;
@@ -241,4 +241,9 @@ div:where(.swal2-icon) {
 .span-disabled {
   display: none;
   cursor: no-drop;
+}
+
+.note-editor.note-airframe.fullscreen, .note-editor.note-frame.fullscreen {
+  z-index: 1999 !important;
+  background: var(--white);
 }/*# sourceMappingURL=main.css.map */

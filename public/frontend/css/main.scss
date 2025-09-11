@@ -95,12 +95,6 @@
     }
 }
 .FAQsD{
-    @supports selector(::details-content){
-        .warning{display:none}
-    }
-    @supports (-webkit-touch-callout:none){
-        details>.text{padding:1rem!important}
-    }
     details{border:1px solid light-dark(var(--thm1), rgb(var(--white-rgb)/.1));transition:all .5s ease;margin-bottom:.5em;
         &:last-child{margin-bottom:0}
         summary{transition:all .5s ease;padding:.7em 1em;color:light-dark(var(--thm), var(--thm1));cursor:pointer;display:flex;gap:1em;justify-content:space-between;font-size:1.2rem;align-items:center;line-height:1.2;list-style:none;appearance:none;
@@ -119,7 +113,7 @@
             }
         }
         // &:not([open]):has(+ details:not(details[open])){border-bottom-color:transparent}
-        .text{
+        .text{padding:.5em 1em!important;
             *:first-child{margin-top:0}
             *:last-child{margin-bottom:0}
         }

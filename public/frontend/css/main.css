@@ -780,18 +780,25 @@ hr {
   :root {
     interpolate-size: allow-keywords;
   }
-  ::details-content {
-    padding-inline: 1em;
-  }
   [open]::details-content {
     height: auto;
-    padding: 0.5em 1em;
+    padding: 0;
   }
 }
 @supports not (interpolate-size: allow-keywords) {
   [open]::details-content {
     height: 150px;
     overflow-y: scroll;
+  }
+}
+@supports selector(::details-content) {
+  .warning {
+    display: none;
+  }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  ::i-block-chrome, details > .text {
+    padding: 0 !important;
   }
 }
 .grey {
@@ -3677,16 +3684,6 @@ nav.menu.is-fixed.down .st {
   background: var(--thm);
 }
 
-@supports selector(::details-content) {
-  .FAQsD .warning {
-    display: none;
-  }
-}
-@supports (-webkit-touch-callout: none) {
-  .FAQsD details > .text {
-    padding: 1rem !important;
-  }
-}
 .FAQsD details {
   border: 1px solid light-dark(var(--thm1), rgb(var(--white-rgb)/0.1));
   -webkit-transition: all 0.5s ease;
@@ -3746,6 +3743,9 @@ nav.menu.is-fixed.down .st {
 .FAQsD details[open] summary:after {
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
+}
+.FAQsD details .text {
+  padding: 0.5em 1em !important;
 }
 .FAQsD details .text *:first-child {
   margin-top: 0;

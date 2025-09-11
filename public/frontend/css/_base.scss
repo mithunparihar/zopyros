@@ -92,11 +92,25 @@ hr{border:none;border-bottom:1px solid light-dark(rgb(var(--black-rgb)/.5), rgb(
 ::details-content{transition:all .5s ease, content-visibility .5s allow-discrete;height:0;overflow:clip}
 @supports (interpolate-size:allow-keywords){
     :root{interpolate-size:allow-keywords}
-    ::details-content{padding-inline:1em}
-    [open]::details-content{height:auto;padding:.5em 1em}
+    // ::details-content{padding-inline:1em}
+    [open]::details-content{height:auto;padding:0}
 }
 @supports not (interpolate-size:allow-keywords){
     [open]::details-content{height:150px;overflow-y:scroll}
+}
+// @supports (-webkit-touch-callout:none){
+//     details>.text{padding:1rem!important}
+// }
+// @media not all and (min-resolution: 0.001dpcm) {
+//     @supports (-webkit-touch-callout:none){
+//         details>.text{padding:1rem!important}
+//     }
+// }
+@supports selector(::details-content){
+    .warning{display:none}
+}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+    ::i-block-chrome, details>.text{padding:0!important;}
 }
 .grey{background:light-dark(rgb(var(--black-rgb)/.05), rgb(var(--white-rgb)/.05))}
 .LWhite{background:#ddd}

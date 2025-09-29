@@ -169,10 +169,8 @@
             </section>
         @endif
 
-        @livewire('contact-box')
-
         @if (!empty($banner))
-            <section class="pb-0 SecVideo Home">
+            <section class="pt-1 SecVideo Home">
                 <div class="EndTuch Video">
                     <div class="VideoImg">
                         <x-image-preview fetchpriority="low" loading="lazy" class="defaultimg" imagepath="banner"
@@ -192,6 +190,8 @@
                 </div>
             </section>
         @endif
+
+        @livewire('contact-box')
 
         @if ($testimonials->isNotEmpty())
             <section class="overflow-hidden">

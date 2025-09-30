@@ -91,7 +91,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <a href="{{ route('shop') }}" class="btn btn-o-thm1">Explore All Products</a>
+                        <a href="{{ route('categories') }}" class="btn btn-o-thm1">Explore All Products</a>
                     </div>
                 </div>
             </section>

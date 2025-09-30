@@ -67,12 +67,14 @@ class ProductController extends Controller
                 $html .= '<div class="d-flex flex-column align-items-start gap-0">';
                 $html .= '<h6 class="mb-0" style="display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2">' . $row->title . '</h6>';
                 $html .= '<small class="text-body">';
-                foreach ($row->categories as $ky => $categories) {
-                    $html .= $categories->categoryInfo->title ?? '';
-                    if (($ky + 1) < count($row->categories)) {
-                        $html .= ', ';
+
+                $categoryTitles = [];
+                foreach ($row->categories as $categories) {
+                    if (!empty($categories->categoryInfo->title)) {
+                        $categoryTitles[] = $categories->categoryInfo->title;
                     }
                 }
+                $html .= implode(', ', $categoryTitles);
                 $html .= '</small>';
                 // $html .= '<small class="text-body">Starting from <b>'.\Content::Currency().' '.(number_format($row->lowestPrice[0]->price ?? 0)).'</b></small>';
 

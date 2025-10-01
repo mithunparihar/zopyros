@@ -59,17 +59,11 @@
         const CkeditorImageUpload = @json(route('admin.ckeditor.upload'));
     </script>
     <style>
-        .fancybox__container {
-            z-index: 9999 !important;
-        }
-
-        .turbolinks-progress-bar {
-            background: #7a45a3;
-        }
-
-        .invalid-feedback {
-            display: inline;
-        }
+    .fancybox__container{z-index:9999!important}
+    .turbolinks-progress-bar{background:#7a45a3}
+    .invalid-feedback{display:inline}
+    .CollapseCat .bxs-right-arrow{transition:all .5s}
+    .CollapseCat:not(.collapsed) .bxs-right-arrow{transform:rotate(90deg) translateX(-2px)}
     </style>
 </head>
 

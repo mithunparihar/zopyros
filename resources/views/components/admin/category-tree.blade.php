@@ -26,7 +26,7 @@
 <div class="border p-2 mb-2 rounded-2">
     <label for="category-{{ $category->id }}" data-bs-target="#collapseExample-{{ $category->id }}" role="button"
         aria-expanded="false" aria-controls="collapseExample" data-bs-toggle="collapse"
-        class="d-flex justify-content-between">
+        class="d-flex justify-content-between CollapseCat collapsed">
         <div>
             @if (count($childs) > 0)
                 <i class="bx bxs-right-arrow small"></i>

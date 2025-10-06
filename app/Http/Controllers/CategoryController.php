@@ -87,4 +87,6 @@ class CategoryController extends Controller
         $videos    = \App\Models\Gallery::type(2)->active()->latest()->get();
         return view('category.product', compact('product', 'categoryInfo', 'galleries', 'videos', 'facilities', 'related', 'images', 'highlights', 'colors', 'metals', 'sizes'));
     }
+
+   
 }

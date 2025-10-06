@@ -14,6 +14,7 @@ class Filter extends Component
     public function mount(Category $category)
     {
         $this->category = $category;
+        
         $this->variants = Variant::whereHas('childs', function ($qwert) {
             $qwert->active();
         })->with(['childs' => function ($qwert) {
@@ -22,7 +23,12 @@ class Filter extends Component
 
         $this->maxprice = ProductVariant::whereHas('productInfo', function ($qwert) use ($category) {
             $qwert->whereHas('categories', function ($qwer) use ($category) {
-                $qwer->category($category->id);
+                $qwer->whereHas('categoryInfo', function ($q) use ($category) {
+                    $q->active();
+                });
+                if($category){
+                    $qwer->category($category->id);
+                }
             });
         })->max('price');
     }

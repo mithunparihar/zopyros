@@ -139,4 +139,19 @@ class HomeController extends Controller
         return view('thankyou.quote');
     }
 
+    public function shop()
+    {
+        if (request()->ajax()) {
+            $products = \App\Models\Product::whereHas('categories', function ($query) {
+                return $query->whereHas('categoryInfo',function($qry){
+                    $qry->active();
+                });
+            })->search()->active()->paginate(60);
+            return response()->json([
+                'results' => view('category.filter', compact('products'))->render(),
+            ]);
+        }
+        return view('shop');
+    }
+
 }

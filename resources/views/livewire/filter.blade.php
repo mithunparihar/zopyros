@@ -1,8 +1,8 @@
 <form id="FilterBar" class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1">
     <button type="submit" id="FilterBarBtn" style="display: none">submit</button>
     <div class="d-flex justify-content-between d-lg-none p-3 fw-bold text-u position-sticky top-0 fs-5 z-3"><span
-            class="d-flex align-items-center align-items-center text-white gap-2 w-100">Filter <button class="Refresh" title="Refresh"><svg
-                    viewBox="0 0 38 29">
+            class="d-flex align-items-center align-items-center text-white gap-2 w-100">Filter <button class="Refresh"
+                title="Refresh"><svg viewBox="0 0 38 29">
                     <polyline points="13 9 5 13 1 5" />
                     <polyline points="25 22 33 18 37 26" />
                     <path d="M5,18a15,19,0,0,0,28,0" />
@@ -31,21 +31,28 @@
         </div> --}}
         @foreach ($variants as $variant)
             <div class="FilterOp">
-                <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces{{ $variant->id }}" href="#variant{{ $variant->id }}"
-                    aria-expanded="false" aria-controls="{{ $variant->title }}">{{ $variant->title }}</a>
+                <a data-bs-toggle="collapse" class="collapsed" id="ProSpaces{{ $variant->id }}"
+                    href="#variant{{ $variant->id }}" aria-expanded="false"
+                    aria-controls="{{ $variant->title }}">{{ $variant->title }}</a>
                 <div id="variant{{ $variant->id }}" class="collapse" aria-labelledby="ProSpaces{{ $variant->id }}"
                     data-bs-parent="#allFilter">
                     <div class="ullist">
                         @foreach ($variant->childs as $g => $label)
                             <label class="form-check form-check-label lh-normal">
                                 <span>
-                                    <input class="form-check-input border-black border-opacity-50" type="checkbox"  onclick="$('#FilterBar').submit();"
-                                        @checked(in_array($label->id, request('variant_type', []))) value="{{ $label->id }}" name="variant_type[]"
-                                        id="Gues<?= $g ?>"> {{ $label->title }}
+                                    <input class="form-check-input border-black border-opacity-50" type="checkbox"
+                                        onclick="$('#FilterBar').submit();" @checked(in_array($label->id, request('variant_type', [])))
+                                        value="{{ $label->id }}" name="variant_type[]" id="Gues<?= $g ?>">
+                                    {{ $label->title }}
                                 </span>
                                 <span>{{ $label->productsVariants()->whereHas('productInfo', function ($qwse) use ($category) {
                                         $qwse->whereHas('categories', function ($qert) use ($category) {
-                                                $qert->wherecategoryId($category->id);
+                                                $qert->whereHas('categoryInfo', function ($q) use ($category) {
+                                                    $q->active();
+                                                });
+                                                if ($category->id ?? 0 > 0) {
+                                                    $qert->wherecategoryId($category->id);
+                                                }
                                             })->active();
                                     })->distinct('product_id')->count() }}</span>
                             </label>
@@ -56,7 +63,8 @@
         @endforeach
 
         <div class="FilterOp">
-            <a data-bs-toggle="collapse" class="collapsed" id="SortBy" href="#SortByDropb" aria-expanded="false" aria-controls="Sort By">Sort By</a>
+            <a data-bs-toggle="collapse" class="collapsed" id="SortBy" href="#SortByDropb" aria-expanded="false"
+                aria-controls="Sort By">Sort By</a>
             {{-- <a class="dropdown-toggle d-none d-md-flex" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" title="Sort By"><i>Sort By</i></a> --}}
             {{-- <a href="#SortByDropb" class="dropdown-toggle d-md-none" data-bs-toggle="offcanvas"
@@ -70,19 +78,22 @@
                 </svg> Sort By</a> --}}
             <div id="SortByDropb" class="collapse" aria-labelledby="SortBy" data-bs-parent="#allFilter">
                 <div class="ullist">
-                    <label for="sort1" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="A to Z">
+                    <label for="sort1" onclick="$('#FilterBar').submit();"
+                        class="form-check form-check-label justify-content-start" data-name="A to Z">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'a-z') value="a-z" name="sort" id="sort1">
                         A to Z
                     </label>
 
-                    <label for="sort2" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="Z to A">
+                    <label for="sort2" onclick="$('#FilterBar').submit();"
+                        class="form-check form-check-label justify-content-start" data-name="Z to A">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'z-a') value="z-a" name="sort" id="sort2">
                         Z to A
                     </label>
 
-                    <label for="sort3" onclick="$('#FilterBar').submit();" class="form-check form-check-label justify-content-start" data-name="Newest First">
+                    <label for="sort3" onclick="$('#FilterBar').submit();"
+                        class="form-check form-check-label justify-content-start" data-name="Newest First">
                         <input class="form-check-input border-black border-opacity-50" type="radio"
                             @checked(request('sort') == 'newest') value="newest" name="sort" id="sort3">
                         Newest First
